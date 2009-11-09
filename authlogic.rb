@@ -6,7 +6,9 @@ ABOUT = <<-CODE
  Based on the authlogic example app and password reset logic from 
     http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/
 
-  IMPORTANT: This template overwrites application_controller.rb
+ Generated tests assume Shoulda and factory_girl are present.
+
+ IMPORTANT: This template overwrites application_controller.rb and factories.rb
 |---------------------------------------------------------------------------------|
 CODE
 
@@ -72,6 +74,34 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
 
+  file 'test/unit/user_test.rb', <<-CODE
+  require 'test_helper'
+
+  class UserTest < ActiveSupport::TestCase
+    context 'a user instance' do
+      setup { @user = Factory.create(:user) }
+
+      should 'return a full name' do
+        assert_equal('John Doe', @user.full_name)
+      end
+
+      should 'return a short name' do
+        assert_equal('John D.', @user.short_name)
+      end
+    end
+  end
+  CODE
+  
+  file 'test/factories.rb', <<-CODE
+  Factory.define :user do |f|
+    f.email 'john.doe@example.com'
+    f.password 'secret'
+    f.password_confirmation 'secret'
+    f.first_name 'John'
+    f.last_name 'Doe'
+  end
+  CODE
+  
   file 'app/controllers/users_controller.rb', <<-CODE
   class UsersController < ApplicationController
     before_filter :find_user, :only => [:show, :edit, :update, :destroy]
