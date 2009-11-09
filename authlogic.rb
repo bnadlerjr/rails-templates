@@ -64,7 +64,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
     end
 
     def short_name
-      "\#{first_name} \#{last_name[0]}."
+      "\#{first_name} \#{last_name.first}."
     end
 
     def deliver_password_reset_instructions!  
