@@ -29,7 +29,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   generate(:model, "user --skip-migration")
 
   route "map.resources :users"
-  load_template "#{TEMPLATE_ROOT}/create_users_migration.authlogic"
+  load_template "#{TEMPLATE_ROOT}/create_users_migration.authlogic.rb"
   
 # file "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb", <<-CODE
 # class CreateUsers < ActiveRecord::Migration
