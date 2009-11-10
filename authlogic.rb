@@ -12,15 +12,13 @@ ABOUT = <<-CODE
 
 Creates / Overwrites
  Create a user migration
- Overwrites user model and unit test
+ Creates / overwrites user model and unit test
  
 Merge
- factories.rb
+ Assumes test/factories.rb exists; merges changes
  application_controller.rb
 |---------------------------------------------------------------------------------|
 CODE
-
-TEMPLATE_ROOT ||= "http://github.com/thethirdswitch/rails-templates/raw/master/authlogic-templates"
 
 if yes?(ABOUT + "\ncontinue?(y/n)")
   gem "authlogic"
@@ -29,42 +27,41 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   generate(:model, "user --skip-migration")
 
   route "map.resources :users"
-  load_template "#{TEMPLATE_ROOT}/create_users_migration.authlogic.rb"
   
-# file "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb", <<-CODE
-# class CreateUsers < ActiveRecord::Migration
-#   def self.up
-#     create_table :users, :force => true do |t|
-#       t.string :email,               :null => false
-#       t.string :first_name,          :null => false
-#       t.string :last_name,           :null => false
-#       t.string :crypted_password,    :null => false
-#       t.string :password_salt,       :null => false
-#       t.string :persistence_token,   :null => false
-#       t.string :single_access_token, :null => false
-#       t.string :perishable_token,    :null => false
-#       t.string :current_login_ip
-#       t.string :last_login_ip
-#
-#       t.integer :login_count,        :null => false, :default => 0
-#       t.integer :failed_login_count, :null => false, :default => 0
-#
-#       t.datetime :last_request_at
-#       t.datetime :current_login_at
-#       t.datetime :last_login_at
-#     end
-#
-#     add_index :users, :email
-#     add_index :users, :perishable_token
-#   end
-#
-#   def self.down
-#     remove_index :users, :perishable_token
-#     remove_index :users, :email
-#     drop_table :users
-#   end
-# end
-# CODE
+  file "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb", <<-CODE
+  class CreateUsers < ActiveRecord::Migration
+   def self.up
+     create_table :users, :force => true do |t|
+       t.string :email,               :null => false
+       t.string :first_name,          :null => false
+       t.string :last_name,           :null => false
+       t.string :crypted_password,    :null => false
+       t.string :password_salt,       :null => false
+       t.string :persistence_token,   :null => false
+       t.string :single_access_token, :null => false
+       t.string :perishable_token,    :null => false
+       t.string :current_login_ip
+       t.string :last_login_ip
+
+       t.integer :login_count,        :null => false, :default => 0
+       t.integer :failed_login_count, :null => false, :default => 0
+
+       t.datetime :last_request_at
+       t.datetime :current_login_at
+       t.datetime :last_login_at
+     end
+
+     add_index :users, :email
+     add_index :users, :perishable_token
+   end
+
+   def self.down
+     remove_index :users, :perishable_token
+     remove_index :users, :email
+     drop_table :users
+   end
+  end
+  CODE
 
   file 'app/models/user.rb', <<-CODE
   class User < ActiveRecord::Base
@@ -103,7 +100,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
   
-  file 'test/factories.rb', <<-CODE
+  file 'test/factories.new', <<-CODE
   Factory.define :user do |f|
     f.email 'john.doe@example.com'
     f.password 'secret'
