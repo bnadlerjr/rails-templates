@@ -112,7 +112,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   CODE
   
   run "touch test/factories.rb" unless File.exists?('test/factories.rb')
-  run "diff test/factories.rb test/factories.new > test/factories.diff"
+  run "diff -Naur test/factories.rb test/factories.new > test/factories.diff"
   run "patch -p0 < test/factories.diff"
   run "rm test/factories.new test/factories.diff"
   
@@ -333,7 +333,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
 
-  run "diff app/controllers/application_controller.rb app/controllers/application_controller.new > app/controllers/application_controller.diff"
+  run "diff -Naur app/controllers/application_controller.rb app/controllers/application_controller.new > app/controllers/application_controller.diff"
   run "patch -p0 < app/controllers/application_controller.diff"
   run "rm app/controllers/application_controller.new app/controllers/application_controller.diff"
   
