@@ -110,6 +110,10 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
   
+  run "diff test/factories.rb test/factories.new > test/factories.diff"
+  run "patch -p0 < test/factories.diff"
+  run "rm test/factories.new test/factories.diff"
+  
   file 'app/controllers/users_controller.rb', <<-CODE
   class UsersController < ApplicationController
     before_filter :find_user, :only => [:show, :edit, :update, :destroy]
