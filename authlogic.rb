@@ -110,6 +110,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
   
+  run "touch test/factories.rb" unless File.exists?('test/factories.rb')
   run "diff test/factories.rb test/factories.new > test/factories.diff"
   run "patch -p0 < test/factories.diff"
   run "rm test/factories.new test/factories.diff"
