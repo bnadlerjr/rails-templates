@@ -20,7 +20,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
 
   route "map.resources :users"
   
-  run "cp http://github.com/thethirdswitch/rails-templates/file-templates/raw/master/create_users_migration.rb db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
+  run "cp http://github.com/thethirdswitch/rails-templates/raw/master/file-templates/create_users_migration.rb db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
   
 #  file "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb", <<-CODE
 #  class CreateUsers < ActiveRecord::Migration
