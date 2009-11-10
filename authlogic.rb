@@ -112,9 +112,10 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   CODE
   
   run "touch test/factories.rb" unless File.exists?('test/factories.rb')
-  run "diff -Naur test/factories.rb test/factories.new > test/factories.diff"
-  run "patch -p0 < test/factories.diff"
-  run "rm test/factories.new test/factories.diff"
+  apply_patch('test/factories')
+#  run "diff -Naur test/factories.rb test/factories.new > test/factories.diff"
+#  run "patch -p0 < test/factories.diff"
+#  run "rm test/factories.new test/factories.diff"
   
   file 'app/controllers/users_controller.rb', <<-CODE
   class UsersController < ApplicationController
@@ -333,9 +334,10 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
 
-  run "diff -Naur app/controllers/application_controller.rb app/controllers/application_controller.new > app/controllers/application_controller.diff"
-  run "patch -p0 < app/controllers/application_controller.diff"
-  run "rm app/controllers/application_controller.new app/controllers/application_controller.diff"
+  apply_patch('app/controllers/application_controller')
+#  run "diff -Naur app/controllers/application_controller.rb app/controllers/application_controller.new > app/controllers/application_controller.diff"
+#  run "patch -p0 < app/controllers/application_controller.diff"
+#  run "rm app/controllers/application_controller.new app/controllers/application_controller.diff"
   
   generate(:controller, "password_resets")
 
@@ -411,4 +413,10 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   If the above URL does not work try copying and pasting it into your browser.  
   If you continue to have problem please feel free to contact us.
   CODE
+end
+
+def apply_patch(filename)
+  run "diff -Naur #{filename}.rb #{filename}.new > #{filename}.diff"
+  run "patch -p0 < #{filename}.diff"
+  run "rm #{filename}.new #{filename}.diff"
 end
