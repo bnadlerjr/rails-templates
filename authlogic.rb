@@ -13,6 +13,7 @@ ABOUT = <<-CODE
 Creates / Overwrites
  Create a user migration
  Creates / overwrites user model and unit test
+ Creates / overwrites user controller and functional test
  
 Merge
  Assumes test/factories.rb exists; merges changes
@@ -304,7 +305,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
   
-  file 'app/controllers/application_controller.rb', <<-CODE
+  file 'app/controllers/application_controller.new', <<-CODE
   # Filters added to this controller apply to all controllers in the application.
   # Likewise, all the methods added will be available for all controllers.
 
@@ -332,6 +333,10 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   end
   CODE
 
+  run "diff app/controllers/application_controller.rb app/controllers/application_controller.new > app/controllers/application_controller.diff"
+  run "patch -p0 < app/controllers/application_controller.diff"
+  run "rm app/controllers/application_controller.new app/controllers/application_controller.diff"
+  
   generate(:controller, "password_resets")
 
   file 'app/controllers/password_resets_controller', <<-CODE
