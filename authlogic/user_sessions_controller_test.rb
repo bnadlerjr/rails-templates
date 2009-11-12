@@ -33,13 +33,9 @@ class UserSessionsControllerTest < ActionController::TestCase
       should_respond_with :redirect
       should_redirect_to('root url') { root_url }
       should_set_the_flash_to 'Login successful!'
-
-      should 'save user to session' do
-        assert(UserSession.find)
-      end      
     end
 
-    context 'bad email' do
+    context 'with bad email' do
       setup { post :create, :user_session => { :email => "bad@example.com", :password => "secret" } }
 
       should_respond_with :success
@@ -47,7 +43,7 @@ class UserSessionsControllerTest < ActionController::TestCase
       should_set_the_flash_to 'Invalid email or password.'
     end
 
-    context 'bad password' do
+    context 'with bad password' do
       setup { post :create, :user_session => { :email => "john.doe@example.com", :password => "bad" } }
 
       should_respond_with :success
@@ -56,7 +52,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     end
   end
 
-  context 'DELETE destroy' do
+  context 'on DELETE :destroy' do
     setup do
       UserSession.create(@user)
       delete :destroy
