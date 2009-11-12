@@ -3,21 +3,33 @@ require 'test_helper'
 class UserSessionsControllerTest < ActionController::TestCase
   setup do
     @user = Factory.create(:user)
-    :activate_authlogic
   end
 
-  context 'GET new' do
-    setup { get :new }
+  context 'on GET to :new' do
+    setup do
+      controller.stubs(:require_no_user).returns(true)
+      @the_user_session = UserSession.new
+      get :new
+    end
 
     should_respond_with :success
-    should_render_template :new    
+    should_render_template :new
+    should_not_set_the_flash
   end
 
-  context 'POST create' do
-    context 'good credentials' do
-      setup { post :create, :user_session => { :email => "john.doe@example.com", :password => "secret" } }
+  context 'on POST to :create' do
+    setup do
+      controller.stubs(:require_no_user).returns(true)
+      @the_user_session = UserSession.new
+      UserSession.stubs(:new).returns(@the_user_session)
+    end
+    
+    context 'with good credentials' do
+      setup do
+        @the_user_session.stubs(:save).returns(true)
+        post :create, :user_session => { :email => "john.doe@example.com", :password => "secret" }
+      end
 
-      should_assign_to :user_session
       should_respond_with :redirect
       should_redirect_to('root url') { root_url }
       should_set_the_flash_to 'Login successful!'

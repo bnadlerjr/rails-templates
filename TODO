@@ -1,0 +1,13 @@
+* Add option to run migration in authlogic template
+
+X password_resets_controller.rb #26
+X factories.rb should be in test/ not test/unit
+X remove escape slashes in user.rb
+X add require_user & require_no_user methods to application_controller
+X user_sessions_controller #13
+X require 'authlogic/test_case' in test_helper
+X setup :activate_authlogic in test_helper
+X add store_location to application_controller
+X add flash[:error] = 'Invalid email or password.' in user_sessions_controller
+X add config.gem 'mocha', :environment => :test
+X revised user_sessions_controller_test

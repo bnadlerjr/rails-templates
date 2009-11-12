@@ -10,15 +10,16 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:success] = "Login successful!"
-      redirect_to home_url
+      redirect_to root_url
     else
       render :action => :new
+      flash[:error] = 'Invalid email or password.'
     end
   end
 
   def destroy
     current_user_session.destroy
-    flash[:notice] = "Logout successful!"
+    flash[:success] = "Logout successful!"
     redirect_to new_user_session_url
   end
 end

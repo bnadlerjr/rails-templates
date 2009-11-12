@@ -34,7 +34,8 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   gem "autotest-rails", :lib => "autotest/rails", :environment => :test
   gem "cucumber", :environment => :test
   gem "webrat", :environment => :test
-
+  gem "mocha", :environment => :test
+  
   generate :cucumber
 
   download_and_patch 'test_helper.rb', 'test/test_helper.rb'

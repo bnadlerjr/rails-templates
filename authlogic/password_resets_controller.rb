@@ -23,7 +23,7 @@ class PasswordResetsController < ApplicationController
 
   def update  
     @user.password = params[:user][:password]  
-    @user.password_confirmation = params[:user][: password_confirmation]  
+    @user.password_confirmation = params[:user][:password_confirmation]  
     if @user.save  
       flash[:success] = "Password successfully updated."  
       redirect_to account_url  

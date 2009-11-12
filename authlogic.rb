@@ -23,7 +23,7 @@ ABOUT = <<-CODE
  Based on the authlogic example app and password reset logic from 
     http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/
 
- Generated tests assume Shoulda and factory_girl are present.
+ Generated tests assume Shoulda, factory_girl & mocha are present.
 
  IMPORTANT: This template is meant to be run on a fresh app. Some files will be 
             overwritten; and others will be patched using diff / patch (assumes
@@ -47,7 +47,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download "create_users.rb", "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
   download "user.rb", 'app/models/user.rb'
   download "user_test.rb", 'test/unit/user_test.rb'
-  download_and_patch "factories.rb", 'test/unit/factories.rb'
+  download_and_patch "factories.rb", 'test/factories.rb'
   download "users_controller.rb", 'app/controllers/users_controller.rb'
     
   generate(:session, "user_session")
