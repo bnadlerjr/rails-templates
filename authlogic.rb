@@ -1,17 +1,13 @@
 require 'open-uri'
-template_root = "http://github.com/thethirdswitch/rails-templates/raw/master/authlogic"
   
 def download(from, to = from.split("/").last)
-  file to, open(from).read
-rescue Exception => e
-  puts e.inspect
-  exit!
+  file to, open("http://github.com/thethirdswitch/rails-templates/raw/master/authlogic/#{from}").read
 end
 
 def download_and_patch(from, to)
   if File.exists?(to)
     download(from, "#{to}.new")
-    run "diff #{to} #{to}.new > #{to}.diff"
+    run "diff -Naur #{to} #{to}.new > #{to}.diff"
     run "patch -p0 < #{to}.diff"
     run "rm #{to}.new #{to}.diff"
   else
@@ -48,24 +44,24 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
 
   generate(:model, "user --skip-migration")
   route "map.resources :users"
-  download "#{template_root}/create_users.rb", "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
-  download "#{template_root}/user.rb", 'app/models/user.rb'
-  download "#{template_root}/user_test.rb", 'test/unit/user_test.rb'
-  download_and_patch "#{template_root}/factories.rb", 'test/unit/factories.rb'
-  download "#{template_root}/users_controller.rb", 'app/controllers/users_controller.rb'
+  download "create_users.rb", "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
+  download "user.rb", 'app/models/user.rb'
+  download "user_test.rb", 'test/unit/user_test.rb'
+  download_and_patch "factories.rb", 'test/unit/factories.rb'
+  download "users_controller.rb", 'app/controllers/users_controller.rb'
     
   generate(:session, "user_session")
   generate(:controller, "user_sessions")
   route "map.resource :user_session, :only => [:new, :create, :destroy]"
   route "map.root :controller => 'user_sessions', :action => 'new'"
-  download "#{template_root}/user_sessions_controller.rb", 'app/controllers/user_sessions_controller.rb'
+  download "user_sessions_controller.rb", 'app/controllers/user_sessions_controller.rb'
   file 'app/views/user_sessions/new.html.erb', "<p>Placeholder for new.html.erb</p>"
-  download "#{template_root}/user_sessions_controller_test.rb", 'test/functional/user_sessions_controller_test.rb'
+  download "user_sessions_controller_test.rb", 'test/functional/user_sessions_controller_test.rb'
 
-  download_and_patch "#{template_root}/application_controller.rb", 'app/controllers/application_controller.rb'
+  download_and_patch "application_controller.rb", 'app/controllers/application_controller.rb'
 
   generate(:controller, "password_resets")
-  download "#{template_root}/password_resets_controller.rb", 'app/controllers/password_resets_controller.rb'
-  download "#{template_root}/notifier.rb", 'app/models/notifier.rb'
-  download "#{template_root}/password_reset_instructions.erb", 'app/views/notifier/password_reset_instructions.erb'
+  download "password_resets_controller.rb", 'app/controllers/password_resets_controller.rb'
+  download "notifier.rb", 'app/models/notifier.rb'
+  download "password_reset_instructions.erb", 'app/views/notifier/password_reset_instructions.erb'
 end
