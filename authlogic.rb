@@ -9,7 +9,7 @@ rescue Exception => e
 end
 
 def download_and_patch(from, to)
-  if !File.exists?(to)
+  if File.exists?(to)
     download(from, "#{to}.new")
     run "diff #{to} #{to}.new > #{to}.diff"
     run "patch -p0 < #{to}.diff"
