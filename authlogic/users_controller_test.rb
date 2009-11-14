@@ -100,6 +100,7 @@ class UsersControllerTest < ActionController::TestCase
     context "on POST to :create" do
       context "with successful creation" do
         setup do
+          User.any_instance.stubs(:save).returns(true)
           post :create, :user => { :email => 'bob@example.com', :password => 'secret', 
                                    :password_confirmation => 'secret', :first_name => 'Bob', 
                                    :last_name => 'Smith' }
@@ -112,6 +113,7 @@ class UsersControllerTest < ActionController::TestCase
     
       context "with failed creation" do
         setup do
+          User.any_instance.stubs(:save).returns(false)
           post :create, :user => { :email => "bobby", :password => "bobby", 
                                    :password_confirmation => "bobby" }
         end

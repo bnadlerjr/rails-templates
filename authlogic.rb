@@ -74,6 +74,9 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   # Password reset
   generate(:controller, "password_resets")
   download "password_resets_controller.rb", 'app/controllers/password_resets_controller.rb'
+  download "password_resets_controller_test.rb", 'test/functional/password_resets_controller_test.rb'
   download "notifier.rb", 'app/models/notifier.rb'
   download "password_reset_instructions.erb", 'app/views/notifier/password_reset_instructions.erb'
+  run "touch app/views/users/edit.html.erb"
+  run "touch app/views/users/new.html.erb"
 end
