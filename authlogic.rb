@@ -34,6 +34,7 @@ ABOUT = <<-CODE
   * Creates password reset controller, notifier model and notifier erb template
   * Creates / overwrites user model and unit test
   * Creates / overwrites user controller and functional test
+  * Creates stub user views if none already exist
   * Attempts to apply patch to factories.rb; creates it if it doesn't exist
   * Attempts to apply patch to application_controller.rb
 |---------------------------------------------------------------------------------|
@@ -49,7 +50,12 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download "user_test.rb", 'test/unit/user_test.rb'
   download_and_patch "factories.rb", 'test/factories.rb'
   download "users_controller.rb", 'app/controllers/users_controller.rb'
-    
+  download "users_controller_test.rb" 'test/functional/users_controller_test.rb'
+  run "touch app/views/users/edit.html.erb" if !File.exists?('app/views/users/edit.html.erb')
+  run "touch app/views/users/index.html.erb" if !File.exists?('app/views/users/index.html.erb')
+  run "touch app/views/users/new.html.erb" if !File.exists?('app/views/users/new.html.erb')
+  run "touch app/views/users/show.html.erb" if !File.exists?('app/views/users/show.html.erb')
+  
   generate(:session, "user_session")
   generate(:controller, "user_sessions")
   route "map.resource :user_session, :only => [:new, :create, :destroy]"

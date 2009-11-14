@@ -1,5 +1,12 @@
 * Add option to run migration in authlogic template
+* Remove default routes
+* Freeze Rails
+* Unpack GEMS
+* Login & Signout routes
+* Password Resets controller test
+* Change name of standard template to dont_think and update ABOUT
 
+X Users controller test
 X password_resets_controller.rb #26
 X factories.rb should be in test/ not test/unit
 X remove escape slashes in user.rb
