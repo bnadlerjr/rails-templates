@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.user
   end
   
-  def require_user
+  def user_required
     unless current_user
       store_location
       flash[:notice] = "You must be logged in to access this page"

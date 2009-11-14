@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :user_required, :only => [:show, :edit, :update]
+  before_filter :admin_required, :only => [:index, :destroy, :new, :create]
   before_filter :find_user, :only => [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
 
     respond_to do |wants|
       if @user.save
-        flash[:notice] = 'User was successfully created.'
+        flash[:success] = 'User was successfully created.'
         wants.html { redirect_to(@user) }
         wants.xml  { render :xml => @user, :status => :created, :location => @user }
       else
@@ -58,7 +60,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |wants|
       if @user.update_attributes(params[:user])
-        flash[:notice] = 'User was successfully updated.'
+        flash[:success] = 'User was successfully updated.'
         wants.html { redirect_to(@user) }
         wants.xml  { head :ok }
       else
@@ -74,6 +76,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |wants|
+      flash[:success] = 'User was deleted.'
       wants.html { redirect_to(users_url) }
       wants.xml  { head :ok }
     end
