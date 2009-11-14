@@ -50,7 +50,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download "user_test.rb", 'test/unit/user_test.rb'
   download_and_patch "factories.rb", 'test/factories.rb'
   download "users_controller.rb", 'app/controllers/users_controller.rb'
-  #download "users_controller_test.rb" 'test/functional/users_controller_test.rb'
+  download "users_controller_test.rb", 'test/functional/users_controller_test.rb'
   run "touch app/views/users/edit.html.erb" if !File.exists?('app/views/users/edit.html.erb')
   run "touch app/views/users/index.html.erb" if !File.exists?('app/views/users/index.html.erb')
   run "touch app/views/users/new.html.erb" if !File.exists?('app/views/users/new.html.erb')
