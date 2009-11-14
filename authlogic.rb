@@ -36,13 +36,14 @@ ABOUT = <<-CODE
   * Creates / overwrites user controller and functional test
   * Creates stub user views if none already exist
   * Attempts to apply patch to factories.rb; creates it if it doesn't exist
-  * Attempts to apply patch to application_controller.rb
+  * Attempts to apply patch to application controller and its functional test
 |---------------------------------------------------------------------------------|
 CODE
 
 if yes?(ABOUT + "\ncontinue?(y/n)")
   gem "authlogic"
 
+  # User
   generate(:model, "user --skip-migration")
   route "map.resources :users"
   download "create_users.rb", "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
@@ -57,6 +58,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   run "touch app/views/users/new.html.erb" if !File.exists?('app/views/users/new.html.erb')
   run "touch app/views/users/show.html.erb" if !File.exists?('app/views/users/show.html.erb')
   
+  # User sessions
   generate(:session, "user_session")
   generate(:controller, "user_sessions")
   route "map.resource :user_session, :only => [:new, :create, :destroy]"
@@ -65,8 +67,11 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   file 'app/views/user_sessions/new.html.erb', "<p>Placeholder for new.html.erb</p>"
   download "user_sessions_controller_test.rb", 'test/functional/user_sessions_controller_test.rb'
 
+  # Application
   download_and_patch "application_controller.rb", 'app/controllers/application_controller.rb'
-
+  download_and_patch "application_controller_test.rb", 'test/functional/application_controller_test.rb'
+  
+  # Password reset
   generate(:controller, "password_resets")
   download "password_resets_controller.rb", 'app/controllers/password_resets_controller.rb'
   download "notifier.rb", 'app/models/notifier.rb'

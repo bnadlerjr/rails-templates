@@ -20,7 +20,7 @@ class UserTest < ActiveSupport::TestCase
       assert_equal('John D.', @user.short_name)
     end
     
-    context "#deliver password reset instructions" do
+    context "deliver password reset instructions" do
       setup { Notifier.stubs(:deliver_password_reset_instructions) }
       
       should "reset the perishable token" do

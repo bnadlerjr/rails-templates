@@ -8,7 +8,23 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation
 
-  helper_method :current_user_session, :current_user
+  # Helper methods available to views
+  helper_method :logged_in?, :admin_logged_in?, :current_user_session, :current_user
+
+  def logged_in?
+    !current_user_session.nil?
+  end
+    
+  def admin_required
+    unless current_user && current_user.admin?
+      flash[:error] = "Sorry, you don't have access to that."
+      redirect_to root_url and return false
+    end
+  end
+  
+  def admin_logged_in?
+    logged_in? && current_user.admin?
+  end
 
 
   private
