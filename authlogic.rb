@@ -77,6 +77,6 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download "password_resets_controller_test.rb", 'test/functional/password_resets_controller_test.rb'
   download "notifier.rb", 'app/models/notifier.rb'
   download "password_reset_instructions.erb", 'app/views/notifier/password_reset_instructions.erb'
-  run "touch app/views/users/edit.html.erb"
-  run "touch app/views/users/new.html.erb"
+  run "touch app/views/password_resets/edit.html.erb"
+  run "touch app/views/password_resets/new.html.erb"
 end
