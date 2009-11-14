@@ -51,6 +51,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download_and_patch "factories.rb", 'test/factories.rb'
   download "users_controller.rb", 'app/controllers/users_controller.rb'
   download "users_controller_test.rb", 'test/functional/users_controller_test.rb'
+  run "mkdir app/views/users" if !File.directory?('app/views/users')
   run "touch app/views/users/edit.html.erb" if !File.exists?('app/views/users/edit.html.erb')
   run "touch app/views/users/index.html.erb" if !File.exists?('app/views/users/index.html.erb')
   run "touch app/views/users/new.html.erb" if !File.exists?('app/views/users/new.html.erb')
