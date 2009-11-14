@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
      t.string :persistence_token,   :null => false
      t.string :single_access_token, :null => false
      t.string :perishable_token,    :null => false
+     t.string :roles
      t.string :current_login_ip
      t.string :last_login_ip
 
