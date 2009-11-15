@@ -37,6 +37,7 @@ ABOUT = <<-CODE
   * Creates stub user views if none already exist
   * Attempts to apply patch to factories.rb; creates it if it doesn't exist
   * Attempts to apply patch to application controller and its functional test
+  * Attempts to apply patch to application helper and its functional test
 |---------------------------------------------------------------------------------|
 CODE
 
@@ -70,6 +71,8 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   # Application
   download_and_patch "application_controller.rb", 'app/controllers/application_controller.rb'
   download_and_patch "application_controller_test.rb", 'test/functional/application_controller_test.rb'
+  download_and_patch "application_helper.rb", "app/helpers/application_helper.rb"
+  download_and_patch "application_helper_test.rb", "test/unit/helpers/application_helper_test.rb"
   
   # Password reset
   generate(:controller, "password_resets")
