@@ -76,9 +76,11 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   
   # Password reset
   generate(:controller, "password_resets")
+  route "map.resources :password_resets, :only => [:new, :create, :edit, :update]"
   download "password_resets_controller.rb", 'app/controllers/password_resets_controller.rb'
   download "password_resets_controller_test.rb", 'test/functional/password_resets_controller_test.rb'
   download "notifier.rb", 'app/models/notifier.rb'
+  download "notifier_test.rb", 'test/unit/notifier_test.rb'
   download "password_reset_instructions.erb", 'app/views/notifier/password_reset_instructions.erb'
   run "touch app/views/password_resets/edit.html.erb"
   run "touch app/views/password_resets/new.html.erb"
