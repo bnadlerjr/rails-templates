@@ -14,21 +14,13 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !current_user_session.nil?
   end
-    
-  def admin_required
-    unless current_user && current_user.admin?
-      flash[:error] = "Sorry, you don't have access to that."
-      redirect_to root_url and return false
-    end
-  end
-  
+
   def admin_logged_in?
     logged_in? && current_user.admin?
   end
 
-
   private
-
+  
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
@@ -39,25 +31,23 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.user
   end
   
-  def user_required
-    unless current_user
-      store_location
-      flash[:notice] = "You must be logged in to access this page"
+  def require_no_user
+    if current_user
+      flash[:notice] = "You must be logged out to access this page"
       redirect_to new_user_session_url
-      return false
     end
   end
 
-  def require_no_user
-    if current_user
-      store_location
-      flash[:notice] = "You must be logged out to access this page"
+  def user_required
+    unless current_user
+      flash[:notice] = "You must be logged in to access this page."
       redirect_to new_user_session_url
-      return false
     end
   end
-  
-  def store_location
-    session[:return_to] = request.request_uri
+
+  def admin_required
+    unless current_user && current_user.admin?
+      flash[:error] = "Sorry, you don't have access to that."
+    end
   end
 end
