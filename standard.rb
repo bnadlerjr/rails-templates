@@ -10,7 +10,8 @@ CODE
 
 if yes?(ABOUT + "\ncontinue?(y/n)")
 
-  run "rm app/index.html"
+  run "rm public/index.html"
+  run "rm public/favicon.ico"
   run "rm README"
   run "rm public/images/rails.png"
   run "cp config/database.yml config/database.yml.sample"
