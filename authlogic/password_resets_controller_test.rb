@@ -20,7 +20,8 @@ class PasswordResetsControllerTest < ActionController::TestCase
 
     context "with user not found" do
       setup do
-        post :create, :email => "foo@example.com"
+        User.stubs(:find_by_email).returns(false)
+        post :create, :email => "john.doe@example.com"
       end
 
       should_respond_with :success
@@ -30,7 +31,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     
     context "with user found" do
       setup do
-        @user = Factory.create(:user)
+        User.stubs(:find_by_email).returns(Factory.create(:user))
         post :create, :email => "john.doe@example.com"
       end
   
@@ -44,8 +45,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
   context "on GET to :edit" do
     setup do
       controller.stubs(:require_no_user).returns(true)
-      @user = Factory.create(:user)
-      User.stubs(:find_using_perishable_token).returns(@user)
+      User.stubs(:find_using_perishable_token).returns(Factory.create(:user))
       get :edit, :id => "the token"
     end
     
@@ -68,8 +68,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
   context "on PUT to :update" do
     setup do
       controller.stubs(:require_no_user).returns(true)
-      @user = Factory.create(:user)
-      User.stubs(:find_using_perishable_token).returns(@user)
+      User.stubs(:find_using_perishable_token).returns(Factory.create(:user))
     end
   
     context "with successful save" do

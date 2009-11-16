@@ -1,14 +1,10 @@
 require 'test_helper'
 
 class UserSessionsControllerTest < ActionController::TestCase
-  setup do
-    @user = Factory.create(:user)
-  end
-
   context 'on GET to :new' do
     setup do
       controller.stubs(:require_no_user).returns(true)
-      @the_user_session = UserSession.new
+      the_user_session = UserSession.new
       get :new
     end
 
@@ -36,7 +32,10 @@ class UserSessionsControllerTest < ActionController::TestCase
     end
 
     context 'with bad email' do
-      setup { post :create, :user_session => { :email => "bad@example.com", :password => "secret" } }
+      setup do
+        @the_user_session.stubs(:save).returns(false)
+        post :create, :user_session => { :email => "bad@example.com", :password => "secret" }
+      end
 
       should_respond_with :success
       should_render_template :new
@@ -44,7 +43,10 @@ class UserSessionsControllerTest < ActionController::TestCase
     end
 
     context 'with bad password' do
-      setup { post :create, :user_session => { :email => "john.doe@example.com", :password => "bad" } }
+      setup do
+        @the_user_session.stubs(:save).returns(false)
+        post :create, :user_session => { :email => "john.doe@example.com", :password => "bad" }
+      end
 
       should_respond_with :success
       should_render_template :new
@@ -54,6 +56,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 
   context 'on DELETE :destroy' do
     setup do
+      @user = Factory.create(:user)
       UserSession.create(@user)
       delete :destroy
     end
