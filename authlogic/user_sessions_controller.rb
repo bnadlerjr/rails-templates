@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+  #before_filter :require_no_user, :only => [:new, :create]
   before_filter :user_required, :only => :destroy
 
   def new

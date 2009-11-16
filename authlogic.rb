@@ -66,6 +66,8 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   generate(:controller, "user_sessions")
   route "map.resource :user_session, :only => [:new, :create, :destroy]"
   route "map.root :controller => 'user_sessions', :action => 'new'"
+  route 'map.login "login", :controller => "user_sessions", :action => "new"'
+  route 'map.logout "logout", :controller => "user_sessions", :action => "destroy"'
   download "user_sessions_controller.rb", 'app/controllers/user_sessions_controller.rb'
   download "user_sessions_controller_test.rb", 'test/functional/user_sessions_controller_test.rb'
   download "sessions.new.html.erb", 'app/views/user_sessions/new.html.erb'

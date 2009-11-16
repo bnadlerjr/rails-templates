@@ -1,10 +1,7 @@
-* Remove index.html from public
-* Remove favicon
 * Add option to run migration in authlogic template
 * Remove default routes
 * Freeze Rails
 * Unpack GEMS
-* Login & Signout routes
 * Change name of standard template to dont_think and update ABOUT
 * Remove users.yml from fixtures
 * Add tests for filters to application_controller_test
@@ -21,8 +18,17 @@
 * Cucumber scenarios for logging in/out
 * Cucumber scenarios for resetting password
 * Cucumber scenarios for managing users
+* Wizard for setting up admin user on first run
 
-X Use stubs instead of factories for controllers (changes copied)
+okwip Updated application layout for login/logout
+okwip Commented out before_filter in user_sessions_controller for now
+okwip Removed link to user list in user.show.html.erb
+okwip Fix password reset controller create action and functional test
+okwip Login & Logout routes
+okwip Remove index.html from public
+okwip Remove favicon
+
+X Use stubs instead of factories for controllers
 X Added form for login
 X Added form for password reset request
 X Added form for password reset

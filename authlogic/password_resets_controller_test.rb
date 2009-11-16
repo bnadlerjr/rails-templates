@@ -21,7 +21,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     context "with user not found" do
       setup do
         User.stubs(:find_by_email).returns(false)
-        post :create, :email => "john.doe@example.com"
+        post :create, :user_session => { :email => "john.doe@example.com" }
       end
 
       should_respond_with :success
@@ -32,7 +32,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     context "with user found" do
       setup do
         User.stubs(:find_by_email).returns(Factory.create(:user))
-        post :create, :email => "john.doe@example.com"
+        post :create, :user_session => { :email => "john.doe@example.com" }
       end
   
       should_respond_with :redirect

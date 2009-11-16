@@ -52,8 +52,23 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   					Item 3
   					<% end -%>
   				</li>
+				<% admin_only do -%>
+  				<li>
+  					<% link_to(users_path, :class => "large") do %>
+  					<%= image_tag("icon_user.png") %>
+  					Manage Users
+  					<% end -%>
+  				</li>
+				<% end -%>
   			</ol>
   			<ol id="utility">
+				<% anonymous_only do -%>
+				<li><%= link_to "Login", login_path %></li>
+				<% end -%>
+				<% authenticated_only do -%>
+				<li><%= link_to h(current_user.email), user_path(current_user) %></li>
+				<li><%= link_to "Logout", logout_path, :method => :delete %></li>
+				<% end -%>
   				<li><%= link_to "Help", "#", :class => 'highlight' %></li>
   			</ol>
   		</div>
