@@ -24,7 +24,8 @@ ABOUT = <<-CODE
     http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/
 
  Generated tests assume Shoulda, factory_girl & mocha are present.
-
+ Generated views assume formtastic is present.
+ 
  IMPORTANT: This template is meant to be run on a fresh app. Some files will be 
             overwritten; and others will be patched using diff / patch (assumes
             this is being run in a *nix environment). See file list below for 
@@ -54,10 +55,11 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download "users_controller.rb", 'app/controllers/users_controller.rb'
   download "users_controller_test.rb", 'test/functional/users_controller_test.rb'
   run "mkdir app/views/users" if !File.directory?('app/views/users')
-  run "touch app/views/users/edit.html.erb" if !File.exists?('app/views/users/edit.html.erb')
-  run "touch app/views/users/index.html.erb" if !File.exists?('app/views/users/index.html.erb')
-  run "touch app/views/users/new.html.erb" if !File.exists?('app/views/users/new.html.erb')
-  run "touch app/views/users/show.html.erb" if !File.exists?('app/views/users/show.html.erb')
+  download_and_patch "user.form.html.erb", 'app/views/users/_form.html.erb'
+  download_and_patch "user.edit.html.erb", 'app/views/users/edit.html.erb'
+  download_and_patch "user.index.html.erb", 'app/views/users/index.html.erb'
+  download_and_patch "user.new.html.erb", 'app/views/users/new.html.erb'
+  download_and_patch "user.show.html.erb", 'app/views/users/show.html.erb'
   
   # User sessions
   generate(:session, "user_session")
@@ -65,8 +67,8 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   route "map.resource :user_session, :only => [:new, :create, :destroy]"
   route "map.root :controller => 'user_sessions', :action => 'new'"
   download "user_sessions_controller.rb", 'app/controllers/user_sessions_controller.rb'
-  file 'app/views/user_sessions/new.html.erb', "<p>Placeholder for new.html.erb</p>"
   download "user_sessions_controller_test.rb", 'test/functional/user_sessions_controller_test.rb'
+  download "sessions.new.html.erb", 'app/views/user_sessions/new.html.erb'
 
   # Application
   download_and_patch "application_controller.rb", 'app/controllers/application_controller.rb'
@@ -82,6 +84,6 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   download "notifier.rb", 'app/models/notifier.rb'
   download "notifier_test.rb", 'test/unit/notifier_test.rb'
   download "password_reset_instructions.erb", 'app/views/notifier/password_reset_instructions.erb'
-  run "touch app/views/password_resets/edit.html.erb"
-  run "touch app/views/password_resets/new.html.erb"
+  download "password.edit.html.erb", 'app/views/password_resets/edit.html.erb'
+  download "password.new.html.erb", 'app/views/password_resets/new.html.erb'
 end
