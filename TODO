@@ -20,10 +20,8 @@
 * Wizard for setting up admin user on first run
 * Add functional tests for XML responses
 
-wip adjusted application layout to not show main nav unless authenticated
-wip added annotate plugin git://github.com/ctran/annotate_models.git
-
-X Annotate models plugin
+X adjusted application layout to not show main nav unless authenticated
+X added annotate plugin git://github.com/ctran/annotate_models.git
 X Updated application layout for login/logout
 X Commented out before_filter in user_sessions_controller for now
 X Removed link to user list in user.show.html.erb

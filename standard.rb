@@ -33,6 +33,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   	<div id="container">
   		<div id="header">
   			<h1>Site ID</h1>
+  			<% authenticated_only do -%>
   			<ol id="pri-nav">
   				<li>
   					<% link_to("#", :class => "active large") do %>
@@ -61,6 +62,7 @@ if yes?(ABOUT + "\ncontinue?(y/n)")
   				</li>
 				<% end -%>
   			</ol>
+  			<% end -%>
   			<ol id="utility">
 				<% anonymous_only do -%>
 				<li><%= link_to "Login", login_path %></li>
