@@ -19,6 +19,7 @@
 * Cucumber scenarios for managing users
 * Wizard for setting up admin user on first run
 * Add functional tests for XML responses
+* Pickle plugin
 
 X adjusted application layout to not show main nav unless authenticated
 X added annotate plugin git://github.com/ctran/annotate_models.git
