@@ -1,3 +1,9 @@
+DEPRECATED => Using GitHub Issues instead.
+
+* => Active
+X => Done
+- => Someday/Maybe
+
 * Add option to run migration in authlogic template
 * Remove default routes
 * Freeze Rails
@@ -9,9 +15,7 @@
 * Decide on doc format and tighten up class/method docs
 * Capistrano template
 * Rename require_no_user to no_user_required
-* Research what is needed to set up project for cruisecontrol.rb
 * Migration helper plugin
-* Ruport support w/ report controller
 * Use ActiveRecord based sessions
 * Generator for resource functional test
 * Cucumber scenarios for logging in/out
@@ -20,6 +24,8 @@
 * Wizard for setting up admin user on first run
 * Add functional tests for XML responses
 * Pickle plugin
+* Switch view templates to HAML
+* Switch CSS to SASS
 
 X adjusted application layout to not show main nav unless authenticated
 X added annotate plugin git://github.com/ctran/annotate_models.git
@@ -65,3 +71,5 @@ X add store_location to application_controller
 X add flash[:error] = 'Invalid email or password.' in user_sessions_controller
 X add config.gem 'mocha', :environment => :test
 X revised user_sessions_controller_test
+
+- Research what is needed to set up project for cruisecontrol.rb
