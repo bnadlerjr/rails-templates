@@ -1,5 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "../lib/utility"))
-  
+root = ENV['LOCATION'] || "~/Dev/rails-templates"
+require File.expand_path(File.join(root, "lib/utility"))
+
 about = <<-CODE
 \n
 |-----------------------------------------------------------------------------|
@@ -23,5 +24,6 @@ if yes?(about + "\ncontinue?(y/n)")
   
   generate :cucumber
 
-  download_and_patch 'test-frameworks/test_helper.rb', 'test/test_helper.rb'
+  download_and_patch root, 
+    'test-frameworks/test_helper.rb', 'test/test_helper.rb'
 end

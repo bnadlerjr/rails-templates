@@ -1,4 +1,4 @@
-ABOUT = <<-CODE
+about = <<-CODE
 \n
 |-----------------------------------------------------------------------------|
  Standard Rails template.
@@ -8,7 +8,7 @@ ABOUT = <<-CODE
 |-----------------------------------------------------------------------------|
 CODE
 
-if yes?(ABOUT + "\ncontinue?(y/n)")
+if yes?(about + "\ncontinue?(y/n)")
 
   run "rm public/index.html"
   run "rm public/favicon.ico"
