@@ -112,4 +112,6 @@ if yes?(about + "\ncontinue?(y/n)")
 
   download root, "authlogic/password.new.html.erb", 
     'app/views/password_resets/new.html.erb'
+
+  rake "db:migrate" if yes?("\nRun user migrations?(y/n)")
 end
