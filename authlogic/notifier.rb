@@ -1,6 +1,10 @@
+# == Description
+# Email notifier so that users can reset their password.
 class Notifier < ActionMailer::Base  
-  default_url_options[:host] = "authlogic_example.binarylogic.com"  
+  # TODO: Supply host name and email address 
+  default_url_options[:host] = "example.com"  
 
+  # Creates email with instructions for resetting password.
   def password_reset_instructions(user)  
     subject       "Password Reset Instructions"  
     from          "app@example.com"  

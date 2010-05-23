@@ -5,12 +5,17 @@ class UserTest < ActiveSupport::TestCase
     setup { @user = Factory.create(:user) }
     subject { @user }
     
-    should_allow_mass_assignment_of :password, :password_confirmation, :first_name, :last_name, :email
+    should_allow_mass_assignment_of :password,   :password_confirmation, 
+                                    :first_name, :last_name, 
+                                    :email
     
-    should_not_allow_mass_assignment_of :crypted_password, :password_salt, :persistence_token, 
-                                        :login_count, :last_request_at, :last_login_at, :current_login_at,
-                                        :last_login_ip, :current_login_ip, :roles, :created_at, 
-                                        :updated_at, :id
+    should_not_allow_mass_assignment_of :crypted_password,  :password_salt, 
+                                        :persistence_token, :login_count, 
+                                        :last_request_at,   :last_login_at, 
+                                        :current_login_at,  :last_login_ip, 
+                                        :current_login_ip,  :roles, 
+                                        :created_at,        :updated_at, 
+                                        :id
     
     should 'return a full name' do
       assert_equal('John Doe', @user.full_name)

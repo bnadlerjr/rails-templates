@@ -9,7 +9,7 @@ class UsersControllerTest < ActionController::TestCase
  
     context "on GET to :show" do
       setup do
-        get :show, :id => @user.id
+        get :show, :id => '1'
       end
 
       should_assign_to(:user) { @user }
@@ -20,7 +20,7 @@ class UsersControllerTest < ActionController::TestCase
  
     context "on GET to :edit" do
       setup do
-        get :edit, :id => @user.id
+        get :edit, :id => '1' 
       end
 
       should_assign_to(:user) { @user }
@@ -33,7 +33,7 @@ class UsersControllerTest < ActionController::TestCase
       context "with successful update" do
         setup do
           User.any_instance.stubs(:update_attributes).returns(true)
-          put :update, :id => @user.id, :user => { :email => "bill@example.com" }
+          put :update, :id => '1', :user => {}
         end
 
         should_assign_to(:user) { @user }
@@ -45,7 +45,7 @@ class UsersControllerTest < ActionController::TestCase
       context "with failed update" do
         setup do
           User.any_instance.stubs(:update_attributes).returns(false)
-          put :update, :id => @user.id, :user => { :login => "bill" }
+          put :update, :id => '1', :user => {}
         end
 
         should_assign_to(:user) { @user }
@@ -77,7 +77,7 @@ class UsersControllerTest < ActionController::TestCase
  
     context "on GET to :show" do
       setup do
-        get :show, :id => @user.id
+        get :show, :id => '1'
       end
 
       should_assign_to(:user) { @user }
@@ -101,9 +101,7 @@ class UsersControllerTest < ActionController::TestCase
       context "with successful creation" do
         setup do
           User.any_instance.stubs(:save).returns(true)
-          post :create, :user => { :email => 'bob@example.com', :password => 'secret', 
-                                   :password_confirmation => 'secret', :first_name => 'Bob', 
-                                   :last_name => 'Smith' }
+          post :create, :user => {}
         end
     
         should_assign_to(:user)
@@ -114,8 +112,7 @@ class UsersControllerTest < ActionController::TestCase
       context "with failed creation" do
         setup do
           User.any_instance.stubs(:save).returns(false)
-          post :create, :user => { :email => "bobby", :password => "bobby", 
-                                   :password_confirmation => "bobby" }
+          post :create, :user => {}
         end
     
         should_assign_to(:user)
@@ -127,7 +124,7 @@ class UsersControllerTest < ActionController::TestCase
  
     context "on GET to :edit" do
       setup do
-        get :edit, :id => @user.id
+        get :edit, :id => '1'
       end
 
       should_assign_to(:user) { @user }
@@ -140,7 +137,7 @@ class UsersControllerTest < ActionController::TestCase
       context "with successful update" do
         setup do
           User.any_instance.stubs(:update_attributes).returns(true)
-          put :update, :id => @user.id, :user => { :first_name => "bill" }
+          put :update, :id => '1', :user => {}
         end
 
         should_assign_to(:user) { @user }
@@ -152,7 +149,7 @@ class UsersControllerTest < ActionController::TestCase
       context "with failed update" do
         setup do
           User.any_instance.stubs(:update_attributes).returns(false)
-          put :update, :id => @user.id, :user => { :first_name => "bill" }
+          put :update, :id => '1', :user => {}
         end
 
         should_assign_to(:user) { @user }
@@ -164,7 +161,7 @@ class UsersControllerTest < ActionController::TestCase
 
     context "on DELETE to :destroy" do
       setup do
-        delete :destroy, :id => @user.id
+        delete :destroy, :id => '1'
       end
  
       should_respond_with :redirect

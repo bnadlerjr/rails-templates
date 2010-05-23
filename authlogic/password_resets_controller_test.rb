@@ -21,7 +21,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     context "with user not found" do
       setup do
         User.stubs(:find_by_email).returns(false)
-        post :create, :user_session => { :email => "john.doe@example.com" }
+        post :create, :user_session => {}
       end
 
       should_respond_with :success
@@ -32,12 +32,12 @@ class PasswordResetsControllerTest < ActionController::TestCase
     context "with user found" do
       setup do
         User.stubs(:find_by_email).returns(Factory.create(:user))
-        post :create, :user_session => { :email => "john.doe@example.com" }
+        post :create, :user_session => {}
       end
   
       should_respond_with :redirect
-      should_set_the_flash_to "Instructions to reset your password have been emailed to you. " +
-                              "Please check your email."
+      should_set_the_flash_to "Instructions to reset your password have " +
+                              "been emailed to you. Please check your email."
       should_redirect_to("the home page") { root_url }
     end
   end
@@ -74,7 +74,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     context "with successful save" do
       setup do
         User.any_instance.stubs(:save).returns(true)
-        put :update, :id => "the token", :user => {:password => "the new password", :password_confirmation => "the new password"}
+        put :update, :id => "1", :user => {}
       end
 
       should_respond_with :redirect
@@ -85,7 +85,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     context "with failed save" do
       setup do
         User.any_instance.stubs(:save).returns(false)
-        put :update, :id => "the token", :user => {:password => "the new password", :password_confirmation => "the new password"}
+        put :update, :id => "1", :user => {}
       end
 
       should_respond_with :success

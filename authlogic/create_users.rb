@@ -1,3 +1,5 @@
+# == Description
+# Creates a basic user table with support for authenticatin and authorization.
 class CreateUsers < ActiveRecord::Migration
  def self.up
    create_table :users, :force => true do |t|

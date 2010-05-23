@@ -23,7 +23,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     context 'with good credentials' do
       setup do
         @the_user_session.stubs(:save).returns(true)
-        post :create, :user_session => { :email => "john.doe@example.com", :password => "secret" }
+        post :create, :user_session => {}
       end
 
       should_respond_with :redirect
@@ -34,7 +34,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     context 'with bad email' do
       setup do
         @the_user_session.stubs(:save).returns(false)
-        post :create, :user_session => { :email => "bad@example.com", :password => "secret" }
+        post :create, :user_session => {}
       end
 
       should_respond_with :success
@@ -45,7 +45,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     context 'with bad password' do
       setup do
         @the_user_session.stubs(:save).returns(false)
-        post :create, :user_session => { :email => "john.doe@example.com", :password => "bad" }
+        post :create, :user_session => {}
       end
 
       should_respond_with :success

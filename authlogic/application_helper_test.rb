@@ -26,7 +26,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   context "admin_only" do
-    should "call the supplied block if the current user is logged in and an admin" do
+    should "call block if the current user is logged in and an admin" do
       self.stubs(:admin_logged_in?).returns(true)
       assert_equal "result", admin_only { "result" }
     end
@@ -36,7 +36,7 @@ class ApplicationHelperTest < ActionView::TestCase
       assert_nil admin_only { "result" }
     end
  
-    should "not call the supplied block if the current user is logged in but not an admin" do
+    should "not call block if the current user is logged in but not admin" do
       self.stubs(:logged_in?).returns(true)
       self.stubs(:admin_logged_in?).returns(false)
       assert_nil admin_only { "result" }
