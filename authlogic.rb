@@ -32,7 +32,7 @@ if yes?(about + "\ncontinue?(y/n)")
   gem "authlogic"
 
   # User
-  generate(:model, "user --skip-migration")
+  generate(:model, "user --skip-migration --skip-fixture")
   route "map.resources :users"
   download root, "authlogic/create_users.rb", 
     "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_users.rb"
