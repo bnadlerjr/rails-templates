@@ -21,7 +21,7 @@ if yes?(about + "\ncontinue?(y/n)")
   gem "cucumber", :environment => :test
   gem "webrat", :environment => :test
   gem "mocha", :environment => :test
-  
+  gem "pickle", :environment => :test 
   generate :cucumber
 
   download_and_patch root, 
