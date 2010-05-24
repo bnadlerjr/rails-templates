@@ -36,5 +36,77 @@ class ApplicationControllerTest < ActionController::TestCase
     end
   end
 
-# TODO: Add tests for filters
+  context "filters" do
+    setup { controller.stubs(:flash).returns(Hash.new) }
+
+    context "with a current user" do
+      setup do
+        @user = Factory.create(:user)
+        controller.stubs(:current_user).returns(@user)
+      end
+
+      context "no user required" do
+        should "set the flash" do
+          controller.expects(:redirect_to).with(new_user_session_url)
+          controller.send(:require_no_user)
+          assert_equal 'You must be logged out to access this page.', 
+                       controller.instance_eval { flash[:notice] }
+        end
+      end
+
+      context "user required" do
+        should "not set the flash" do
+          controller.send(:user_required)
+          assert_nil controller.instance_eval { flash[:notice] }
+        end
+      end
+
+      context "admin required" do
+        context "without admin user" do
+          should "set the flash" do
+            controller.send(:admin_required)
+            assert_equal 'Sorry, you don\'t have access to that.', 
+                         controller.instance_eval { flash[:notice] }
+          end
+        end
+
+        context "with admin user" do
+          should "not set the flash" do
+            @user.add_role('admin')
+            controller.stubs(:current_user).returns(@user)
+            assert_nil controller.instance_eval { flash[:notice] }
+          end
+        end
+      end
+    end
+
+    context "without a current user" do
+      setup { controller.stubs(:current_user).returns(false) }
+
+      context "no user required" do
+        should "not set the flash" do
+          controller.send(:require_no_user)
+          assert_nil controller.instance_eval { flash[:notice] }
+        end
+      end
+
+      context "user required" do
+        should "set the flash" do
+          controller.expects(:redirect_to).with(new_user_session_url)
+          controller.send(:user_required)
+          assert_equal 'You must be logged in to access this page.', 
+                       controller.instance_eval { flash[:notice] }
+        end
+      end
+
+      context "admin required" do
+        should "set the flash" do
+          controller.expects(:redirect_to).with(new_user_session_url)
+          controller.send(:admin_required)
+          assert_equal 'You must be logged in to access this page.', 
+                       controller.instance_eval { flash[:notice] }
+        end
+      end
+    end
+  end
 end

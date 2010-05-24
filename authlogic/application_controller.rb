@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     !current_user_session.nil?
   end
 
-  # Returns +true+ if a +User+ is logged into the application and the user is
+  # Returns +true+ if a +User+ is logged into the application and the user 
   # is an administrator.
   def admin_logged_in?
     logged_in? && current_user.admin?
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   
   def require_no_user
     if current_user
-      flash[:notice] = "You must be logged out to access this page"
+      flash[:notice] = "You must be logged out to access this page."
       redirect_to new_user_session_url
     end
   end
@@ -52,8 +52,13 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_required
-    unless current_user && current_user.admin?
-      flash[:error] = "Sorry, you don't have access to that."
+    if current_user
+      unless current_user.admin?
+        flash[:notice] = "Sorry, you don't have access to that."
+      end
+    else
+      flash[:notice] = "You must be logged in to access this page."
+      redirect_to new_user_session_url
     end
   end
 end
