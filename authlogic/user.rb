@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
                   :email,    :first_name, 
                   :last_name
 
+  # The possible roles that a user can have
+  ROLES = ['admin']
+
   # Returns the first and last names of the user.
   def full_name
     "#{first_name} #{last_name}"

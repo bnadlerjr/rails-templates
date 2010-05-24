@@ -1,0 +1,20 @@
+- content_for(:head) do
+  = stylesheet_link_tag 'users.css'
+
+= link_to 'Create New User', new_user_path
+= render_flash
+%table
+  %thead
+    %th Email Address
+    %th{:colspan => '3'} Admin?
+  %tbody
+    - if @users.blank?
+      = for user in @users
+        %tr
+          %td= link_to h(user.email), user
+          %td= user.admin? ? 'Yes' : 'No'
+          %td= link_to 'Edit', edit_user_path(user)
+          %td= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :destroy
+    - else
+      %tr
+        %td No data to display.

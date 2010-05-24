@@ -47,20 +47,20 @@ if yes?(about + "\ncontinue?(y/n)")
     'test/functional/users_controller_test.rb'
 
   run "mkdir app/views/users" if !File.directory?('app/views/users')
-  download_and_patch root, "authlogic/user.form.html.erb", 
-    'app/views/users/_form.html.erb'
+  download_and_patch root, "authlogic/user.form.html.haml", 
+    'app/views/users/_form.html.haml'
 
-  download_and_patch root, "authlogic/user.edit.html.erb", 
-    'app/views/users/edit.html.erb'
+  download_and_patch root, "authlogic/user.edit.html.haml", 
+    'app/views/users/edit.html.haml'
 
-  download_and_patch root, "authlogic/user.index.html.erb", 
-    'app/views/users/index.html.erb'
+  download_and_patch root, "authlogic/user.index.html.haml", 
+    'app/views/users/index.html.haml'
 
-  download_and_patch root, "authlogic/user.new.html.erb", 
-    'app/views/users/new.html.erb'
+  download_and_patch root, "authlogic/user.new.html.haml", 
+    'app/views/users/new.html.haml'
 
-  download_and_patch root, "authlogic/user.show.html.erb", 
-    'app/views/users/show.html.erb'
+  download_and_patch root, "authlogic/user.show.html.haml", 
+    'app/views/users/show.html.haml'
   
   # User sessions
   generate(:session, "user_session")
@@ -76,8 +76,8 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, "authlogic/user_sessions_controller_test.rb", 
     'test/functional/user_sessions_controller_test.rb'
 
-  download root, "authlogic/sessions.new.html.erb", 
-    'app/views/user_sessions/new.html.erb'
+  download root, "authlogic/sessions.new.html.haml", 
+    'app/views/user_sessions/new.html.haml'
 
   # Application
   download_and_patch root, "authlogic/application_controller.rb", 
@@ -107,11 +107,11 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, "authlogic/password_reset_instructions.erb", 
     'app/views/notifier/password_reset_instructions.erb'
 
-  download root, "authlogic/password.edit.html.erb", 
-    'app/views/password_resets/edit.html.erb'
+  download root, "authlogic/password.edit.html.haml", 
+    'app/views/password_resets/edit.html.haml'
 
-  download root, "authlogic/password.new.html.erb", 
-    'app/views/password_resets/new.html.erb'
+  download root, "authlogic/password.new.html.haml", 
+    'app/views/password_resets/new.html.haml'
 
   rake "db:migrate" if yes?("\nRun user migrations?(y/n)")
 end

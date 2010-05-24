@@ -1,7 +1,8 @@
 about = <<-CODE
 \n
 |-----------------------------------------------------------------------------|
- Standard Rails template.
+ Standard Rails template. Uses HAML and SASS for templating/CSS (haml must be
+ in $PATH).
 
  IMPORTANT: This template overwrites several files and is meant to be run on a 
             fresh app.
@@ -15,6 +16,7 @@ if yes?(about + "\ncontinue?(y/n)")
   run "rm README"
   run "rm public/images/rails.png"
   run "cp config/database.yml config/database.yml.sample"
+  run "haml --rails ."
 
   # Layouts
   file 'app/views/layouts/application.html.erb', <<-CODE

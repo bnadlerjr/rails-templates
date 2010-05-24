@@ -1,0 +1,13 @@
+- semantic_form_for(@user) do |f|
+  - f.inputs do
+    = f.input :email
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :password
+    = f.input :password_confirmation
+    = f.input :roles, :as => :check_boxes, :collection => User::ROLES
+  - f.buttons(:class => 'clear') do
+    %hr
+    = submit_tag button_name
+    or
+    = link_to "Cancel", users_path
