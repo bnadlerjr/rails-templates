@@ -23,6 +23,7 @@ if yes?(about + "\ncontinue?(y/n)")
   gem "mocha", :environment => :test
   gem "pickle", :environment => :test 
   generate :cucumber
+  generate :pickle, 'paths', 'email'
 
   download_and_patch root, 
     'test-frameworks/test_helper.rb', 'test/test_helper.rb'

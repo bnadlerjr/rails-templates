@@ -79,6 +79,8 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, "authlogic/sessions.new.html.haml", 
     'app/views/user_sessions/new.html.haml'
 
+  download root, "authlogic/login.feature", "features/login.feature"
+
   # Application
   download_and_patch root, "authlogic/application_controller.rb", 
     'app/controllers/application_controller.rb'
@@ -115,6 +117,7 @@ if yes?(about + "\ncontinue?(y/n)")
 
   # Layout
   download root, "authlogic/layout.sessions.html.haml",
-    'app/views/user_sessions.html.haml'
+    'app/views/layouts/user_sessions.html.haml'
+
   rake "db:migrate" if yes?("\nRun user migrations?(y/n)")
 end

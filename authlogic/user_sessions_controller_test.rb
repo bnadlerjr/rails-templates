@@ -3,7 +3,7 @@ require 'test_helper'
 class UserSessionsControllerTest < ActionController::TestCase
   context 'on GET to :new' do
     setup do
-      controller.stubs(:require_no_user).returns(true)
+      controller.stubs(:no_user_required).returns(true)
       the_user_session = UserSession.new
       get :new
     end
@@ -15,7 +15,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 
   context 'on POST to :create' do
     setup do
-      controller.stubs(:require_no_user).returns(true)
+      controller.stubs(:no_user_required).returns(true)
       @the_user_session = UserSession.new
       UserSession.stubs(:new).returns(@the_user_session)
     end
@@ -27,7 +27,7 @@ class UserSessionsControllerTest < ActionController::TestCase
       end
 
       should_respond_with :redirect
-      should_redirect_to('root url') { root_url }
+      should_redirect_to('users url') { users_path }
       should_set_the_flash_to 'Login successful!'
     end
 
@@ -39,7 +39,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 
       should_respond_with :success
       should_render_template :new
-      should_set_the_flash_to 'Invalid email or password.'
+      should_set_the_flash_to 'Incorrect email or password. Please try again.'
     end
 
     context 'with bad password' do
@@ -50,7 +50,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 
       should_respond_with :success
       should_render_template :new
-      should_set_the_flash_to 'Invalid email or password.'
+      should_set_the_flash_to 'Incorrect email or password. Please try again.'
     end
   end
 
