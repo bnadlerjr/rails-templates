@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.user
   end
   
-  def require_no_user
+  def no_user_required
     if current_user
       flash[:notice] = "You must be logged out to access this page."
       redirect_to new_user_session_url

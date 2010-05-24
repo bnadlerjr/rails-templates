@@ -48,7 +48,7 @@ class ApplicationControllerTest < ActionController::TestCase
       context "no user required" do
         should "set the flash" do
           controller.expects(:redirect_to).with(new_user_session_url)
-          controller.send(:require_no_user)
+          controller.send(:no_user_required)
           assert_equal 'You must be logged out to access this page.', 
                        controller.instance_eval { flash[:notice] }
         end
@@ -85,7 +85,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
       context "no user required" do
         should "not set the flash" do
-          controller.send(:require_no_user)
+          controller.send(:no_user_required)
           assert_nil controller.instance_eval { flash[:notice] }
         end
       end
