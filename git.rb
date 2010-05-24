@@ -19,6 +19,14 @@ tmp/*
 doc/api
 doc/app
 config/database.yml
+Makefile
+*.o
+*.bundle
+*.log
+conftest.*
+public/javascripts/all.js
+public/stylesheets/*.css
+*.swp
 CODE
 
 git :add => "."
