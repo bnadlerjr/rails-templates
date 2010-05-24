@@ -113,5 +113,8 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, "authlogic/password.new.html.haml", 
     'app/views/password_resets/new.html.haml'
 
+  # Layout
+  download root, "authlogic/layout.sessions.html.haml",
+    'app/views/user_sessions.html.haml'
   rake "db:migrate" if yes?("\nRun user migrations?(y/n)")
 end

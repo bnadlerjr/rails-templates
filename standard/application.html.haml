@@ -1,0 +1,31 @@
+!!! XML
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en"}
+  %head
+    %title INSERT TITLE!!!
+    = stylesheet_link_tag 'base'
+    = javascript_include_tag 'prototype'
+    = javascript_include_tag 'effects'
+    = javascript_include_tag 'application'
+    = yield(:head)
+
+  %body#container{:class => "#{params[:controller]} #{params[:action]}"}
+    #header
+      %h1 Site ID
+      - authenticated_only do
+        %ol#pri-nav
+          %li= link_to "Home", root_url
+          - admin_only do
+            %li= link_to "Manage Users", users_path
+      %ol#utility
+        - anonymous_only do
+          %li= link_to "Login", login_path
+        - authenticated_only do
+          %li= link_to h(current_user.email), user_path(current_user)
+          %li= link_to "Logout", logout_path, :method => :delete
+        %li= link_to "Help", "#", :class => 'highlight'
+    #content
+      = yield
+    #footer
+      %hr
+      %p.quiet.small.center FOOTER TEXT GOES HERE

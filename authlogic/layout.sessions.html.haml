@@ -1,0 +1,13 @@
+!!! XML
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en"}
+  %head
+    %title INSERT TITLE!!!
+    = stylesheet_link_tag 'base'
+    = yield(:head)
+
+  %body#container
+    #center-content
+      = yield
+      %hr
+      %p.quiet.small.center FOOTER TEXT GOES HERE
