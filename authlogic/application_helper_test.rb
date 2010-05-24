@@ -42,4 +42,52 @@ class ApplicationHelperTest < ActionView::TestCase
       assert_nil admin_only { "result" }
     end
   end
+
+  context "flash helpers" do
+    should "render the flash" do
+      self.stubs(:flash).returns({ :notice => 'Test message.' })
+      assert_equal "<div id=\"flash\">" +
+                   "<p class=\"notice\">Test message.</p></div>", render_flash
+    end
+
+    should "return nil if flash is nil" do
+      self.stubs(:flash).returns(nil)
+      assert_nil render_flash
+    end
+
+    should "return nil if flash is empty" do
+      self.stubs(:flash).stubs("empty?").returns(true)
+      assert_nil render_flash
+    end
+  end
+
+  context "error helper" do
+    setup { @obj = Object.new }
+
+    should "show all errors" do
+      errors = [1, 2, 3]
+      errors.stubs(:full_messages).returns(['Error 1', 'Error 2', 'Error 3'])
+      @obj.stubs(:errors).returns(errors)
+      assert_equal "<div class=\"error\">" +
+                   "<p>There were some errors when trying to save:</p>" +
+                   "<ol class=\"disc\">" +
+                   "<li>Error 1</li><li>Error 2</li><li>Error 3</li>" +
+                   "</ol></div>", errors_for(@obj)
+    end
+
+    should "show single error" do
+      errors = [1]
+      errors.stubs(:full_messages).returns('Error 1')
+      @obj.stubs(:errors).returns(errors)
+      assert_equal "<div class=\"error\">" +
+                   "<p>There was an error when trying to save:</p>" +
+                   "<ol class=\"disc\"><li>Error 1</li></ol></div>", 
+                   errors_for(@obj)
+    end
+
+    should "return nil if there are no errors" do
+      @obj.stubs(:errors).returns(Array.new)
+      assert_nil errors_for(@obj)
+    end
+  end
 end

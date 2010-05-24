@@ -24,11 +24,12 @@ module ApplicationHelper
   # Renders the flash
   def render_flash
     unless flash.nil? || flash.empty?
-      content_tag(:div, :id => 'flash') do
-        flash.each do |key, msg|
-          content_tag(:p, msg, :class => key)
-        end
+      messages = []
+      flash.each do |key, msg|
+        messages << "<p class=\"#{key}\">#{msg}</p>"
       end
+
+      content_tag(:div, messages, :id => 'flash')
     end
   end
 
