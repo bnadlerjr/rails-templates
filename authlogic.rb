@@ -62,6 +62,12 @@ if yes?(about + "\ncontinue?(y/n)")
   download_and_patch root, "authlogic/user.show.html.haml", 
     'app/views/users/show.html.haml'
   
+  download_and_patch root, "authlogic/custom_steps.rb",
+    'features/step_definitions/custom_steps.rb'
+
+  download root, "authlogic/manage_users.feature", 
+    "features/manage_users.feature"
+
   # User sessions
   generate(:session, "user_session")
   generate(:controller, "user_sessions")

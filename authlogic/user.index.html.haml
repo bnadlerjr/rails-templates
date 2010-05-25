@@ -8,13 +8,13 @@
     %th Email Address
     %th{:colspan => '3'} Admin?
   %tbody
-    - if @users.blank?
+    - if !@users.blank?
       = for user in @users
-        %tr
+        %tr{:id => "user_#{user.id}"}
           %td= link_to h(user.email), user
           %td= user.admin? ? 'Yes' : 'No'
           %td= link_to 'Edit', edit_user_path(user)
-          %td= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :destroy
+          %td= link_to "Delete", user_path(user), :method => :delete
     - else
       %tr
         %td No data to display.
