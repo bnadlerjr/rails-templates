@@ -1,0 +1,167 @@
+@import base/color.sass
+
+// Font sizes, line heights & margins are calculated based on H1 values in ems
+!h1_size          = 4em
+!h1_margin_bottom = 0.5em
+
+html
+  :font-size 100.01%
+
+body
+  :font-size 75%
+  :font-family "Helvetica Neue", Arial, Helvetica, sans-serif
+
+h1, h2, h3, h4, h5, h6
+  :font-weight normal
+  :color = !primary_dark
+
+h1
+  :font-size = !h1_size
+  :line-height 1
+  :margin-bottom = !h1_margin_bottom
+
+h2
+  :font-size = !h1_size * 0.5
+  :margin-bottom = !h1_margin_bottom * 1.5
+
+h3
+  :font-size = !h1_size * 0.375
+  :line-height 1
+  :margin-bottom = !h1_margin_bottom * 2
+
+h4
+  :font-size = !h1_size * 0.3
+  :line-height 1.25
+  :margin-bottom = !h1_margin_bottom * 2.5
+
+h5
+  :font-size = !h1_size * 0.25
+  :font-weight bold
+  :margin-bottom = !h1_margin_bottom * 3
+
+h6
+  :font-size = !h1_size * 0.25
+  :font-weight bold
+
+p
+  :margin = "0 0 #{!h1_size * 0.375}"
+  img
+    &.left
+      :float left
+      :margin = "#{!h1_size * 0.375} #{!h1_size * 0.375} #{!h1_size * 0.375} 0"
+      :padding 0
+
+    &.right
+      :float right
+      :margin = "#{!h1_size * 0.375} 0 #{!h1_size * 0.375} #{!h1_size * 0.375}"
+
+a
+  :color blue
+  :text-decoration none
+
+  &:focus, &:hover
+    :text-decoration underline
+
+blockquote
+  :margin = !h1_size * 0.375
+  :color = !text_light
+  :font-style italic
+
+strong
+  :font-weight bold
+
+em
+  :font-style italic
+
+dfn
+  :font-style italic
+  :font-weight bold
+
+sup, sub
+  :line-height 0
+
+abbr, acronym
+  :border-bottom = "1px dotted #{!text_light}"
+
+address
+  :margin = "0 0 #{!h1_size * 0.375}"
+  :font-style italic
+
+del
+  :color = !text_light
+
+pre
+  :margin = "#{!h1_size * 0.375} 0"
+  :white-space pre
+  :font 1em 'andale mono', 'lucida console', monospace
+  :line-height = !h1_size * 0.375
+
+code, tt
+  :font 1em 'andale mono', 'lucida console', monospace
+  :line-height = !h1_size * 0.375
+
+ul, ol
+  :margin = "0 #{!h1_size * 0.375} #{!h1_size * 0.375} 0"
+  :padding-left = !h1_size * 0.83325
+
+ul
+  :list-style-type disc
+
+ol
+  :list-style-type decimal
+
+dl
+  :margin = "0 0 #{!h1_size * 0.375} 0"
+  dt
+    :font-weight bold
+
+dd
+  :margin-left = !h1_size * 0.375
+
+table
+  :margin-top 1em
+  :margin-bottom = !h1_size * 0.35
+  :width 100%
+
+th
+  :font-weight bold
+
+thead th
+  :background = !primary_medium
+  :color = !text_light
+
+th, td, caption
+  :padding 4px 10px 4px 5px
+
+tr.even td
+  :background = !primary_light
+
+tfoot
+  :font-style italic
+
+caption
+  :background = !primary_light
+
+.tiny
+  :font-size = !h1_size * 0.125
+  :margin-bottom = !h1_size * 0.46875
+  :line-height = !h1_size * 0.46875
+
+.small
+  :font-size = !h1_size * 0.2
+  :margin-bottom = !h1_size * 0.46875
+  :line-height = !h1_size * 0.46875
+
+.large
+  :font-size = !h1_size * 0.3
+  :line-height = !h1_size * 0.625
+  :margin-bottom = !h1_size * 0.3125
+
+.hide
+  :display none
+
+.quiet
+  :color = !text_medium
+
+.center
+  :text-align center

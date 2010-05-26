@@ -1,0 +1,41 @@
+@import base/color.sass
+
+form
+	&.formtastic
+		:background = !secondary_light
+		:border = "1px solid #{!secondary_dark}"
+		:padding 1em
+		:margin 1em 0
+		hr
+			:background-color = !secondary_dark
+			:color = !secondary_dark
+		fieldset
+			legend
+				:font-weight bold
+				:padding-bottom 0.25em
+			ol
+				a
+					:color = !attention_color
+					:padding 0.25em
+					&:hover
+						:color = !text_light
+						:background-color = !attention_color
+				li
+					:padding 0 0 0.5em 0
+					:margin-bottom 0.25em
+					label
+						:padding 0 0 0.25em 0
+						:font-weight bold
+						:width 100%
+					input, textarea
+						:border = "1px solid #{!text_medium}"
+						:padding 0.5em
+						&:focus
+							:border 1px solid #26808c
+					textarea
+						:height 10em
+					&.required
+						abbr
+							:color = !attention_color
+					&.error
+						:padding 0.5em
