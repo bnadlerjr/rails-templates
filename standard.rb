@@ -55,5 +55,5 @@ if yes?(about + "\ncontinue?(y/n)")
   run "rm 'public/stylesheets/formtastic_changes.css'" if File.exists?('public/stylesheets/formtastic_changes.css')
 
   # Images
-  run "cp -r ./standard/images public/images"
+  run "cp -r #{File.join(root, 'standard/images/*')} public/images"
 end

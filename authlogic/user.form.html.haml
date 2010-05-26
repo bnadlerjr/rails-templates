@@ -8,7 +8,6 @@
     = f.input :password_confirmation
     = f.input :roles, :as => :check_boxes, :collection => User::ROLES
   - f.buttons(:class => 'clear') do
-    %hr
     = submit_tag button_name
     or
     = link_to "Cancel", users_path
