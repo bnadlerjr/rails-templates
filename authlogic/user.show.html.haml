@@ -1,32 +1,33 @@
-- content_for(:head) do
-	= stylesheet_link_tag 'users.css'
+- content_for(:sidebar) do
+  = render_flash
 
-= render_flash
-= errors_for(@user)
+- content_for(:main) do
+  %h2 User Information
+  %dl
+    %dt Email:
+    %dd= h @user.email
 
-%dl
-	%dt Email:
-	%dd= h @user.email
+    %dt Login count:
+    %dd= h @user.login_count
 
-	%dt Login count:
-	%dd= h @user.login_count
+    %dt Last request at:
+    %dd= h @user.last_request_at
 
-	%dt Last request at:
-	%dd= h @user.last_request_at
+    %dt Last login at:
+    %dd= h @user.last_login_at ||= 'No Data.'
 
-	%dt Last login at:
-	%dd= h @user.last_login_at ||= 'No Data.'
+    %dt Current login at:
+    %dd= h @user.current_login_at
 
-	%dt Current login at:
-	%dd= h @user.current_login_at
+    %dt Last login IP:
+    %dd= h @user.last_login_ip ||= 'No Data.'
 
-	%dt Last login IP:
-	%dd= h @user.last_login_ip ||= 'No Data.'
+    %dt Current login IP:
+    %dd= h @user.current_login_ip
+    
+    %dt Admin?
+    %dd= @user.admin? ? 'Yes' : 'No'
 
-	%dt Current login IP:
-	%dd= h @user.current_login_ip
-	
-	%dt Admin?
-	%dd= @user.admin? ? 'Yes' : 'No'
-
-= link_to 'Edit', edit_user_path
+  = link_to 'Edit', edit_user_path
+  or
+  = link_to 'Go Back to User List', users_path

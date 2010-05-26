@@ -1,1 +1,6 @@
-= render :partial => 'form', :locals => { :user => @user, :button_name => 'Add User' }
+- content_for(:sidebar) do
+  = render_flash
+
+- content_for(:main) do
+  %h2 Create New User 
+  = render :partial => 'form', :locals => { :user => @user, :button_name => 'Add User' }

@@ -46,8 +46,14 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, 'standard/_type.sass', 
     'public/stylesheets/sass/base/_type.sass'
 
+  download root, 'standard/envision.sass',
+    'public/stylesheets/sass/envision.sass'
+
   # Remove formtastic specific stylesheets if they exist. Formtastic
   # styles are covered by the sass files above
   run "rm 'public/stylesheets/formtastic.css'" if File.exists?('public/stylesheets/formtastic.css')
   run "rm 'public/stylesheets/formtastic_changes.css'" if File.exists?('public/stylesheets/formtastic_changes.css')
+
+  # Images
+  run "cp -r ./standard/images public/images"
 end

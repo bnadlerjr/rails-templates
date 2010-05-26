@@ -4,28 +4,35 @@
   %head
     %title INSERT TITLE!!!
     = stylesheet_link_tag 'base'
+    = stylesheet_link_tag 'envision'
     = javascript_include_tag 'prototype'
     = javascript_include_tag 'effects'
     = javascript_include_tag 'application'
     = yield(:head)
 
-  %body#container{:class => "#{params[:controller]} #{params[:action]}"}
-    #header
-      %h1 Site ID
-      - authenticated_only do
-        %ol#pri-nav
-          %li= link_to "Home", root_url
+  %body{:id => "#{params[:controller]} #{params[:action]}"}
+    #wrap
+      #header
+        %h1#logo-text= link_to "Logo", root_url
+        %p#slogan Site slogan goes here...
+        #header-links
+          %ul
+            - anonymous_only do
+              %li= link_to "Login", login_path
+            - authenticated_only do
+              %li= link_to h(current_user.email), user_path(current_user)
+              %li= link_to "Logout", login_path
+            %li= link_to "Help", "#", :class => 'highlight'
+      #menu
+        %ul
+          %li#current= link_to "Home", root_url
           - admin_only do
             %li= link_to "Manage Users", users_path
-      %ol#utility
-        - anonymous_only do
-          %li= link_to "Login", login_path
-        - authenticated_only do
-          %li= link_to h(current_user.email), user_path(current_user)
-          %li= link_to "Logout", logout_path, :method => :delete
-        %li= link_to "Help", "#", :class => 'highlight'
-    #content
-      = yield
-    #footer
-      %hr
-      %p.quiet.small.center FOOTER TEXT GOES HERE
+      #content-wrap
+        #sidebar
+          = yield :sidebar
+        #main
+          = yield :main
+      #footer
+        %p
+          &copy; 2010 <strong><a href="http://bobnadler.com">Bob Nadler, Jr.</a></strong>&nbsp;|&nbsp;Based on design by: <a href="http://www.styleshout.com">styleshout</a>
