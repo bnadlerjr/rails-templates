@@ -25,9 +25,9 @@
             %li= link_to "Help", "#", :class => 'highlight'
       #menu
         %ul
-          %li#current= link_to "Home", root_url
+          %li= menu_link_to "Home", root_url
           - admin_only do
-            %li= link_to "Manage Users", users_path
+            %li= menu_link_to "Manage Users", users_path
       #content-wrap
         #sidebar
           = yield :sidebar
