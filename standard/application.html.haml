@@ -21,7 +21,7 @@
               %li= link_to "Login", login_path
             - authenticated_only do
               %li= link_to h(current_user.email), user_path(current_user)
-              %li= link_to "Logout", login_path
+              %li= link_to "Logout", logout_path
             %li= link_to "Help", "#", :class => 'highlight'
       #menu
         %ul

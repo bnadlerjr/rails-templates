@@ -75,7 +75,6 @@ if yes?(about + "\ncontinue?(y/n)")
   generate(:session, "user_session")
   generate(:controller, "user_sessions")
   route "map.resource :user_session, :only => [:new, :create, :destroy]"
-  route "map.root :controller => 'user_sessions', :action => 'new'"
   route 'map.login "login", :controller => "user_sessions", :action => "new"'
   route 'map.logout "logout", :controller => "user_sessions", :action => "destroy"'
 

@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:success] = "Login successful!"
-      redirect_to users_path
+      redirect_to root_url
     else
       flash[:error] = 'Incorrect email or password. Please try again.'
       render :action => :new

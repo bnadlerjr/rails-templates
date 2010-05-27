@@ -27,7 +27,7 @@ class UserSessionsControllerTest < ActionController::TestCase
       end
 
       should_respond_with :redirect
-      should_redirect_to('users url') { users_path }
+      should_redirect_to('home page') { root_path }
       should_set_the_flash_to 'Login successful!'
     end
 
