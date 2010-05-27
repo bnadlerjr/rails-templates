@@ -49,6 +49,9 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, 'standard/envision.sass',
     'public/stylesheets/sass/envision.sass'
 
+  download root, 'standard/envision-login.sass',
+    'public/stylesheets/sass/envision-login.sass'
+
   # Remove formtastic specific stylesheets if they exist. Formtastic
   # styles are covered by the sass files above
   run "rm 'public/stylesheets/formtastic.css'" if File.exists?('public/stylesheets/formtastic.css')

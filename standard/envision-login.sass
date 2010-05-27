@@ -1,0 +1,202 @@
+/********************************************
+ *   HTML ELEMENTS
+ ********************************************
+
+/* Top Elements
+
+*
+  margin: 0
+  padding: 0
+  outline: 0
+
+body
+  background: #CCC
+  font: 70% / 1.5em Verdana, Tahoma, arial, sans-serif
+  color: #555
+  text-align: center
+
+/* links
+
+a
+  text-decoration: none
+  color: #2180BC
+  background: inherit
+  &:visited
+    text-decoration: none
+    color: #2180BC
+    background: inherit
+  &:hover
+    color: #88ac0b
+    background: inherit
+    text-decoration: underline
+
+/* headers
+
+h1, h2, h3
+  font-family: "Trebuchet MS", Tahoma, Sans-serif
+
+h1
+  font-size: 150%
+  font-weight: normal
+  color: #006699
+
+h2
+  font-size: 140%
+  text-transform: uppercase
+  color: #88ac0b
+
+h3
+  font-size: 120%
+  color: #666666
+
+/* images
+
+img
+  background: #FAFAFA
+  border: 1px solid #E5E5E5
+  padding: 5px
+  &.float-right
+    margin: 5px 0px 10px 10px
+  &.float-left
+    margin: 5px 10px 10px 0px
+
+h1, h2, h3, p
+  padding: 10px
+  margin: 0
+
+ul, ol
+  margin: 5px 20px
+  padding: 0 20px
+
+/* form elements
+
+form
+  margin: 10px
+  padding: 0 5px
+  border: 1px solid #f2f2f2
+  background-color: #FAFAFA
+
+label
+  display: block
+  font-weight: bold
+  margin: 5px 0
+
+input
+  padding: 2px
+  border: 1px solid #eee
+  font: normal 1em Verdana, sans-serif
+  color: #777
+
+textarea
+  width: 400px
+  padding: 2px
+  font: normal 1em Verdana, sans-serif
+  border: 1px solid #eee
+  height: 100px
+  display: block
+  color: #777
+
+input.button
+  font: bold 12px Arial, Sans-serif
+  height: 24px
+  margin: 0
+  padding: 2px 3px
+  color: #FFF
+  background: #8eb50c url(../images/button-bg.jpg) repeat-x 0 0
+  border: none
+
+/********************************************
+ *   LAYOUT
+ ********************************************
+
+#wrap
+  width: 512px
+  background: #cccccc url(../images/content-small.jpg) repeat-y center top
+  margin: 0 auto
+  text-align: left
+
+#content-wrap
+  clear: both
+  width: 452px
+  padding: 0
+  margin: 10px auto
+
+#header
+  width: 512px
+  position: relative
+  height: 103px
+  background: #cccccc url(../images/header-small.jpg) no-repeat center top
+  padding: 0
+  color: #FFF
+  h1#logo-text a
+    position: absolute
+    margin: 0
+    padding: 0
+    font: bolder 44px "Trebuchet MS", Arial, Sans-serif
+    letter-spacing: -2px
+    color: #FFF
+    text-transform: none
+    text-decoration: none
+    background: transparent
+    /* change the values of top and left to adjust the position of the logo
+    top: 25px
+    left: 47px
+  p#slogan
+    position: absolute
+    margin: 0
+    padding: 0
+    font: normal 12px "Trebuchet MS", Arial, Sans-serif
+    text-transform: none
+    color: #FFF
+    /* change the values of top and left to adjust the position of the slogan
+    top: 75px
+    left: 75px
+
+/* Menu
+
+#menu
+  clear: both
+  margin: 0 auto
+  padding: 0
+  background: url(../images/menu.jpg) repeat-x 0 0
+  font: bold 12px / 37px Verdana, Arial, Tahoma, Sans-serif
+  height: 37px
+  width: 452px
+
+/* Main Column
+
+#main
+  width: 96.5%
+  padding: 0
+  margin: 5px 0 0 5px
+  display: inline
+  h2
+    margin-top: 10px
+    font: Bold 140% "Trebuchet MS", Tahoma, Sans-serif
+    color: #88ac0b
+    padding: 5px 0 5px 25px
+    border-bottom: 1px solid #EFF0F1
+    background: white url(../images/square-green.png) no-repeat 3px 50%
+    text-transform: none
+    a
+      background: none
+      color: #88ac0b
+      text-decoration: none
+  ul li
+    list-style-image: url(../images/bullet.gif)
+
+/* Footer
+
+#footer
+  color: #C6DDEE
+  background: #cccccc url(../images/footer-small.jpg) no-repeat center top
+  clear: both
+  width: 512px
+  height: 65px
+  text-align: center
+  font-size: 92%
+  a
+    color: #FFF
+    text-decoration: none
+    &:hover
+      text-decoration: underline

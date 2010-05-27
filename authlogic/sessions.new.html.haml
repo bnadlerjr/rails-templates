@@ -1,6 +1,3 @@
-- content_for :head do
-  = stylesheet_link_tag 'user_sessions.css'
-
 #login
   = render_flash
 
@@ -11,5 +8,4 @@
       = f.input :password
       = f.input :remember_me, :as => :boolean, :label => 'Remember Me', :required => false
     - f.buttons(:class => :clear) do
-      %hr
       = submit_tag 'Login'

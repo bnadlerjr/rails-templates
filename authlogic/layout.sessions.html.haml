@@ -4,11 +4,18 @@
   %head
     %title INSERT TITLE!!!
     = stylesheet_link_tag 'base'
+    = stylesheet_link_tag 'envision-login'
     = yield(:head)
 
-  %body#container
-    #center-content
-      = render_flash
-      = yield
-      %hr
-      %p.quiet.small.center FOOTER TEXT GOES HERE
+  %body{:id => "#{params[:controller]} #{params[:action]}"}
+    #wrap
+      #header
+        %h1#logo-text= link_to "Logo", root_url
+        %p#slogan Site slogan goes here...
+      #content-wrap
+        #main
+          = render_flash
+          = yield
+      #footer
+        %p
+          &copy; 2010 <strong><a href="http://bobnadler.com">Bob Nadler, Jr.</a></strong>&nbsp;|&nbsp;Based on design by <a href="http://www.styleshout.com">styleshout</a>
