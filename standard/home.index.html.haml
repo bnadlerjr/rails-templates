@@ -1,0 +1,39 @@
+- content_for(:sidebar) do
+  %h3 Sidebar Menu
+  %ul.sidemenu
+    %li <a href="#">Link 1</a>
+    %li <a href="#">Link 2</a>
+    %li <a href="#">Link 3</a>
+
+- content_for(:main) do
+  %h2 Home
+  %p The purpose of this page is to show the various styles that are in effect.
+  
+  %h3 Example Lists
+  %ol
+    %li Here is an example
+    %li of an ordered list
+  %ul
+    %li Here is an example
+    %li of an unordered list
+
+  %h3 Blockquote
+  %blockquote
+    %p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat...
+
+  %h3 Tables
+  %table
+    %thead
+      %tr
+        %th A
+        %th B
+        %th C
+    %tbody
+      %tr
+        %td 1
+        %td 2
+        %td 3
+      %tr
+        %td 10
+        %td 20
+        %td 30

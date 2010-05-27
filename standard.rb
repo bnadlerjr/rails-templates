@@ -59,4 +59,24 @@ if yes?(about + "\ncontinue?(y/n)")
 
   # Images
   run "cp -r #{File.join(root, 'standard/images/*')} public/images"
+
+  # Home Controller
+  run "mkdir app/views/home"
+  route "map.resource :home, :only => :index"
+  route "map.root :controller => 'home', :action => 'index'"
+
+  download root, "standard/home_controller.rb",
+    "app/controllers/home_controller.rb"
+
+  download root, "standard/home_controller_test.rb",
+    "test/functional/home_controller_test.rb"
+
+  download root, "standard/home_helper.rb",
+    "app/helpers/home_helper.rb"
+
+  download root, "standard/home_helper_test.rb",
+    "test/unit/helpers/home_helper_test.rb"
+
+  download root, "standard/home.index.html.haml",
+    "app/views/home/index.html.haml"
 end
