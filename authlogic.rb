@@ -68,6 +68,9 @@ if yes?(about + "\ncontinue?(y/n)")
   download root, "authlogic/manage_users.feature", 
     "features/manage_users.feature"
 
+  download root, "authlogic/add_user.rake",
+    "lib/tasks/user.rake"
+
   # User sessions
   generate(:session, "user_session")
   generate(:controller, "user_sessions")
