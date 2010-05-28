@@ -21,7 +21,7 @@ Feature: Manage users
 			And I fill in "Last Name" with "Smith"
 			And I fill in "Password" with "foobar"
 			And I fill in "Password Confirmation" with "foobar"
-			And I press "Add User"
+			And I press "Create User"
 		Then I should see "User was successfully created."
 		
 	Scenario: View User Information
@@ -48,7 +48,7 @@ Feature: Manage users
 			And I fill in "Password" with "foobarbaz"
 			And I fill in "Password Confirmation" with "foobarbaz"
 			And I check "admin"
-			And I press "Save User"
+			And I press "Update User"
 		Then I should see "User was successfully updated."
 		
 	Scenario: Delete User

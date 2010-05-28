@@ -14,7 +14,6 @@ CODE
 
 if yes?(about + "\ncontinue?(y/n)")
   run "rm public/index.html"
-  run "rm public/favicon.ico"
   run "rm README"
   run "rm public/images/rails.png"
   run "cp config/database.yml config/database.yml.sample"

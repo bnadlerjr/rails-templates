@@ -1,36 +1,89 @@
 @import base/color.sass
 
 form
-	&.formtastic
-		:padding 1em
-		:margin 1em 0
-		fieldset
-			legend
-				:font-weight bold
-				:padding-bottom 0.25em
-			ol
-				a
-					:color = !attention_color
-					:padding 0.25em
-					&:hover
-						:color = !text_light
-						:background-color = !attention_color
-				li
-					:padding 0 0 0.5em 0
-					:margin-bottom 0.25em
-					label
-						:padding 0 0 0.25em 0
-						:font-weight bold
-						:width 100%
-					input, textarea
-						:border = "1px solid #{!text_medium}"
-						:padding 0.5em
-						&:focus
-							:border 1px solid #26808c
-					textarea
-						:height 10em
-					&.required
-						abbr
-							:color = !attention_color
-					&.error
-						:padding 0.5em
+  &.formtastic
+    :padding 1em
+    :margin 1em 0
+    fieldset
+      legend
+        :font-weight bold
+        :padding-bottom 0.25em
+      ol
+        a
+          :color = !attention_color
+          :padding 0.25em
+          &:hover
+            :color = !text_light
+            :background-color = !attention_color
+        li
+          :padding 0 0 0.5em 0
+          :margin-bottom 0.25em
+          label
+            :padding 0 0 0.25em 0
+            :font-weight bold
+            :width 100%
+          input, textarea
+            :border = "1px solid #{!text_medium}"
+            :padding 0.5em
+            &:focus
+              :border 1px solid #26808c
+          textarea
+            :height 10em
+          &.required
+            abbr
+              :color = !attention_color
+          &.error
+            :padding 0.5em
+          &.commit
+            input
+              &.create, &.update, &.submit
+                display: inline-block
+                margin: 0
+                padding: 5px 10px 5px
+                font: bold
+                font-style: normal
+                text-decoration: none
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.20)
+                background: none
+                border: none
+                white-space: nowrap
+                cursor: pointer
+                user-select: none
+                -moz-user-select: none
+                _width: 0
+                overflow: visible
+                color: #fff
+                position: relative
+                line-height: 1
+                background-image: url('../images/button.png')
+                background-repeat: repeat-x
+                background-position: 0 0
+                text-shadow: 0-1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25)
+                border-radius: 5px
+                -moz-border-radius: 5px
+                -webkit-border-radius: 5px
+                -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5)
+                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5)
+                border-bottom: 1px solid transparent\9
+                _background-image: none
+                display: -moz-inline-stack
+                vertical-align: middle
+                *display: inline !important
+                position: relative
+                zoom: 1
+                -moz-user-select: none
+                background-color: #59a901
+
+                &::selection
+                  background: transparent
+
+                &:hover
+                  background-position: 0 -50px
+                  color: #fff
+
+                &:active
+                  background-position: 0 100%
+                  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.7)
+                  -webkit-box-shadow: none
+                  border-bottom: 0\9
+                  border-top: 1px solid #666\9

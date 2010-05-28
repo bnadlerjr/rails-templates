@@ -7,5 +7,5 @@
       = f.input :email
       = f.input :password
       = f.input :remember_me, :as => :boolean, :label => 'Remember Me', :required => false
-    - f.buttons(:class => :clear) do
-      = submit_tag 'Login'
+    - f.buttons(:class => 'clear') do
+      = f.commit_button 'Login'
