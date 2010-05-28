@@ -35,6 +35,9 @@ form
           &.error
             :padding 0.5em
           &.commit
+            ol
+              li
+                :display inline
             input
               &.create, &.update, &.submit
                 display: inline-block
@@ -72,7 +75,7 @@ form
                 position: relative
                 zoom: 1
                 -moz-user-select: none
-                background-color: #59a901
+                background-color = !button_color
 
                 &::selection
                   background: transparent

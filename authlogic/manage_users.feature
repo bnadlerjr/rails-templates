@@ -38,7 +38,7 @@ Feature: Manage users
 	
 	Scenario: Edit User Screen
 		When I follow "Edit"
-		Then I should see "Cancel"
+		Then I should see "Edit User"
 	
 	Scenario: Edit User
 		When I follow "Edit"

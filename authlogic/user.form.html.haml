@@ -6,7 +6,4 @@
     = f.input :password
     = f.input :password_confirmation
     = f.input :roles, :as => :check_boxes, :collection => User::ROLES
-  - f.buttons(:class => 'clear') do
     = f.commit_button
-    or
-    = link_to "Cancel", users_path
