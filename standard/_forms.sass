@@ -20,9 +20,9 @@ form
           :margin-bottom 0.25em
           label
             :padding 0 0 0.25em 0
-            :font-weight bold
             :width 100%
           input, textarea
+            :font-size 1.2em
             :border = "1px solid #{!text_medium}"
             :padding 0.5em
             &:focus
@@ -35,9 +35,7 @@ form
           &.error
             :padding 0.5em
           &.commit
-            ol
-              li
-                :display inline
+            :margin-top 2em
             input
               &.create, &.update, &.submit
                 display: inline-block
