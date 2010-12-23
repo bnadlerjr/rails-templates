@@ -1,9 +1,12 @@
-path = File.join(File.dirname(__FILE__), "templates")
+IGNORE = %w[.DS_Store *.swp .rvmrc doc/coverage]
 
 puts " Adjusting .gitignore, initializing git repo and creating initial commit ..."
 puts "-------------------------------------------------------------------------"
-run  "cat #{path}/gitignore >> .gitignore"
+
+append_file '.gitignore', IGNORE.join("\n")
+
 git  :init
 git  :add => "."
 git  :commit => "-am 'Initial commit.'"
+
 puts "-------------------------------------------------------------------------"
