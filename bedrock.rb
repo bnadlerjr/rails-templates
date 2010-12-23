@@ -5,7 +5,7 @@ TEMPLATES = [
   'metric_fu.rb',       'capistrano.rb'
 ]
 
-TEMPLATES.each { |t| load_template File.join(TEMPLATE_ROOT, t) }
+TEMPLATES.each { |t| apply File.join(TEMPLATE_ROOT, t) }
 
 run "rake rails:freeze:gems"
 run "rake gems:install"

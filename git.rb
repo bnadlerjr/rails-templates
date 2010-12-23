@@ -1,33 +1,9 @@
-# Rails template for setting up git
+path = File.join(File.dirname(__FILE__), "templates")
 
-["./tmp/pids", "./tmp/sessions", "./tmp/sockets", "./tmp/cache"].each do |f|
-  run("rmdir ./#{f}")
-end
- 
-run("find . \\( -type d -empty \\) -and \\( -not -regex ./\\.git.* \\) -exec touch {}/.gitignore \\;")
-
-git :init
-
-file '.gitignore', <<-CODE
-log/*.log
-log/*.pid
-db/*.db
-db/*.sqlite3
-db/schema.rb
-tmp/*
-.DS_Store
-doc/api
-doc/app
-config/database.yml
-Makefile
-*.o
-*.bundle
-*.log
-conftest.*
-public/javascripts/all.js
-public/stylesheets/*.css
-*.swp
-CODE
-
-git :add => "."
-git :commit => "-a -m 'Initial commit'"
+puts " Adjusting .gitignore, initializing git repo and creating initial commit ..."
+puts "----------------------------------------------------------------------------"
+run  "cat #{path}/gitignore >> .gitignore"
+git  :init
+git  :add => "."
+git  :commit => "-am 'Initial commit.'"
+puts "----------------------------------------------------------------------------"
