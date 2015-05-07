@@ -1,11 +1,11 @@
-= Rails Templates
+# Rails Templates
 
-== Author
+## Author
 Bob Nadler, Jr. (bobnadler.com)
 thethirdswitch [at] gmail [dot] com
 
-== Description
+## Description
 Various Rails templates. See individual template files for more information.
 
-== License
+## License
 Licensed under the same terms as Rails.
