@@ -5,7 +5,7 @@ Bob Nadler, Jr. (bobnadler.com)
 bnadlerjr [at] gmail [dot] com
 
 ## Description
-Various Rails templates. See individual template files for more information.
+Various Rails templates.
 
 ## Contributing
 
