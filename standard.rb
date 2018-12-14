@@ -16,3 +16,7 @@ remove_file 'README.rdoc'
 template 'example.env.tt'
 copy_file 'gitignore', '.gitignore', force: true
 copy_file 'Procfile'
+copy_file 'bin/setup', force: true
+chmod 'bin/setup', '+x'
+copy_file 'bin/update', force: true
+chmod 'bin/update', '+x'
