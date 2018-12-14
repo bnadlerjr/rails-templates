@@ -15,3 +15,4 @@ template 'README.md.tt', force: true
 remove_file 'README.rdoc'
 template 'example.env.tt'
 copy_file 'gitignore', '.gitignore', force: true
+copy_file 'Procfile'
