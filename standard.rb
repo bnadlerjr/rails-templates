@@ -11,3 +11,5 @@
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
+template 'README.md.tt', force: true
+remove_file 'README.rdoc'
