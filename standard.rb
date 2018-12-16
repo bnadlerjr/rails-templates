@@ -24,13 +24,10 @@ template "database.yml.tt", 'config/database.yml', force: true
 copy_file "puma.rb.tt", 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', "config/initializers/generators.rb"
 copy_file 'rotate_log.rb.tt', "config/initializers/rotate_log.rb"
-# copy_file "config/initializers/secret_token.rb"
-# copy_file "config/initializers/version.rb"
-# template "config/initializers/sidekiq.rb.tt"
 
-# gsub_file "config/initializers/filter_parameter_logging.rb", /\[:password\]/ do
-  # "%w[password secret session cookie csrf]"
-# end
+gsub_file "config/initializers/filter_parameter_logging.rb", /\[:password\]/ do
+  "%w[password secret session cookie csrf]"
+end
 
 # apply "config/environments/development.rb"
 # apply "config/environments/production.rb"
