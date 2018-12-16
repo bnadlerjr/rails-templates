@@ -22,21 +22,8 @@ copy_file 'bin/update', force: true
 chmod 'bin/update', '+x'
 template "database.yml.tt", 'config/database.yml', force: true
 copy_file "puma.rb.tt", 'config/puma.rb', force: true
+copy_file 'generators.rb.tt', "config/initializers/generators.rb"
 
-# remove_file "config/secrets.yml"
-# copy_file "config/sidekiq.yml"
-
-# if apply_capistrano?
-  # template "config/deploy.rb.tt"
-  # template "config/deploy/production.rb.tt"
-  # template "config/deploy/staging.rb.tt"
-# end
-
-# gsub_file "config/routes.rb", /  # root 'welcome#index'/ do
-  # '  root "home#index"'
-# end
-
-# copy_file "config/initializers/generators.rb"
 # copy_file "config/initializers/rotate_log.rb"
 # copy_file "config/initializers/secret_token.rb"
 # copy_file "config/initializers/version.rb"
