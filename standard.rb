@@ -29,6 +29,20 @@ gsub_file "config/initializers/filter_parameter_logging.rb", /\[:password\]/ do
   "%w[password secret session cookie csrf]"
 end
 
+mailer_regex = /config\.action_mailer\.raise_delivery_errors = false\n/
+comment_lines "config/environments/development.rb", mailer_regex
+insert_into_file "config/environments/development.rb", after: mailer_regex do
+  <<-RUBY
+
+  # Ensure mailer works in development.
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
+  config.action_mailer.asset_host = "http://localhost:3000"
+  RUBY
+end
+
 # apply "config/environments/development.rb"
 # apply "config/environments/production.rb"
 # apply "config/environments/test.rb"
