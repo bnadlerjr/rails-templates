@@ -13,6 +13,9 @@ template 'database.yml.tt', 'config/database.yml', force: true
 copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
+copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
+remove_file 'app/assets/stylesheets/application.css'
+
 
 gsub_file 'config/initializers/filter_parameter_logging.rb', /\[:password\]/ do
   '%w(password secret session cookie csrf)'
