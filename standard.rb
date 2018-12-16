@@ -23,8 +23,7 @@ chmod 'bin/update', '+x'
 template "database.yml.tt", 'config/database.yml', force: true
 copy_file "puma.rb.tt", 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', "config/initializers/generators.rb"
-
-# copy_file "config/initializers/rotate_log.rb"
+copy_file 'rotate_log.rb.tt', "config/initializers/rotate_log.rb"
 # copy_file "config/initializers/secret_token.rb"
 # copy_file "config/initializers/version.rb"
 # template "config/initializers/sidekiq.rb.tt"
