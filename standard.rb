@@ -21,8 +21,8 @@ chmod 'bin/setup', '+x'
 copy_file 'bin/update', force: true
 chmod 'bin/update', '+x'
 template "database.yml.tt", 'config/database.yml', force: true
+copy_file "puma.rb.tt", 'config/puma.rb', force: true
 
-# copy_file "config/puma.rb", force: true
 # remove_file "config/secrets.yml"
 # copy_file "config/sidekiq.yml"
 
