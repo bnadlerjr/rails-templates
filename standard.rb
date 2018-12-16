@@ -43,7 +43,8 @@ insert_into_file "config/environments/development.rb", after: mailer_regex do
   RUBY
 end
 
-# apply "config/environments/development.rb"
+uncomment_lines "config/environments/production.rb", /config\.force_ssl = true/
+
 # apply "config/environments/production.rb"
 # apply "config/environments/test.rb"
 # template "config/environments/staging.rb.tt"
