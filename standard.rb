@@ -15,7 +15,7 @@ copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
 remove_file 'app/assets/stylesheets/application.css'
-
+remove_dir 'test'
 
 gsub_file 'config/initializers/filter_parameter_logging.rb', /\[:password\]/ do
   '%w(password secret session cookie csrf)'
@@ -51,3 +51,5 @@ insert_into_file \
   config.action_mailer.asset_host = 'http://localhost:3000'
   RUBY
 end
+
+generate 'rspec:install'
