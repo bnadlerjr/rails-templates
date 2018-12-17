@@ -58,4 +58,7 @@ insert_into_file \
   RUBY
 end
 
-generate 'rspec:install'
+after_bundle do
+  run 'spring stop'
+  generate 'rspec:install'
+end
