@@ -61,4 +61,7 @@ end
 after_bundle do
   run 'spring stop'
   generate 'rspec:install'
+  gsub_file 'spec/spec_helper.rb', '=begin', 'begin'
+  gsub_file 'spec/spec_helper.rb', '=end', 'end'
+  run 'bundle binstubs rspec-core'
 end
