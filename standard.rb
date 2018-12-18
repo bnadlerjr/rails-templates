@@ -75,5 +75,7 @@ RUBY
   end
   gsub_file 'spec/spec_helper.rb', '=begin', 'begin'
   gsub_file 'spec/spec_helper.rb', '=end', 'end'
+  gsub_file 'spec/rails_helper.rb', /  # Remove this line.*/, ''
+  gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
   run 'bundle binstubs rspec-core'
 end
