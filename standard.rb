@@ -61,6 +61,18 @@ end
 after_bundle do
   run 'spring stop'
   generate 'rspec:install'
+  prepend_to_file 'spec/spec_helper.rb' do
+    <<-RUBY
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/bin/'
+  add_filter '/db/'
+  add_filter '/spec/'
+end
+puts 'REQUIRED SIMPLECOV'
+
+RUBY
+  end
   gsub_file 'spec/spec_helper.rb', '=begin', 'begin'
   gsub_file 'spec/spec_helper.rb', '=end', 'end'
   run 'bundle binstubs rspec-core'
