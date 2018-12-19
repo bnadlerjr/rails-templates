@@ -78,4 +78,8 @@ RUBY
   gsub_file 'spec/rails_helper.rb', /  # Remove this line.*/, ''
   gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
   run 'bundle binstubs rspec-core'
+  generate 'clearance:install'
+  generate 'clearance:routes'
+  generate 'clearance:views'
+  run 'bundle exec rake db:migrate'
 end
