@@ -18,6 +18,11 @@ chdir APP_ROOT do
   system('bundle check') || system!('bundle install')
   system('bin/yarn')
 
+  puts '== Retrieving Vendored Assets =='
+  ['admin-lte/2.4.8/css/AdminLTE.css', 'admin-lte/2.4.8/css/skins/skin-green.css', 'admin-lte/2.4.8/js/adminlte.js'].each do |file|
+    system!("curl --create-dirs --output ./vendor/assets/themes/#{file} https://cdnjs.cloudflare.com/ajax/libs/#{file}")
+  end
+
   puts "\n== Copying sample files =="
   unless File.exist?('.env')
     cp 'example.env', '.env'

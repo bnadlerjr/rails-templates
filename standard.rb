@@ -14,6 +14,7 @@ copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
+copy_file 'application.js.tt', 'app/assets/javascripts/application.js', force: true
 remove_file 'app/assets/stylesheets/application.css'
 remove_dir 'test'
 
@@ -82,4 +83,6 @@ RUBY
   generate 'clearance:routes'
   generate 'clearance:views'
   run 'bundle exec rake db:migrate'
+  copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
+  run 'bin/setup'
 end
