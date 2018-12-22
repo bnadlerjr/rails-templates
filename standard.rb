@@ -81,7 +81,6 @@ RUBY
   run 'bundle binstubs rspec-core'
   generate 'clearance:install'
   generate 'clearance:routes'
-  generate 'clearance:views'
   run 'bundle exec rake db:migrate'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
