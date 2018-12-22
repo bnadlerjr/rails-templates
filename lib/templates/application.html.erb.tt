@@ -30,7 +30,7 @@
                     </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <% render 'shared/user_menu' %>
+                            <%= render 'shared/user_menu' %>
                         </ul>
                     </div>
                 </nav>
@@ -47,10 +47,9 @@
 
             <div class="content-wrapper">
                 <section class="content-header">
-                    <h1>
-                        Page Header
-                        <small>Optional description</small>
-                    </h1>
+                    <section class="content-header">
+                        <h1><%= t("#{controller.controller_name}.#{controller.action_name}.title") %></h1>
+                    </section>
                 </section>
 
                 <section class="content container-fluid">

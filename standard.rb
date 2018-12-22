@@ -78,22 +78,53 @@ RUBY
   gsub_file 'spec/spec_helper.rb', '=end', 'end'
   gsub_file 'spec/rails_helper.rb', /  # Remove this line.*/, ''
   gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
+  gsub_file 'spec/rails_helper.rb', /\# Add additional requires.*/, "require 'clearance/rspec'"
   run 'bundle binstubs rspec-core'
   generate 'clearance:install'
   generate 'clearance:routes'
+  generate 'clearance:specs'
   run 'bundle exec rake db:migrate'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
   copy_file 'views/sessions/new.html.erb.tt', 'app/views/sessions/new.html.erb', force: true
+  copy_file 'views/dashboard/index.html.erb.tt', 'app/views/dashboard/index.html.erb', force: true
   copy_file 'views/passwords/new.html.erb.tt', 'app/views/passwords/new.html.erb', force: true
   copy_file 'views/passwords/edit.html.erb.tt', 'app/views/passwords/edit.html.erb', force: true
   copy_file 'views/passwords/create.html.erb.tt', 'app/views/passwords/create.html.erb', force: true
   copy_file 'views/shared/_user_menu.html.erb.tt', 'app/views/shared/_user_menu.html.erb', force: true
+  copy_file 'controllers/dashboard_controller.rb.tt', 'app/controllers/dashboard_controller.rb', force: true
   copy_file 'controllers/users_controller.rb.tt', 'app/controllers/users_controller.rb', force: true
   copy_file 'controllers/sessions_controller.rb.tt', 'app/controllers/sessions_controller.rb', force: true
   copy_file 'controllers/passwords_controller.rb.tt', 'app/controllers/passwords_controller.rb', force: true
   copy_file 'config/locales/clearance.en.yml.tt', 'config/locales/clearance.en.yml', force: true
+  copy_file 'config/locales/dashboard.en.yml.tt', 'config/locales/dashboard.en.yml', force: true
   gsub_file 'config/routes.rb', 'clearance/', ''
+  copy_file 'spec/controllers/dashboard_controller_spec.rb.tt', 'spec/controllers/dashboard_controller_spec.rb', force: true
+  append_to_file 'db/seeds.rb' do
+    <<-RUBY
+if Rails.env.development?
+  User.create_with(password: 'secret').find_or_create_by!(email: 'jdoe@example.com')
+end
+RUBY
+  end
+  insert_into_file 'app/controllers/application_controller.rb', after: 'include Clearance::Controller' do
+    <<-RUBY
+
+  before_action :require_login
+RUBY
+  end
+  insert_into_file 'config/initializers/clearance.rb', after: 'Clearance.configure do |config|' do
+    <<-RUBY
+  config.redirect_url = '/dashboard'
+RUBY
+
+  end
+  insert_into_file 'config/routes.rb', after: 'Rails.application.routes.draw do' do
+    <<-RUBY
+  root 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
+RUBY
+  end
   run 'bin/setup'
 end
