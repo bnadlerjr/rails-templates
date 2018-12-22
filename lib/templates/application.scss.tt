@@ -2,4 +2,4 @@
 @import "rails_bootstrap_forms";
 @import "font-awesome";
 @import "./admin-lte/2.4.8/css/AdminLTE";
-@import "./admin-lte/2.4.8/css/skins/skin-green";
+@import "./admin-lte/2.4.8/css/skins/skin-blue";
