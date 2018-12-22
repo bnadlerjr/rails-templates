@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Top Navigation</title>
+        <title>AdminLTE</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
         <!--[if lt IE 9]>
@@ -19,7 +19,6 @@
     </head>
     <body class="hold-transition skin-blue layout-top-nav">
         <div class="wrapper">
-
             <header class="main-header">
                 <nav class="navbar navbar-static-top">
                     <div class="container">
@@ -40,7 +39,7 @@
                         <div class="navbar-custom-menu">
                             <ul class="nav navbar-nav">
                                 <% if signed_in? %>
-                                    <% render 'shared/user_menu' %>
+                                    <%= render 'shared/user_menu' %>
                                 <% else %>
                                     <li><%= link_to t('.sign_in'), sign_in_path %></li>
                                 <% end %>
@@ -50,26 +49,8 @@
                 </nav>
             </header>
 
-            <div class="content-wrapper">
-                <div class="container">
-                    <section class="content-header">
-                        <h1><%= t("#{controller.controller_name}.#{controller.action_name}.title") %></h1>
-                    </section>
-
-                    <section class="content">
-                        <%= yield %>
-                    </section>
-                </div>
-            </div>
-
-            <footer class="main-footer">
-                <div class="container">
-                    <div class="pull-right hidden-xs">
-                        <b>Version</b> 2.4.0
-                    </div>
-                    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights reserved.
-                </div>
-            </footer>
+            <%= render 'shared/content' %>
+            <%= render 'shared/footer' %>
         </div>
     </body>
 </html>

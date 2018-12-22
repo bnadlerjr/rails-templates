@@ -1,0 +1,8 @@
+en:
+  shared:
+    layouts:
+      application:
+        member_since: Member since %{date}
+    footer:
+      app_credit_html: Web application by %{href}
+      theme_credit_html: AdminLTE theme by %{href}

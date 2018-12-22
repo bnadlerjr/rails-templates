@@ -8,7 +8,7 @@
             <%= image_tag current_user.avatar_url, class: "img-circle", alt: "User Image" %>
             <p>
                 <%= current_user.email %>
-                <small><%= t('layouts.application.member_since', date: current_user.created_at.strftime('%b %e, %Y')) %></small>
+                <small><%= t('shared.layouts.application.member_since', date: current_user.created_at.strftime('%b %e, %Y')) %></small>
             </p>
         </li>
         <li class="user-footer">
