@@ -31,6 +31,7 @@ en:
         create: Sign up
   layouts:
     application:
+      member_since: Member since %{date}
       sign_in: Sign in
       sign_out: Sign out
     site:

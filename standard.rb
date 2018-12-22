@@ -100,7 +100,16 @@ RUBY
   copy_file 'config/locales/clearance.en.yml.tt', 'config/locales/clearance.en.yml', force: true
   copy_file 'config/locales/dashboard.en.yml.tt', 'config/locales/dashboard.en.yml', force: true
   gsub_file 'config/routes.rb', 'clearance/', ''
-  copy_file 'spec/controllers/dashboard_controller_spec.rb.tt', 'spec/controllers/dashboard_controller_spec.rb', force: true
+  # copy_file 'spec/controllers/dashboard_controller_spec.rb.tt', 'spec/controllers/dashboard_controller_spec.rb', force: true
+  copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
+  insert_into_file 'app/models/user.rb', after: 'include Clearance::User' do
+    <<-RUBY
+
+  def avatar_url
+    'blank-profile-picture.png'
+  end
+RUBY
+  end
   append_to_file 'db/seeds.rb' do
     <<-RUBY
 if Rails.env.development?
