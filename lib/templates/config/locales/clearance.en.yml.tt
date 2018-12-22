@@ -36,6 +36,9 @@ en:
     application:
       sign_in: Sign in
       sign_out: Sign out
+    site:
+      sign_in: Sign in
+      sign_out: Sign out
   passwords:
     create:
       description: You will receive an email within the next few minutes. It
