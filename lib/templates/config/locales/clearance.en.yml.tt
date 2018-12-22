@@ -51,10 +51,10 @@ en:
         your email address.
       title: Reset your password
   sessions:
-    form:
+    new:
       forgot_password: Forgot password?
       sign_up: Sign up
-    new:
+      sign_up_message_html: Don't have an account? %{href}.
       title: Sign in
   users:
     new:

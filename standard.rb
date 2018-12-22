@@ -86,11 +86,12 @@ RUBY
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
+  copy_file 'views/sessions/new.html.erb.tt', 'app/views/sessions/new.html.erb', force: true
   copy_file 'views/shared/_user_menu.html.erb.tt', 'app/views/shared/_user_menu.html.erb', force: true
   copy_file 'controllers/users_controller.rb.tt', 'app/controllers/users_controller.rb', force: true
   copy_file 'controllers/sessions_controller.rb.tt', 'app/controllers/sessions_controller.rb', force: true
   copy_file 'controllers/passwords_controller.rb.tt', 'app/controllers/passwords_controller.rb', force: true
   copy_file 'config/locales/clearance.en.yml.tt', 'config/locales/clearance.en.yml', force: true
-  gsub_file 'config/routes.rb', 'clearance/users', 'users'
+  gsub_file 'config/routes.rb', 'clearance/', ''
   run 'bin/setup'
 end
