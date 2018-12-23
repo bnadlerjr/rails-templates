@@ -3,6 +3,9 @@ en:
     layouts:
       application:
         member_since: Member since %{date}
+        menu:
+          dashboard: Dashboard
+        profile: Profile
     footer:
       app_credit_html: Web application by %{href}
       theme_credit_html: AdminLTE theme by %{href}

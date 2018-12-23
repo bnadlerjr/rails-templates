@@ -1,4 +1,11 @@
 class UsersController < Clearance::UsersController
-  layout 'site'
-  skip_before_action :require_login
+  layout 'site', only: :new
+  skip_before_action :require_login, only: :new
+
+  def edit
+  end
+
+  def update
+    # TODO: Update user
+  end
 end

@@ -1,3 +1,18 @@
+# TODO:
+# * Dockerfile for PG
+# * Grab jQuery and bootstrap via curl instead of using gems
+# * Dashboard link in sidebar
+# * User profile page
+# * Scaffold templates that incorporate the theme
+# * Fix Clearance specs
+# * Feature spec for Dashboard
+# * Confirm letter opener works correctly
+# * Setup Travis
+# * Setup Heroku
+# * Flesh out README
+# * Install rack-timeout
+# * ActiveAdmin?
+
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
 template 'README.md.tt', force: true
@@ -87,6 +102,7 @@ RUBY
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
+  copy_file 'views/users/edit.html.erb.tt', 'app/views/users/edit.html.erb', force: true
   copy_file 'views/sessions/new.html.erb.tt', 'app/views/sessions/new.html.erb', force: true
   copy_file 'views/dashboard/index.html.erb.tt', 'app/views/dashboard/index.html.erb', force: true
   copy_file 'views/passwords/new.html.erb.tt', 'app/views/passwords/new.html.erb', force: true
@@ -101,10 +117,22 @@ RUBY
   copy_file 'controllers/passwords_controller.rb.tt', 'app/controllers/passwords_controller.rb', force: true
   copy_file 'config/locales/clearance.en.yml.tt', 'config/locales/clearance.en.yml', force: true
   copy_file 'config/locales/dashboard.en.yml.tt', 'config/locales/dashboard.en.yml', force: true
+  copy_file 'config/locales/profile.en.yml.tt', 'config/locales/profile.en.yml', force: true
   copy_file 'config/locales/shared.en.yml.tt', 'config/locales/shared.en.yml', force: true
   gsub_file 'config/routes.rb', 'clearance/', ''
   # copy_file 'spec/controllers/dashboard_controller_spec.rb.tt', 'spec/controllers/dashboard_controller_spec.rb', force: true
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
+  insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
+    <<-RUBY
+
+  def menu_link_to(path, &block)
+    html_class = request.path == path ? 'active' : ''
+    content_tag 'li', class: html_class do
+      link_to(path, &block)
+    end
+  end
+RUBY
+  end
   insert_into_file 'app/models/user.rb', after: 'include Clearance::User' do
     <<-RUBY
 
@@ -134,8 +162,10 @@ RUBY
   end
   insert_into_file 'config/routes.rb', after: 'Rails.application.routes.draw do' do
     <<-RUBY
+
   root 'dashboard#index'
   get 'dashboard', to: 'dashboard#index'
+  get 'profile', to: 'users#edit'
 RUBY
   end
   run 'bin/setup'
