@@ -1,1 +1,4 @@
+<%= content_for :content_header do %>
+    <h1><%= t("dashboard.index.title") %></h1>
+<% end %>
 <p>Find me in app/views/dashboard/index.html.erb</p>

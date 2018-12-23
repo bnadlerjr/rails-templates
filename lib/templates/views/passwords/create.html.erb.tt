@@ -1,3 +1,6 @@
+<%= content_for :content_header do %>
+    <h1><%= t("passwords.create.title") %></h1>
+<% end %>
 <div id="clearance" class="callout callout-success password-reset">
   <p><%= t(".description") %></p>
 </div>
