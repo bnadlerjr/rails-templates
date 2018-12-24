@@ -1,8 +1,5 @@
 # TODO:
 # * Dockerfile for PG
-# * Grab jQuery and bootstrap via curl instead of using gems
-# * Dashboard link in sidebar
-# * User profile page
 # * Scaffold templates that incorporate the theme
 # * Fix Clearance specs
 # * Feature spec for Dashboard
@@ -12,6 +9,7 @@
 # * Flesh out README
 # * Install rack-timeout
 # * ActiveAdmin?
+# * Ability to upload an avatar on profile page
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true

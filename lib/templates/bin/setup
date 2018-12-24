@@ -4,6 +4,20 @@ include FileUtils
 
 # path to your application root.
 APP_ROOT = File.expand_path('..', __dir__)
+VENDOR_ASSETS = [
+  'admin-lte/2.4.8/css/AdminLTE.css',
+  'admin-lte/2.4.8/css/skins/skin-blue.css',
+  'admin-lte/2.4.8/js/adminlte.js',
+  'font-awesome/4.7.0/css/font-awesome.css',
+  'font-awesome/4.7.0/fonts/fontawesome-webfont.eot',
+  'font-awesome/4.7.0/fonts/fontawesome-webfont.svg',
+  'font-awesome/4.7.0/fonts/fontawesome-webfont.ttf',
+  'font-awesome/4.7.0/fonts/fontawesome-webfont.woff',
+  'font-awesome/4.7.0/fonts/fontawesome-webfont.woff2',
+  'jquery/1.9.1/jquery.js',
+  'twitter-bootstrap/3.4.0/css/bootstrap.css',
+  'twitter-bootstrap/3.4.0/js/bootstrap.js'
+]
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
@@ -19,8 +33,9 @@ chdir APP_ROOT do
   system('bin/yarn')
 
   puts '== Retrieving Vendored Assets =='
-  ['admin-lte/2.4.8/css/AdminLTE.css', 'admin-lte/2.4.8/css/skins/skin-blue.css', 'admin-lte/2.4.8/js/adminlte.js'].each do |file|
-    system!("curl --create-dirs --output ./vendor/assets/themes/#{file} https://cdnjs.cloudflare.com/ajax/libs/#{file}")
+  VENDOR_ASSETS.each do |file|
+    puts "\nRetrieving #{file}..."
+    system!("curl --progress-bar --create-dirs --output ./vendor/assets/themes/#{file} https://cdnjs.cloudflare.com/ajax/libs/#{file}")
   end
 
   puts "\n== Copying sample files =="
