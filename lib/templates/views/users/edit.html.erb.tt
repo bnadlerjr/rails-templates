@@ -2,24 +2,28 @@
     <h1><%= t("profile.edit.title") %></h1>
 <% end %>
 <div class="row">
-  <div class="box">
-    <%= bootstrap_form_for current_user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6", url: users_path, html: { method: :put } do |form| %>
-      <div class="box-body">
-        <%= form.email_field :email %>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Password</label>
-          <div class="col-sm-6">
-            <p class="form-control-static">
-              <%= link_to t('passwords.new.title'), user_password_path(current_user, token: current_user.confirmation_token, password: { email: current_user.email }), method: :post %>
-            </p>
+  <div class="col-md-8">
+    <div class="box">
+      <%= bootstrap_form_for current_user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6", url: users_path, html: { method: :put } do |form| %>
+        <div class="box-body">
+          <%= form.email_field :email %>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-6">
+              <p class="form-control-static">
+                <%= link_to t('passwords.new.title'), user_password_path(current_user, token: current_user.confirmation_token, password: { email: current_user.email }), method: :post %>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="box-footer">
-        <div class="col-sm-offset-2">
-          <%= form.primary %>
-        </div>
-      </div>
-    <% end %>
+        <div class="box-footer">
+          <div class="col-sm-offset-2">
+            <%= form.primary %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <%= image_tag current_user.avatar_url, width: "320px", class: "img-responsive", alt: "Profile Image" %>
   </div>
 </div>
