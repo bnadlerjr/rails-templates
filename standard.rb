@@ -1,14 +1,11 @@
 # TODO:
-# * Dockerfile for PG
 # * Scaffold templates that incorporate the theme
-# * Fix Clearance specs
-# * Feature spec for Dashboard
-# * Setup Travis
+# * Fix Bullet
+# * Setup CircleCI
 # * Setup Heroku
 # * Flesh out README
 # * ActiveAdmin?
 # * Ability to upload an avatar on profile page
-# * Use menu_link helper on site layout
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
@@ -26,7 +23,7 @@ copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
-copy_file 'application.js.tt', 'app/assets/javascripts/application.js', force: true
+copy_file 'application.js.tt', 'app/javascripts/packs/application.js', force: true
 remove_file 'app/assets/stylesheets/application.css'
 remove_dir 'test'
 
@@ -46,11 +43,11 @@ insert_into_file 'config/environments/development.rb', after: mailer_regex do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.asset_host = 'http://localhost:3000'
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.console = true
-    Bullet.rails_logger = true
-  end
+  # config.after_initialize do
+  #   Bullet.enable = true
+  #   Bullet.console = true
+  #   Bullet.rails_logger = true
+  # end
   RUBY
 end
 
@@ -94,8 +91,6 @@ RUBY
   run 'bundle binstubs rspec-core'
   generate 'clearance:install'
   generate 'clearance:routes'
-  generate 'clearance:specs'
-  run 'bundle exec rake db:migrate'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
@@ -117,7 +112,6 @@ RUBY
   copy_file 'config/locales/profile.en.yml.tt', 'config/locales/profile.en.yml', force: true
   copy_file 'config/locales/shared.en.yml.tt', 'config/locales/shared.en.yml', force: true
   gsub_file 'config/routes.rb', 'clearance/', ''
-  # copy_file 'spec/controllers/dashboard_controller_spec.rb.tt', 'spec/controllers/dashboard_controller_spec.rb', force: true
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
