@@ -3,15 +3,31 @@ require: rubocop-rails
 AllCops:
   Exclude:
     - "./bin/**/*"
+    - "./config/routes.rb"
+    - "./db/**/*"
     - "./node_modules/**/*"
+    - "./vendor/**/*"
 
 Metrics/BlockLength:
   Exclude:
-    - "tasks/**/*.rake"
+    - "config/**/*"
     - "spec/**/*"
+    - "tasks/**/*.rake"
 
 Metrics/MethodLength:
   Max: 20
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
 
 Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
@@ -20,6 +36,9 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
   Enabled: false
 
 Style/NumericLiterals:

@@ -2,6 +2,9 @@ class UsersController < Clearance::UsersController
   layout 'site', only: :new
   skip_before_action :require_login, only: :new
 
+  def new
+  end
+
   def edit
   end
 

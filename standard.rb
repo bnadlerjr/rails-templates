@@ -2,9 +2,7 @@
 # * Scaffold templates that incorporate the theme
 # * Fix Bullet
 # * Setup CircleCI
-# * Setup Heroku
 # * Flesh out README
-# * ActiveAdmin?
 # * Ability to upload an avatar on profile page
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
@@ -29,7 +27,7 @@ remove_file 'app/assets/stylesheets/application.css'
 remove_dir 'test'
 
 gsub_file 'config/initializers/filter_parameter_logging.rb', /\[:password\]/ do
-  '%w(password secret session cookie csrf)'
+  '%w[password secret session cookie csrf]'
 end
 
 mailer_regex = /config\.action_mailer\.raise_delivery_errors = false\n/
@@ -84,12 +82,11 @@ puts 'REQUIRED SIMPLECOV'
 
 RUBY
   end
-  gsub_file 'spec/spec_helper.rb', '=begin', 'begin'
-  gsub_file 'spec/spec_helper.rb', '=end', 'end'
+  gsub_file 'spec/spec_helper.rb', '=begin', ''
+  gsub_file 'spec/spec_helper.rb', '=end', ''
   gsub_file 'spec/rails_helper.rb', /  # Remove this line.*/, ''
   gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
   gsub_file 'spec/rails_helper.rb', /\# Add additional requires.*/, "require 'clearance/rspec'"
-  run 'bundle binstubs rspec-core'
   generate 'clearance:install'
   generate 'clearance:routes'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
@@ -123,7 +120,7 @@ RUBY
       link_to(path, &block)
     end
   end
-RUBY
+    RUBY
   end
   insert_into_file 'app/models/user.rb', after: 'include Clearance::User' do
     <<-RUBY
@@ -131,25 +128,27 @@ RUBY
   def avatar_url
     'blank-profile-picture.png'
   end
-RUBY
+    RUBY
   end
   append_to_file 'db/seeds.rb' do
     <<-RUBY
 if Rails.env.development?
   User.create_with(password: 'secret').find_or_create_by!(email: 'jdoe@example.com')
 end
-RUBY
+    RUBY
   end
   insert_into_file 'app/controllers/application_controller.rb', after: 'include Clearance::Controller' do
     <<-RUBY
 
   before_action :require_login
-RUBY
+    RUBY
+
   end
   insert_into_file 'config/initializers/clearance.rb', after: 'Clearance.configure do |config|' do
     <<-RUBY
+
   config.redirect_url = '/dashboard'
-RUBY
+    RUBY
 
   end
   insert_into_file 'config/routes.rb', after: 'Rails.application.routes.draw do' do
@@ -158,6 +157,8 @@ RUBY
   root 'dashboard#index'
   get 'dashboard', to: 'dashboard#index'
   get 'profile', to: 'users#edit'
-RUBY
+    RUBY
   end
+  run 'bundle binstubs rspec-core'
+  run 'bundle binstubs rubocop'
 end
