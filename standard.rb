@@ -13,6 +13,7 @@ template 'README.md.tt', force: true
 remove_file 'README.rdoc'
 template 'example.env.tt'
 copy_file 'gitignore', '.gitignore', force: true
+copy_file 'rubocop.yml', '.rubocop.yml'
 copy_file 'Procfile'
 copy_file 'bin/setup', force: true
 chmod 'bin/setup', '+x'
@@ -159,5 +160,4 @@ RUBY
   get 'profile', to: 'users#edit'
 RUBY
   end
-  run 'bin/setup'
 end
