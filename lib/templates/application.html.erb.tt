@@ -1,55 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE</title>
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>SB Admin 2</title>
         <%= csrf_meta_tag %>
         <%= csp_meta_tag %>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
-        <div class="wrapper">
-            <header class="main-header">
-                <a href="index2.html" class="logo">
-                    <span class="logo-mini"><b>A</b>LT</span>
-                    <span class="logo-lg"><b>Admin</b>LTE</span>
-                </a>
-                <nav class="navbar navbar-static-top" role="navigation">
-                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                        <span class="sr-only">Toggle navigation</span>
-                    </a>
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
-                            <%= render 'shared/user_menu' %>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-
-            <aside class="main-sidebar">
-                <section class="sidebar">
-                    <ul class="sidebar-menu" data-widget="tree">
-                        <%= menu_link_to dashboard_path do %>
-                            <i class="fa fa-tachometer"></i>
-                            <span><%= t('shared.layouts.application.menu.dashboard') %></span>
-                        <% end %>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                    </ul>
-                </section>
-            </aside>
-
-            <%= render 'shared/content' %>
-            <%= render 'shared/footer' %>
+    <body id="page-top">
+        <div id="wrapper">
+            <%= render 'shared/sidebar' %>
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <%= render 'shared/topbar' %>
+                    <%= render 'shared/content' %>
+                </div>
+                <%= render 'shared/footer' %>
+            </div>
         </div>
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
     </body>
 </html>

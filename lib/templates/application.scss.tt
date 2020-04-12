@@ -1,5 +1,4 @@
-@import "./twitter-bootstrap/3.4.0/css/bootstrap";
+@import "./twitter-bootstrap/4.4.0/css/bootstrap";
 @import "rails_bootstrap_forms";
-@import "./font-awesome/4.7.0/css/font-awesome.css";
-@import "./admin-lte/2.4.8/css/AdminLTE";
-@import "./admin-lte/2.4.8/css/skins/skin-blue";
+@import "./font-awesome/5.13.0/css/all.css";
+@import "./startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.css";

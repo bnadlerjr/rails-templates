@@ -4,6 +4,9 @@
 # * Setup CircleCI
 # * Flesh out README
 # * Ability to upload an avatar on profile page
+# * Add ActiveHash
+# * DataTables jQuery plugin
+# * Option for public signup
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
@@ -22,7 +25,7 @@ copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
-copy_file 'application.js.tt', 'app/javascripts/packs/application.js', force: true
+copy_file 'application.js.tt', 'app/javascript/packs/application.js', force: true
 remove_file 'app/assets/stylesheets/application.css'
 remove_dir 'test'
 
@@ -98,6 +101,9 @@ RUBY
   copy_file 'views/passwords/new.html.erb.tt', 'app/views/passwords/new.html.erb', force: true
   copy_file 'views/passwords/edit.html.erb.tt', 'app/views/passwords/edit.html.erb', force: true
   copy_file 'views/passwords/create.html.erb.tt', 'app/views/passwords/create.html.erb', force: true
+  copy_file 'views/shared/_search.html.erb.tt', 'app/views/shared/_search.html.erb', force: true
+  copy_file 'views/shared/_topbar.html.erb.tt', 'app/views/shared/_topbar.html.erb', force: true
+  copy_file 'views/shared/_sidebar.html.erb.tt', 'app/views/shared/_sidebar.html.erb', force: true
   copy_file 'views/shared/_content.html.erb.tt', 'app/views/shared/_content.html.erb', force: true
   copy_file 'views/shared/_user_menu.html.erb.tt', 'app/views/shared/_user_menu.html.erb', force: true
   copy_file 'views/shared/_footer.html.erb.tt', 'app/views/shared/_footer.html.erb', force: true
@@ -115,7 +121,7 @@ RUBY
     <<-RUBY
 
   def menu_link_to(path, &block)
-    html_class = request.path == path ? 'active' : ''
+    html_class = request.path.starts_with?(path) ? 'nav-item active' : 'nav-item'
     content_tag 'li', class: html_class do
       link_to(path, &block)
     end

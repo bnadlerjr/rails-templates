@@ -1,8 +1,9 @@
-<footer class="main-footer">
-    <div class="container">
-        <div class="pull-right hidden-xs">
-            <%= t('shared.footer.theme_credit_html', href: link_to('Almsaeed Studio', 'https://adminlte.io')) %>
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>
+                <%= t('shared.footer.app_credit_html', href: link_to('Bob Nadler, Jr.', 'http://bobnadler.com')) %>
+            </span>
         </div>
-        <%= t('shared.footer.app_credit_html', href: link_to('Bob Nadler, Jr.', 'http://bobnadler.com')) %>
     </div>
 </footer>

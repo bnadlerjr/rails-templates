@@ -16,3 +16,4 @@ conftest.*
 public/javascripts/all.js
 public/stylesheets/*.css
 *.swp
+/example

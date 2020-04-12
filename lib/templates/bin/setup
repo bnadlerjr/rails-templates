@@ -5,18 +5,13 @@ include FileUtils
 # path to your application root.
 APP_ROOT = File.expand_path('..', __dir__)
 VENDOR_ASSETS = [
-  'admin-lte/2.4.8/css/AdminLTE.css',
-  'admin-lte/2.4.8/css/skins/skin-blue.css',
-  'admin-lte/2.4.8/js/adminlte.js',
-  'font-awesome/4.7.0/css/font-awesome.css',
-  'font-awesome/4.7.0/fonts/fontawesome-webfont.eot',
-  'font-awesome/4.7.0/fonts/fontawesome-webfont.svg',
-  'font-awesome/4.7.0/fonts/fontawesome-webfont.ttf',
-  'font-awesome/4.7.0/fonts/fontawesome-webfont.woff',
-  'font-awesome/4.7.0/fonts/fontawesome-webfont.woff2',
-  'jquery/1.9.1/jquery.js',
-  'twitter-bootstrap/3.4.0/css/bootstrap.css',
-  'twitter-bootstrap/3.4.0/js/bootstrap.js'
+  'startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.css',
+  'startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.js',
+  'font-awesome/5.13.0/css/all.css',
+  'jquery/3.5.0/jquery.js',
+  'jquery-easing/1.4.1/jquery.easing.js',
+  'twitter-bootstrap/4.4.0/css/bootstrap.css',
+  'twitter-bootstrap/4.4.0/js/bootstrap.js'
 ]
 
 def system!(*args)
