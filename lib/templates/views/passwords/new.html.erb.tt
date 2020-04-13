@@ -1,22 +1,23 @@
-<%= content_for :content_header do %>
-    <h1><%= t("passwords.new.title") %></h1>
-<% end %>
-<div class="row">
-  <div class="col-md-6">
-    <div class="box box-primary">
-      <%= bootstrap_form_for :password, url: passwords_path do |form| %>
-        <div class="box-header">
-          <p class="box-title">
-            <%= t(".description") %>
-          </p>
+<div class="row justify-content-center">
+  <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+          <div class="col-lg-6">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-2"><%= t('passwords.new.title') %></h1>
+                <p class="mb-4"><%= t('passwords.new.description') %></p>
+              </div>
+              <%= bootstrap_form_for :password, url: passwords_path do |form| %>
+                <%= form.email_field :email %>
+                <%= form.primary %>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <div class="box-body">
-          <%= form.email_field :email %>
-        </div>
-        <div class="box-footer">
-          <%= form.primary %>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

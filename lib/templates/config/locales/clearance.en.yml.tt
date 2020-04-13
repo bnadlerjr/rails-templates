@@ -54,6 +54,7 @@ en:
       title: Sign in
   users:
     new:
+      forgot_password: Forgot password?
       sign_in: Sign in
       sign_in_message_html: Already have an account? %{href}.
       title: Sign up

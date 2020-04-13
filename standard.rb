@@ -9,6 +9,8 @@
 # * DataTables jQuery plugin
 # * Option for public signup
 # * Create site layout
+# * Add annotate models gem
+# * Look into using SCSS files individually so that colors can be customized
 
 # DONE IN EXAMPLE APP
 

@@ -1,21 +1,26 @@
-<%= content_for :content_header do %>
-    <h1><%= t("users.new.title") %></h1>
-<% end %>
-<div class="row">
-  <div class="col-md-6">
-    <div class="box box-primary">
-      <%= bootstrap_form_for @user do |form| %>
-        <div class="box-body">
-          <%= form.email_field :email %>
-          <%= form.password_field :password %>
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+      <div class="col-lg-7">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4"><%= t('users.new.title') %></h1>
+          </div>
+          <%= bootstrap_form_with model: @user do |form| %>
+              <%= form.email_field :email %>
+              <%= form.password_field :password %>
+              <%= form.primary %>
+          <% end %>
+          <hr>
+          <div class="text-center">
+            <%= link_to t("users.new.forgot_password"), new_password_path, class: 'small' %>
+          </div>
+          <div class="text-center">
+            <%= t('users.new.sign_in_message_html', href: link_to(t('.sign_in'), sign_in_path)) %>
+          </div>
         </div>
-        <div class="box-footer">
-          <%= form.primary %>
-          <p class="text-center">
-            <%= t('.sign_in_message_html', href: link_to(t('.sign_in'), sign_in_path)) %>
-          </p>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
