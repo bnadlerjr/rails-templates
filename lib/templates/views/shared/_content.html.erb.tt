@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <%= yield :content_header %>
+        <div class="row">
+            <%= yield :content_header %>
+        </div>
     </div>
     <div class="row">
         <% flash.each do |key, value| %>

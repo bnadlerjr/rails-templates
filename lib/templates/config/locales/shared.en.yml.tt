@@ -6,6 +6,6 @@ en:
         menu:
           dashboard: Dashboard
         profile: Profile
+        sign_out: Logout
     footer:
       app_credit_html: Web application by %{href}
-      theme_credit_html: AdminLTE theme by %{href}

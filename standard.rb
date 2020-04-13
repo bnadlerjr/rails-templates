@@ -5,8 +5,12 @@
 # * Flesh out README
 # * Ability to upload an avatar on profile page
 # * Add ActiveHash
+# * Add Royce-Rolls
 # * DataTables jQuery plugin
 # * Option for public signup
+# * Create site layout
+
+# DONE IN EXAMPLE APP
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
@@ -70,6 +74,10 @@ insert_into_file \
   RUBY
 end
 
+run('bin/yarn add @fortawesome/fontawesome-free')
+run('bin/yarn add startbootstrap-sb-admin-2')
+run('bin/yarn add popper.js')
+
 after_bundle do
   run 'spring stop'
   generate 'rspec:install'
@@ -123,7 +131,7 @@ RUBY
   def menu_link_to(path, &block)
     html_class = request.path.starts_with?(path) ? 'nav-item active' : 'nav-item'
     content_tag 'li', class: html_class do
-      link_to(path, &block)
+      link_to(path, class: 'nav-link', &block)
     end
   end
     RUBY
@@ -167,4 +175,22 @@ end
   end
   run 'bundle binstubs rspec-core'
   run 'bundle binstubs rubocop'
+
+  insert_into_file 'config/webpack/environment.js', after: "const { environment } = require('@rails/webpacker')" do
+    <<-JAVASCRIPT
+
+const webpack = require('webpack')
+environment.plugins.prepend('Provide',
+    new webpack.ProvidePlugin({
+        $: 'jquery/dist/jquery',
+        jQuery: 'jquery/dist/jquery',
+        Popper: ['popper.js', 'default']
+    })
+)
+
+    JAVASCRIPT
+  end
+
+  gsub_file 'node_modules/startbootstrap-sb-admin-2/js/sb-admin-2.js', '(function($) {', "$(document).on('turbolinks:load', function() {"
+  gsub_file 'node_modules/startbootstrap-sb-admin-2/js/sb-admin-2.js', '})(jQuery); // End of use strict', '})'
 end

@@ -4,15 +4,6 @@ include FileUtils
 
 # path to your application root.
 APP_ROOT = File.expand_path('..', __dir__)
-VENDOR_ASSETS = [
-  'startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.css',
-  'startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.js',
-  'font-awesome/5.13.0/css/all.css',
-  'jquery/3.5.0/jquery.js',
-  'jquery-easing/1.4.1/jquery.easing.js',
-  'twitter-bootstrap/4.4.0/css/bootstrap.css',
-  'twitter-bootstrap/4.4.0/js/bootstrap.js'
-]
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
@@ -26,12 +17,6 @@ chdir APP_ROOT do
   system! 'gem install bundler --conservative'
   system('bundle check') || system!('bundle install')
   system('bin/yarn')
-
-  puts '== Retrieving Vendored Assets =='
-  VENDOR_ASSETS.each do |file|
-    puts "\nRetrieving #{file}..."
-    system!("curl --progress-bar --create-dirs --output ./vendor/assets/themes/#{file} https://cdnjs.cloudflare.com/ajax/libs/#{file}")
-  end
 
   puts "\n== Copying sample files =="
   unless File.exist?('.env')
