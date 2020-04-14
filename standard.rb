@@ -16,10 +16,8 @@
 # * Remove search bar from topbar
 # * Errors for public signup form
 # * Errors for signin form
-# * Fix reset password link on profile form
 
 # DONE IN EXAMPLE APP
-# * Ability to update user info
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
