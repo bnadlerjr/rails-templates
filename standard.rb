@@ -11,9 +11,9 @@
 # * Option for public signup
 # * Add annotate models gem
 # * Look into using SCSS files individually so that colors can be customized
-# * Does logging out require a modal?
 # * Specs for all clearance controllers
 # * Do I want to include cucumber?
+# * Add CHANGELOG
 
 # DONE IN EXAMPLE APP
 
