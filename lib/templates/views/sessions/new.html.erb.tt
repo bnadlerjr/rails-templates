@@ -1,29 +1,21 @@
-<div class="row justify-content-center">
-  <div class="col-xl-10 col-lg-12 col-md-9">
-    <div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
-        <div class="row">
-          <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-          <div class="col-lg-6">
-            <div class="p-5">
-              <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4"><%= t("sessions.new.title") %></h1>
-              </div>
-              <%= bootstrap_form_for :session, url: session_path do |form| %>
-                <%= form.email_field :email %>
-                <%= form.password_field :password %>
-                <%= form.primary %>
-              <% end %>
-              <hr>
-              <div class="text-center">
-                <%= link_to t(".forgot_password"), new_password_path, class: 'small' %>
-              </div>
-              <div class="text-center">
-                <%= t('.sign_up_message_html', href: link_to(t('.sign_up'), sign_up_path)) %>
-              </div>
-            </div>
-          </div>
-        </div>
+<div class="row">
+  <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+  <div class="col-lg-6">
+    <div class="p-5">
+      <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4"><%= t("sessions.new.title") %></h1>
+      </div>
+      <%= bootstrap_form_for :session, url: session_path do |form| %>
+        <%= form.email_field :email %>
+        <%= form.password_field :password %>
+        <%= form.primary %>
+      <% end %>
+      <hr>
+      <div class="text-center">
+        <%= link_to t(".forgot_password"), new_password_path, class: 'small' %>
+      </div>
+      <div class="text-center">
+        <%= t('.sign_up_message_html', href: link_to(t('.sign_up'), sign_up_path)) %>
       </div>
     </div>
   </div>

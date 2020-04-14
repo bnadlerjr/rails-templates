@@ -11,17 +11,24 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body class="bg-gradient-primary">
     <div class="container">
-      <div class="row">
-          <% flash.each do |key, value| %>
-          <div class="alert alert-<%= 'notice' == key ? 'info' : key %>">
-              <%= value %>
+      <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+          <div class="row my-5">
+            <div class="col">
+              <% flash.each do |key, value| %>
+                <%= display_flash key, value %>
+              <% end %>
+            </div>
           </div>
-          <% end %>
+          <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
       </div>
-      <%= yield %>
     </div>
   </body>
 </html>

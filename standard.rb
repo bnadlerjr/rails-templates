@@ -15,7 +15,6 @@
 # * Do I want to include cucumber?
 # * Remove search bar from topbar
 # * Errors for public signup form
-# * Errors for signin form
 
 # DONE IN EXAMPLE APP
 
@@ -132,6 +131,16 @@ RUBY
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
+  def display_flash(type, msg)
+    css_class_map = {
+      notice: 'info',
+      alert: 'danger',
+      success: 'success',
+      error: 'danger'
+    }
+    css_class = css_class_map.fetch(type.to_sym)
+    tag.div(msg, class: "alert alert-#{css_class}")
+  end
 
   def menu_link_to(path, &block)
     html_class = request.path.starts_with?(path) ? 'nav-item active' : 'nav-item'

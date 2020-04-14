@@ -2,9 +2,7 @@
     <div class="row">
       <div class="col">
         <% flash.each do |key, value| %>
-        <div class="alert alert-<%= 'notice' == key ? 'info' : key %>">
-            <%= value %>
-        </div>
+          <%= display_flash key, value %>
         <% end %>
       </div>
     </div>
