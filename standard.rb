@@ -3,7 +3,7 @@
 # * Fix Bullet
 # * Setup CircleCI
 # * Flesh out README
-# * Ability to upload an avatar on profile page
+# * Ability to upload an avatar on profile page (active storage)
 # * Add ActiveHash
 # * Add Royce-Rolls
 # * Add pagy
@@ -14,7 +14,6 @@
 # * Does logging out require a modal?
 # * Specs for all clearance controllers
 # * Do I want to include cucumber?
-# * Remove search bar from topbar
 
 # DONE IN EXAMPLE APP
 
