@@ -2,3 +2,5 @@ en:
   profile:
     edit:
       title: User Profile
+    update:
+      success: Profile successfully updated.

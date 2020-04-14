@@ -8,11 +8,18 @@
 # * Add Royce-Rolls
 # * DataTables jQuery plugin
 # * Option for public signup
-# * Create site layout
 # * Add annotate models gem
 # * Look into using SCSS files individually so that colors can be customized
+# * Does logging out require a modal?
+# * Specs for all clearance controllers
+# * Do I want to include cucumber?
+# * Remove search bar from topbar
+# * Errors for public signup form
+# * Errors for signin form
+# * Fix reset password link on profile form
 
 # DONE IN EXAMPLE APP
+# * Ability to update user info
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
@@ -101,7 +108,6 @@ RUBY
   gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
   gsub_file 'spec/rails_helper.rb', /\# Add additional requires.*/, "require 'clearance/rspec'"
   generate 'clearance:install'
-  generate 'clearance:routes'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
@@ -125,7 +131,6 @@ RUBY
   copy_file 'config/locales/dashboard.en.yml.tt', 'config/locales/dashboard.en.yml', force: true
   copy_file 'config/locales/profile.en.yml.tt', 'config/locales/profile.en.yml', force: true
   copy_file 'config/locales/shared.en.yml.tt', 'config/locales/shared.en.yml', force: true
-  gsub_file 'config/routes.rb', 'clearance/', ''
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
@@ -171,8 +176,20 @@ end
     <<-RUBY
 
   root 'dashboard#index'
+
+  get '/sign_in' => 'sessions#new', as: 'sign_in'
+  get '/sign_up' => 'users#new', as: 'sign_up'
   get 'dashboard', to: 'dashboard#index'
   get 'profile', to: 'users#edit'
+
+  delete '/sign_out' => 'sessions#destroy', as: 'sign_out'
+
+  resources :passwords, controller: 'passwords', only: [:create, :new]
+  resource :session, controller: 'sessions', only: [:create]
+
+  resources :users, controller: 'users', only: [:create, :edit, :update] do
+    resource :password, controller: 'passwords', only: [:edit, :update]
+  end
     RUBY
   end
   run 'bundle binstubs rspec-core'

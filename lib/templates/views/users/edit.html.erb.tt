@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col-sm-8">
-    <%= bootstrap_form_with model: current_user, layout: :horizontal, label_col: 'col-sm-4', control_col: 'col-sm-8', url: users_path, html: { method: :put } do |form| %>
+    <%= bootstrap_form_with model: @user, layout: :horizontal, label_col: 'col-sm-4', control_col: 'col-sm-8', local: true, url: user_path(current_user), html: { method: :patch } do |form| %>
       <%= form.email_field :email %>
       <div class="form-group row">
         <label class="col-form-label col-sm-4">Password</label>
