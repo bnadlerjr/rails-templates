@@ -1,10 +1,5 @@
 class UsersController < Clearance::UsersController
-  layout 'site', only: :new
-  skip_before_action :require_login, only: :new
-
-  def new
-    @user = User.new
-  end
+  layout 'site', only: [:new, :create]
 
   def edit
     @user = current_user
@@ -13,7 +8,7 @@ class UsersController < Clearance::UsersController
   def update
     @user = current_user
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(updatable_user_params)
         format.html { redirect_to edit_user_path(current_user), notice:  t('profile.update.success') }
       else
         format.html { render :edit }
@@ -23,7 +18,7 @@ class UsersController < Clearance::UsersController
 
   private
 
-  def user_params
+  def updatable_user_params
     params.require(:user).permit(:email)
   end
 end

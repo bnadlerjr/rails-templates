@@ -6,6 +6,7 @@
 # * Ability to upload an avatar on profile page
 # * Add ActiveHash
 # * Add Royce-Rolls
+# * Add pagy
 # * DataTables jQuery plugin
 # * Option for public signup
 # * Add annotate models gem
@@ -14,7 +15,6 @@
 # * Specs for all clearance controllers
 # * Do I want to include cucumber?
 # * Remove search bar from topbar
-# * Errors for public signup form
 
 # DONE IN EXAMPLE APP
 
