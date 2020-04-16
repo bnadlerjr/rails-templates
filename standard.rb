@@ -8,7 +8,6 @@
 # * Add Royce-Rolls
 # * Add pagy
 # * DataTables jQuery plugin
-# * Option for public signup
 # * Add annotate models gem
 # * Look into using SCSS files individually so that colors can be customized
 # * Specs for all clearance controllers
