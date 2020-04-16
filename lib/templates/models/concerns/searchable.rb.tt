@@ -1,0 +1,30 @@
+# Implements basic searching using database `LIKE` queries. For example:
+#
+# class Widget < ApplicationRecord
+#   include Searchable
+#   searchable_attributes :name, :description
+# end
+#
+module Searchable
+  extend ActiveSupport::Concern
+
+  included do
+    def self.searchable_attributes(*attributes)
+      @attributes = attributes
+    end
+
+    def self.searchable?
+      true
+    end
+  end
+
+  module ClassMethods
+    def search(criteria)
+      search_string = @attributes.map do |attr|
+        "#{attr} like :criteria"
+      end.join(' or ')
+
+      where(search_string, criteria: "%#{criteria}%")
+    end
+  end
+end

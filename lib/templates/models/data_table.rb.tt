@@ -1,0 +1,103 @@
+# Abstract base class for dealing with jQuery DataTables plugin. Handles
+# searching, pagination, etc. To use, create a subclass that overrides
+# the #columns method. The method should return a hash where the keys
+# correspond to column names and the values are any callable that format
+# the column values. For example:
+#
+# class Widget::DataTable < DataTable
+#   # Widget is an ApplicationRecord that implements `Searchable`
+#   def initialize(view, collection=Widget)
+#     super view, collection
+#   end
+# 
+#   def columns
+#     {
+#       name: ->(value) { value.to_s },
+#       created_at: ->(value) { value.strftime('%B %e, %Y') },
+#       updated_at: ->(value) { value.strftime('%B %e, %Y') }
+#     }
+#   end
+# end
+#
+class DataTable
+  attr_reader :collection, :view
+  delegate :count, to: :collection
+  delegate :params, to: :view
+  delegate :link_to, to: :view
+  delegate :edit_polymorphic_path, to: :view
+
+  def initialize(view, collection)
+    unless collection.searchable?
+      raise NotImplementedError,
+            "#{collection.name} does not respond to: #search"
+    end
+
+    @collection = collection
+    @view = view
+    @columns = columns
+  end
+
+  def as_json(_)
+    {
+      draw: params[:draw].to_i,
+      recordsTotal: count,
+      recordsFiltered: total_entries,
+      data: data
+    }
+  end
+
+  def data
+    page_items.map do |item|
+      formatted_row = columns.map do |col, formatter|
+        formatter.call(item.send(col))
+      end
+      formatted_row << links_for(item)
+    end
+  end
+
+  def columns
+    raise NotImplementedError,
+          "This #{self.class} cannot respond to: #columns"
+  end
+
+  private
+
+  def page
+    params[:start].to_i / per_page + 1
+  end
+
+  def per_page
+    params[:length].to_i > 0 ? params[:length].to_i : 10
+  end
+
+  def sort_column
+    columns.keys[params[:order]['0'][:column].to_i]
+  end
+
+  def sort_direction
+    params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
+  end
+
+  def filtered
+    collection \
+      .search(params[:search][:value]) \
+      .order("#{sort_column} #{sort_direction}")
+  end
+
+  def total_entries
+    filtered.count
+  end
+
+  def page_items
+    filtered.page(page).per(per_page)
+  end
+
+  def links_for(item)
+    [].tap do |links|
+      links << link_to('Show', item)
+      links << link_to('Edit', edit_polymorphic_path(item))
+      links << link_to('Destroy', item, method: :delete,
+                       data: { confirm: 'Are you sure?' })
+    end.join(' | ')
+  end
+end

@@ -34,6 +34,8 @@ copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
 copy_file 'application.js.tt', 'app/javascript/packs/application.js', force: true
+copy_file 'data-tables.js.tt', 'app/javascript/data-tables.js'
+copy_file 'sb-admin-2.js.tt', 'app/javascript/sb-admin-2.js'
 remove_file 'app/assets/stylesheets/application.css'
 remove_dir 'test'
 
@@ -79,8 +81,11 @@ insert_into_file \
 end
 
 run('bin/yarn add @fortawesome/fontawesome-free')
-run('bin/yarn add startbootstrap-sb-admin-2')
 run('bin/yarn add popper.js')
+run('bin/yarn add bootstrap@4.4.1')
+run('bin/yarn add datatables.net')
+run('bin/yarn add datatables.net-bs4')
+run('bin/yarn add startbootstrap-sb-admin-2')
 
 after_bundle do
   run 'spring stop'
@@ -105,6 +110,8 @@ RUBY
   generate 'clearance:install'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
+  copy_file 'models/data_table.rb.tt', 'app/models/data_table.rb'
+  copy_file 'models/concerns/searchable.rb.tt', 'app/models/concerns/searchable.rb'
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
   copy_file 'views/users/edit.html.erb.tt', 'app/views/users/edit.html.erb', force: true
   copy_file 'views/sessions/new.html.erb.tt', 'app/views/sessions/new.html.erb', force: true
@@ -137,13 +144,28 @@ RUBY
       error: 'danger'
     }
     css_class = css_class_map.fetch(type.to_sym)
-    tag.div(msg, class: "alert alert-#{css_class}")
+    tag.div msg, class: "alert alert-#{css_class}"
   end
 
   def menu_link_to(path, &block)
     html_class = request.path.starts_with?(path) ? 'nav-item active' : 'nav-item'
     content_tag 'li', class: html_class do
       link_to(path, class: 'nav-link', &block)
+    end
+  end
+
+  def data_table(url:, &block)
+    options = {
+      class: 'table',
+      role: 'datatable',
+      width: '100%',
+      cellspacing: 0,
+      data: { url: url }
+    }
+    tag.div class: 'table-responsive' do
+      tag.table options do
+        yield block
+      end
     end
   end
     RUBY
