@@ -6,13 +6,13 @@
 # * Ability to upload an avatar on profile page (active storage)
 # * Add ActiveHash
 # * Add Royce-Rolls
-# * Add pagy
-# * DataTables jQuery plugin
 # * Add annotate models gem
 # * Look into using SCSS files individually so that colors can be customized
 # * Specs for all clearance controllers
 # * Do I want to include cucumber?
 # * Add CHANGELOG
+# * Setup Papertrail auditing
+# * Setup Administrate?
 
 # DONE IN EXAMPLE APP
 
@@ -133,7 +133,10 @@ RUBY
   copy_file 'config/locales/dashboard.en.yml.tt', 'config/locales/dashboard.en.yml', force: true
   copy_file 'config/locales/profile.en.yml.tt', 'config/locales/profile.en.yml', force: true
   copy_file 'config/locales/shared.en.yml.tt', 'config/locales/shared.en.yml', force: true
+  copy_file 'config/locales/data_tables.en.yml.tt', 'config/locales/data_tables.en.yml', force: true
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
+  copy_file 'spec/support/expectations.rb', 'spec/support/expectations.rb'
+  copy_file 'spec/support/concerns/searchable.rb', 'spec/support/concerns/searchable.rb'
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
   def display_flash(type, msg)

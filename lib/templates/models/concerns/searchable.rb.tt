@@ -10,7 +10,7 @@ module Searchable
 
   included do
     def self.searchable_attributes(*attributes)
-      @attributes = attributes
+      @searchable_columns = attributes
     end
 
     def self.searchable?
@@ -19,8 +19,10 @@ module Searchable
   end
 
   module ClassMethods
+    attr_reader :searchable_columns
+
     def search(criteria)
-      search_string = @attributes.map do |attr|
+      search_string = searchable_columns.map do |attr|
         "#{attr} like :criteria"
       end.join(' or ')
 

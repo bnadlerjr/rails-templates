@@ -1,0 +1,6 @@
+en:
+  data_tables:
+    show: Show
+    edit: Edit
+    destroy: Destroy
+    confirm: Are you sure?

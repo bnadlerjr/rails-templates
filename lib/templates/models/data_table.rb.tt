@@ -56,8 +56,7 @@ class DataTable
   end
 
   def columns
-    raise NotImplementedError,
-          "This #{self.class} cannot respond to: #columns"
+    raise NotImplementedError, "This #{self.class} cannot respond to: #columns"
   end
 
   private
@@ -67,7 +66,7 @@ class DataTable
   end
 
   def per_page
-    params[:length].to_i > 0 ? params[:length].to_i : 10
+    params[:length].to_i.positive? ? params[:length].to_i : 10
   end
 
   def sort_column
@@ -94,10 +93,12 @@ class DataTable
 
   def links_for(item)
     [].tap do |links|
-      links << link_to('Show', item)
-      links << link_to('Edit', edit_polymorphic_path(item))
-      links << link_to('Destroy', item, method: :delete,
-                       data: { confirm: 'Are you sure?' })
+      links << link_to(view.t('data_tables.show'), item)
+      links << link_to(view.t('data_tables.edit'), edit_polymorphic_path(item))
+      links << link_to(
+        view.t('data_tables.destroy'), item,
+        method: :delete, data: { confirm: view.t('data_tables.confirm') }
+      )
     end.join(' | ')
   end
 end
