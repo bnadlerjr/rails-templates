@@ -1,0 +1,18 @@
+<div class="card">
+    <%%= bootstrap_form_with(model: <%= model_resource_name %>, local: true, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |form| %>
+        <div class="card-body">
+<% attributes.each do |attribute| -%>
+<% if attribute.password_digest? -%>
+            <%%= form.password_field :password %>
+<% else -%>
+            <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+<% end -%>
+<% end -%>
+            <div class="row">
+                <div class="col offset-sm-2">
+                    <%%= form.primary %>
+                </div>
+            </div>
+        </div>
+    <%% end %>
+</div>

@@ -1,0 +1,5 @@
+en:
+  flash:
+    created: "%{model} was successfully created."
+    destroyed: "%{model} was successfully deleted."
+    updated: "%{model} was successfully updated."

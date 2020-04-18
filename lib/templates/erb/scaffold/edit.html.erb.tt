@@ -1,0 +1,8 @@
+<%%= content_for :content_header do %>
+    <h1><%%= t("<%= model_resource_name %>.edit.title") %></h1>
+<%% end %>
+<div class="row">
+    <div class="col">
+        <%%= render 'form', <%= singular_table_name %>: @<%= singular_table_name %> %>
+    </div>
+</div>

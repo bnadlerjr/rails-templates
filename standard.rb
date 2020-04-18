@@ -1,5 +1,4 @@
 # TODO:
-# * Scaffold templates that incorporate the theme
 # * Fix Bullet
 # * Setup CircleCI
 # * Flesh out README
@@ -13,6 +12,8 @@
 # * Add CHANGELOG
 # * Setup Papertrail auditing
 # * Setup Administrate?
+# * Scaffold spec templates
+# * Don't generate index builder files for scaffold
 
 # DONE IN EXAMPLE APP
 
@@ -134,9 +135,16 @@ RUBY
   copy_file 'config/locales/profile.en.yml.tt', 'config/locales/profile.en.yml', force: true
   copy_file 'config/locales/shared.en.yml.tt', 'config/locales/shared.en.yml', force: true
   copy_file 'config/locales/data_tables.en.yml.tt', 'config/locales/data_tables.en.yml', force: true
+  copy_file 'config/locales/flash.en.yml.tt', 'config/locales/flash.en.yml', force: true
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
   copy_file 'spec/support/expectations.rb', 'spec/support/expectations.rb'
   copy_file 'spec/support/concerns/searchable.rb', 'spec/support/concerns/searchable.rb'
+  copy_file 'rails/scaffold_controller/controller.rb.tt', 'lib/templates/rails/scaffold_controller/controller.rb.tt'
+  copy_file 'erb/scaffold/_form.html.erb.tt', 'lib/templates/erb/scaffold/_form.html.erb.tt'
+  copy_file 'erb/scaffold/edit.html.erb.tt', 'lib/templates/erb/scaffold/edit.html.erb.tt'
+  copy_file 'erb/scaffold/index.html.erb.tt', 'lib/templates/erb/scaffold/index.html.erb.tt'
+  copy_file 'erb/scaffold/new.html.erb.tt', 'lib/templates/erb/scaffold/new.html.erb.tt'
+  copy_file 'erb/scaffold/show.html.erb.tt', 'lib/templates/erb/scaffold/show.html.erb.tt'
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
   def display_flash(type, msg)
