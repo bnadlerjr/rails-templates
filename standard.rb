@@ -3,13 +3,11 @@
 # * Setup CircleCI
 # * Flesh out README
 # * Ability to upload an avatar on profile page (active storage)
-# * Add ActiveHash
 # * Add Royce-Rolls
 # * Add annotate models gem
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
 # * Setup Papertrail auditing
-# * Setup Administrate?
 # * Don't generate index jbuilder files for scaffold -- not sure if that's possible
 # * switch to something other than jbuilder?
 # * scaffold request spec for JSON format?
