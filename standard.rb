@@ -140,7 +140,7 @@ RUBY
   copy_file 'config/locales/flash.en.yml.tt', 'config/locales/flash.en.yml', force: true
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
   copy_file 'spec/factories/users.rb.tt', 'spec/factories/users.rb'
-  copy_file 'spec/requests/users_request_spec.rb', 'spec/requests/users_request_spec.rb'
+  copy_file 'spec/requests/users_spec.rb', 'spec/requests/users_spec.rb'
   copy_file 'spec/support/expectations.rb', 'spec/support/expectations.rb'
   copy_file 'spec/support/shoulda.rb', 'spec/support/shoulda.rb'
   copy_file 'spec/support/concerns/searchable.rb', 'spec/support/concerns/searchable.rb'
