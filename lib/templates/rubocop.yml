@@ -2,9 +2,11 @@ require: rubocop-rails
 
 AllCops:
   Exclude:
+    - "**/*.json.jbuilder"
     - "./bin/**/*"
     - "./config/routes.rb"
     - "./db/**/*"
+    - "./lib/templates/**/*"
     - "./node_modules/**/*"
     - "./vendor/**/*"
 
@@ -34,6 +36,10 @@ Layout/LineLength:
 
 Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
+
+Style/BlockDelimiters:
+  Exclude:
+    - "./spec/**/*"
 
 Style/ClassAndModuleChildren:
   Enabled: false
