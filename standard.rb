@@ -7,14 +7,13 @@
 # * Add Royce-Rolls
 # * Add annotate models gem
 # * Look into using SCSS files individually so that colors can be customized
-# * Specs for clearance controllers -- only what I override
 # * Add CHANGELOG
 # * Setup Papertrail auditing
 # * Setup Administrate?
 # * Don't generate index jbuilder files for scaffold -- not sure if that's possible
 # * switch to something other than jbuilder?
-# * feature specs for auth? -- test what I override only
 # * scaffold request spec for JSON format?
+# * can flash messages be checked in request specs? -- yes
 
 # DONE IN EXAMPLE APP
 
@@ -142,6 +141,7 @@ RUBY
   copy_file 'config/locales/flash.en.yml.tt', 'config/locales/flash.en.yml', force: true
   copy_file 'images/blank-profile-picture.png', 'app/assets/images/blank-profile-picture.png'
   copy_file 'spec/factories/users.rb.tt', 'spec/factories/users.rb'
+  copy_file 'spec/requests/users_request_spec.rb', 'spec/requests/users_request_spec.rb'
   copy_file 'spec/support/expectations.rb', 'spec/support/expectations.rb'
   copy_file 'spec/support/shoulda.rb', 'spec/support/shoulda.rb'
   copy_file 'spec/support/concerns/searchable.rb', 'spec/support/concerns/searchable.rb'
