@@ -3,7 +3,6 @@
 # * Setup CircleCI
 # * Flesh out README
 # * Ability to upload an avatar on profile page (active storage)
-# * Add Royce-Rolls
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
 # * Setup Papertrail auditing
@@ -108,6 +107,7 @@ RUBY
   gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
   gsub_file 'spec/rails_helper.rb', /\# Add additional requires.*/, "require 'clearance/rspec'"
   generate 'clearance:install'
+  generate 'royce:install'
   generate 'annotate:install'
   copy_file 'tasks/auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake', force: true
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
