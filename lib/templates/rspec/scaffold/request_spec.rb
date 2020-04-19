@@ -94,6 +94,12 @@ RSpec.describe 'POST /<%= name.underscore.pluralize %>', <%= type_metatag(:reque
         post <%= index_helper %>_url(as: user), params: { <%= singular_table_name %>: attributes_for(:<%= singular_table_name %>) }
         expect(response).to redirect_to(<%= singular_route_name %>_url(<%= class_name %>.last))
       end
+
+      it 'sets a flash message' do
+        post <%= index_helper %>_url(as: user), params: { <%= singular_table_name %>: attributes_for(:<%= singular_table_name %>) }
+        expect(request.flash[:notice]).to \
+          eq(I18n.t('flash.created', model: '<%= class_name %>'))
+      end
     end
 
     context 'and the parameters are invalid' do
@@ -134,19 +140,24 @@ RSpec.describe 'PATCH /<%= name.underscore %>', <%= type_metatag(:request) %> do
     let(:user) { create(:user) }
 
     context 'and the parameters are valid' do
-      it 'updates the <%= class_name %>' do
+      before(:each) do
         patch <%= singular_route_name %>_url(as: user, id: <%= singular_table_name %>), params: {
           <%= singular_table_name %>: new_attributes
         }
+      end
+
+      it 'updates the <%= class_name %>' do
         <%= singular_table_name %>.reload
         new_attributes.each { |k, v| expect(<%= singular_table_name %>.send(k)).to eq(v) }
       end
 
       it 'redirects to the <%= class_name %>' do
-        patch <%= singular_route_name %>_url(as: user, id: <%= singular_table_name %>), params: {
-          <%= singular_table_name %>: new_attributes
-        }
         expect(response).to redirect_to(<%= singular_route_name %>_url(<%= singular_table_name %>))
+      end
+
+      it 'sets a flash message' do
+        expect(request.flash[:notice]).to \
+          eq(I18n.t('flash.updated', model: '<%= class_name %>'))
       end
     end
 
@@ -187,6 +198,13 @@ RSpec.describe 'DELETE /<%= name.underscore %>', <%= type_metatag(:request) %> d
       <%= singular_table_name %> = create(:<%= singular_table_name %>)
       delete <%= singular_route_name %>_url(as: user, id: <%= singular_table_name %>)
       expect(response).to redirect_to(<%= index_helper %>_url)
+    end
+
+    it 'sets a flash message' do
+      <%= singular_table_name %> = create(:<%= singular_table_name %>)
+      delete <%= singular_route_name %>_url(as: user, id: <%= singular_table_name %>)
+      expect(request.flash[:notice]).to \
+        eq(I18n.t('flash.destroyed', model: '<%= class_name %>'))
     end
   end
 

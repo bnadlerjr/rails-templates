@@ -13,7 +13,6 @@
 # * Don't generate index jbuilder files for scaffold -- not sure if that's possible
 # * switch to something other than jbuilder?
 # * scaffold request spec for JSON format?
-# * can flash messages be checked in request specs? -- yes
 
 # DONE IN EXAMPLE APP
 
