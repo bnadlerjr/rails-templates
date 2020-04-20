@@ -5,9 +5,6 @@
 # * Ability to upload an avatar on profile page (active storage)
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
-# * Setup Papertrail auditing
-# * Don't generate index jbuilder files for scaffold -- not sure if that's possible
-# * switch to something other than jbuilder?
 # * scaffold request spec for JSON format?
 
 # DONE IN EXAMPLE APP
@@ -144,6 +141,7 @@ RUBY
   copy_file 'spec/support/shoulda.rb', 'spec/support/shoulda.rb'
   copy_file 'spec/support/concerns/searchable.rb', 'spec/support/concerns/searchable.rb'
   copy_file 'rails/scaffold_controller/controller.rb.tt', 'lib/templates/rails/scaffold_controller/controller.rb.tt'
+  copy_file 'rails/jb/index.json.jb', 'lib/templates/rails/jb/index.json.jb'
   copy_file 'erb/scaffold/_form.html.erb.tt', 'lib/templates/erb/scaffold/_form.html.erb.tt'
   copy_file 'erb/scaffold/edit.html.erb.tt', 'lib/templates/erb/scaffold/edit.html.erb.tt'
   copy_file 'erb/scaffold/index.html.erb.tt', 'lib/templates/erb/scaffold/index.html.erb.tt'

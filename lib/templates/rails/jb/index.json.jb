@@ -1,0 +1,6 @@
+{
+  draw: @<%= plural_table_name %>.draw,
+  recordsTotal: @<%= plural_table_name %>.count,
+  recordsFiltered: @<%= plural_table_name %>.total_entries,
+  data: @<%= plural_table_name %>.data
+}

@@ -7,10 +7,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   before_action :set_<%= singular_table_name %>, only: %i[show edit update destroy]
 
   def index
-    respond_to do |format|
-      format.html { render :index }
-      format.json { render json: DataTable.new(view_context, <%= class_name %>) }
-    end
+    @<%= plural_table_name %> = DataTable.new(view_context, <%= class_name %>)
   end
 
   def show

@@ -1,46 +1,25 @@
 # Abstract base class for dealing with jQuery DataTables plugin. Handles
-# searching, pagination, etc. To use, create a subclass that overrides
-# the #columns method. The method should return a hash where the keys
-# correspond to column names and the values are any callable that format
-# the column values. For example:
+# searching, pagination, etc.
 #
-# class Widget::DataTable < DataTable
-#   # Widget is an ApplicationRecord that implements `Searchable`
-#   def initialize(view, collection=Widget)
-#     super view, collection
-#   end
-# 
-#   def columns
-#     {
-#       name: ->(value) { value.to_s },
-#       created_at: ->(value) { value.strftime('%B %e, %Y') },
-#       updated_at: ->(value) { value.strftime('%B %e, %Y') }
-#     }
-#   end
-# end
-#
-# frozen_string_literal: true
-
 class DataTable
-  attr_reader :collection, :view
+  attr_reader :collection, :view, :options
   delegate :count, to: :collection
   delegate :params, to: :view
   delegate :link_to, to: :view
   delegate :edit_polymorphic_path, to: :view
 
-  def initialize(view, collection)
+  def initialize(view, collection, options={})
     @collection = collection
     @view = view
-    @columns = columns
+    @options = options
   end
 
-  def as_json(_)
-    {
-      draw: params[:draw].to_i,
-      recordsTotal: count,
-      recordsFiltered: total_entries,
-      data: data
-    }
+  def draw
+    params[:draw].to_i
+  end
+
+  def total_entries
+    filtered.count
   end
 
   def data
@@ -53,7 +32,9 @@ class DataTable
   end
 
   def columns
-    collection.attribute_names.index_with { ->(v) { v } }
+    options.fetch(:columns) do
+      collection.attribute_names.index_with { ->(v) { v } }
+    end
   end
 
   private
@@ -81,10 +62,6 @@ class DataTable
                 collection.all
               end
     results.order("#{sort_column} #{sort_direction}")
-  end
-
-  def total_entries
-    filtered.count
   end
 
   def page_items
