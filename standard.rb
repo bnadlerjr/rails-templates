@@ -5,7 +5,6 @@
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
 # * feature toggle library -- use flipper
-# * ignore template files from test coverage
 
 # DONE IN EXAMPLE APP
 
@@ -102,6 +101,7 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter '/bin/'
   add_filter '/db/'
+  add_filter '/lib/templates/'
   add_filter '/spec/'
 end
 puts 'REQUIRED SIMPLECOV'
