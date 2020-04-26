@@ -2,10 +2,10 @@
 # * Fix Bullet
 # * Setup CircleCI
 # * Flesh out README
-# * Ability to upload an avatar on profile page (active storage)
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
 # * scaffold request spec for JSON format?
+# * feature toggle library -- use flipper
 
 # DONE IN EXAMPLE APP
 
@@ -26,6 +26,7 @@ copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
+copy_file 'stylesheets/modules/editable-avatar.scss', 'app/assets/stylesheets/modules/editable-avatar.scss'
 copy_file 'application.js.tt', 'app/javascript/packs/application.js', force: true
 copy_file 'data-tables.js.tt', 'app/javascript/data-tables.js'
 copy_file 'sb-admin-2.js.tt', 'app/javascript/sb-admin-2.js'
@@ -57,6 +58,7 @@ insert_into_file 'config/environments/development.rb', after: mailer_regex do
 end
 
 uncomment_lines 'config/environments/production.rb', /config\.force_ssl = true/
+gsub_file 'config/environments/production.rb', ':local', ':amazon'
 
 gsub_file 'config/environments/test.rb',
           'config.eager_load = false',
@@ -82,9 +84,17 @@ run('bin/yarn add bootstrap@4.4.1')
 run('bin/yarn add datatables.net')
 run('bin/yarn add datatables.net-bs4')
 run('bin/yarn add startbootstrap-sb-admin-2')
+run('bin/yarn add cropperjs')
+run('bin/yarn add eslint')
+run('bin/yarn add eslint-config-standard')
+run('bin/yarn add eslint-plugin-import')
+run('bin/yarn add eslint-plugin-node')
+run('bin/yarn add eslint-plugin-promise')
+run('bin/yarn add eslint-plugin-standard')
 
 after_bundle do
   run 'spring stop'
+  run('bin/rails active_storage:install')
   generate 'rspec:install'
   prepend_to_file 'spec/spec_helper.rb' do
     <<-RUBY
@@ -113,6 +123,7 @@ RUBY
   copy_file 'models/concerns/searchable.rb.tt', 'app/models/concerns/searchable.rb'
   copy_file 'views/users/new.html.erb.tt', 'app/views/users/new.html.erb', force: true
   copy_file 'views/users/edit.html.erb.tt', 'app/views/users/edit.html.erb', force: true
+  copy_file 'views/users/show.json.jb', 'app/views/users/show.json.jb', force: true
   copy_file 'views/sessions/new.html.erb.tt', 'app/views/sessions/new.html.erb', force: true
   copy_file 'views/dashboard/index.html.erb.tt', 'app/views/dashboard/index.html.erb', force: true
   copy_file 'views/passwords/new.html.erb.tt', 'app/views/passwords/new.html.erb', force: true
@@ -149,6 +160,7 @@ RUBY
   copy_file 'erb/scaffold/show.html.erb.tt', 'lib/templates/erb/scaffold/show.html.erb.tt'
   copy_file 'rspec/scaffold/request_spec.rb', 'lib/templates/rspec/scaffold/request_spec.rb'
   copy_file 'rspec/model/model_spec.rb', 'lib/templates/rspec/model/model_spec.rb'
+  copy_file 'storage.yml', 'config/storage.yml'
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
   def display_flash(type, msg)
@@ -183,14 +195,23 @@ RUBY
       end
     end
   end
+
+  def avatar_image_tag(user, size:, css: 'img-fluid')
+    options = { class: "#{css} avatar", alt: 'Avatar image' }
+    if user.avatar.attached?
+      source = user.avatar.variant(resize_to_limit: [size, size]).processed
+    else
+      source = 'blank-profile-picture.png'
+      options.merge!(width: size, height: size)
+    end
+    image_tag source, options
+  end
     RUBY
   end
   insert_into_file 'app/models/user.rb', after: 'include Clearance::User' do
     <<-RUBY
-
-  def avatar_url
-    'blank-profile-picture.png'
-  end
+  include ActiveStorageSupport::SupportForBase64
+  has_one_base64_attached :avatar
     RUBY
   end
   append_to_file 'db/seeds.rb' do
@@ -245,7 +266,8 @@ environment.plugins.prepend('Provide',
     new webpack.ProvidePlugin({
         $: 'jquery/dist/jquery',
         jQuery: 'jquery/dist/jquery',
-        Popper: ['popper.js', 'default']
+        Popper: ['popper.js', 'default'],
+        Cropper: 'cropperjs/dist/cropper'
     })
 )
 
@@ -254,4 +276,12 @@ environment.plugins.prepend('Provide',
 
   gsub_file 'node_modules/startbootstrap-sb-admin-2/js/sb-admin-2.js', '(function($) {', "$(document).on('turbolinks:load', function() {"
   gsub_file 'node_modules/startbootstrap-sb-admin-2/js/sb-admin-2.js', '})(jQuery); // End of use strict', '})'
+  gsub_file 'app/javascript/channels/consumer.js', 'import { createConsumer } from "@rails/actioncable"', "import { createConsumer } from '@rails/actioncable'"
+  copy_file 'eslintrc.yml', '.eslintrc.yml'
+  copy_file 'javascript/avatar.js', 'app/javascript/avatar.js'
+  copy_file 'javascript/facade.js', 'app/javascript/facade.js'
+  copy_file 'javascript/mini-app.js', 'app/javascript/mini-app.js'
+  copy_file 'javascript/modules/avatar/image.js', 'app/javascript/modules/avatar/image.js'
+  copy_file 'javascript/modules/avatar/modal.js', 'app/javascript/modules/avatar/modal.js'
+  copy_file 'javascript/modules/user/form.js', 'app/javascript/modules/user/form.js'
 end

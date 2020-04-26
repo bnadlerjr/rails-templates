@@ -3,25 +3,54 @@
 <% end %>
 
 <div class="row">
-  <div class="col-sm-8">
-    <%= bootstrap_form_with model: @user, layout: :horizontal, label_col: 'col-sm-4', control_col: 'col-sm-8', local: true, url: user_path(current_user), html: { method: :patch } do |form| %>
-      <%= form.email_field :email %>
-      <div class="form-group row">
-        <label class="col-form-label col-sm-4">Password</label>
-        <div class="col-sm-8">
-          <p class="mt-2">
-            <%= link_to t('passwords.new.title'), passwords_path(password: { email: current_user.email }), method: :post %>
-          </p>
+  <div class="col col-sm-3">
+    <div class="card">
+      <%= bootstrap_form_with id: 'user-form', model: @user, layout: :horizontal, label_col: 'col-sm-4', control_col: 'col-sm-8', local: true, url: user_path(current_user), html: { method: :patch } do |form| %>
+        <div class="editable-avatar">
+          <%= avatar_image_tag current_user, size: 320, css: 'card-img-top' %>
+          <label class="btn btn-primary btn-circle">
+            <i class="fas fa-edit"></i>
+            <%= form.file_field_without_bootstrap :avatar, style: 'display: none', accept: 'image/png,image/jpeg' %>
+          </label>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-8 offset-sm-4">
-          <%= form.primary %>
+        <div class="card-body">
+          <%= form.email_field :email %>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-4">Password</label>
+            <div class="col-sm-8">
+              <p class="mt-2">
+                <%= link_to t('passwords.new.title'), passwords_path(password: { email: current_user.email }), method: :post %>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 offset-sm-4">
+              <%= form.primary %>
+            </div>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-  <div class="col-sm-2 ml-auto">
-    <%= image_tag current_user.avatar_url, width: "160px", class: "img-responsive", alt: "Profile Image" %>
+</div>
+
+<div class="modal fade" id="avatar-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-label"><%= t('profile.modal.title') %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="img-container">
+          <%= image_tag 'blank-profile-picture', style: 'display: block; max-width: 100%' %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-block btn-primary"><%= t('profile.modal.button') %></button>
+      </div>
+    </div>
   </div>
 </div>

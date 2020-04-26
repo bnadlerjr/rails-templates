@@ -2,12 +2,13 @@ require: rubocop-rails
 
 AllCops:
   Exclude:
-    - "**/*.json.jbuilder"
+    - "**/*.json.jb"
     - "./bin/**/*"
     - "./config/routes.rb"
     - "./db/**/*"
     - "./lib/templates/**/*"
     - "./node_modules/**/*"
+    - "./lib/tasks/auto_annotate_models.rake"
     - "./vendor/**/*"
 
 Metrics/BlockLength:

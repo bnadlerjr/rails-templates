@@ -2,5 +2,8 @@ en:
   profile:
     edit:
       title: User Profile
+    modal:
+      title: Crop your new profile picture
+      button: Set new profile picture
     update:
       success: Profile successfully updated.

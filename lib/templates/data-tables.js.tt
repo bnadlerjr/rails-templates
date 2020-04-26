@@ -1,10 +1,12 @@
-$(document).on('turbolinks:load', function() {
-    $("table[role='datatable']").each(function() {
+import $ from 'jquery'
+
+$(document).on('turbolinks:load', function () {
+    $("table[role='datatable']").each(function () {
         $(this).DataTable({
             columnDefs: [{ orderable: false, targets: -1 }],
             processing: true,
             serverSide: true,
             ajax: $(this).data('url')
-        });
-    });
+        })
+    })
 })
