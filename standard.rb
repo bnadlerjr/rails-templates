@@ -4,8 +4,8 @@
 # * Flesh out README
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
-# * scaffold request spec for JSON format?
 # * feature toggle library -- use flipper
+# * ignore template files from test coverage
 
 # DONE IN EXAMPLE APP
 
