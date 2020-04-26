@@ -1,5 +1,4 @@
 # TODO:
-# * Fix Bullet
 # * Setup CircleCI
 # * Flesh out README
 # * Look into using SCSS files individually so that colors can be customized
@@ -48,11 +47,11 @@ insert_into_file 'config/environments/development.rb', after: mailer_regex do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.asset_host = 'http://localhost:3000'
 
-  # config.after_initialize do
-  #   Bullet.enable = true
-  #   Bullet.console = true
-  #   Bullet.rails_logger = true
-  # end
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+  end
   RUBY
 end
 
