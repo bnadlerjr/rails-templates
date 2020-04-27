@@ -3,7 +3,6 @@
 # * Flesh out README
 # * Look into using SCSS files individually so that colors can be customized
 # * Add CHANGELOG
-# * feature toggle library -- use flipper
 
 # DONE IN EXAMPLE APP
 
@@ -23,6 +22,7 @@ template 'database.yml.tt', 'config/database.yml', force: true
 copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
+copy_file 'flipper.rb.tt', 'config/initializers/flipper.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
 copy_file 'stylesheets/modules/editable-avatar.scss', 'app/assets/stylesheets/modules/editable-avatar.scss'
 copy_file 'application.js.tt', 'app/javascript/packs/application.js', force: true
@@ -115,6 +115,7 @@ RUBY
   generate 'clearance:install'
   generate 'royce:install'
   generate 'annotate:install'
+  generate 'flipper:active_record'
   copy_file 'tasks/auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake', force: true
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
@@ -210,13 +211,18 @@ RUBY
   insert_into_file 'app/models/user.rb', after: 'include Clearance::User' do
     <<-RUBY
   include ActiveStorageSupport::SupportForBase64
+
+  royce_roles %w[user admin]
+
   has_one_base64_attached :avatar
     RUBY
   end
   append_to_file 'db/seeds.rb' do
     <<-RUBY
 if Rails.env.development?
-  User.create_with(password: 'secret').find_or_create_by!(email: 'jdoe@example.com')
+  User \
+    .create_with(password: 'secret', roles: [Royce::Role.find_by(name: 'admin')]) \
+    .find_or_create_by!(email: 'jdoe@example.com')
 end
     RUBY
   end
@@ -251,6 +257,10 @@ end
 
   resources :users, controller: 'users', only: [:create, :edit, :update] do
     resource :password, controller: 'passwords', only: [:edit, :update]
+  end
+
+  constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
+    mount Flipper::UI.app(Flipper) => '/flipper'
   end
     RUBY
   end
