@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+include FileUtils
+
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+chdir APP_ROOT do
+  puts '== Installing dependencies =='
+  system(['bundle check --path=vendor/bundle',
+          '|| bundle install',
+          '--path=vendor/bundle --jobs=4 --retry=3'].join(' '))
+
+  system('bin/yarn')
+
+  unless File.exist?('config/database.yml')
+    puts "\n== Copying database config file =="
+    cp 'config/database.yml.sample', 'config/database.yml'
+  end
+
+  puts "\n== Preparing database =="
+  system! 'bin/rails db:create'
+  system! 'bin/rails db:schema:load --trace'
+  system! 'bin/rails db:seed'
+
+  puts "\n== Running specs =="
+  system! ['bin/rspec',
+           '--format RspecJunitFormatter',
+           '--out test-results/rspec/results.xml',
+           '--format progress',
+           '$(circleci tests glob "spec/**/*_spec.rb"',
+           '| circleci tests split --split-by=timings)'].join(' ')
+
+  puts "\n== Linting code =="
+  system! './bin/rubocop'
+  system! './node_modules/.bin/eslint app/javascript'
+end

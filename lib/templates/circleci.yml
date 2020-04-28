@@ -1,0 +1,62 @@
+---
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.0.1
+
+jobs:
+  ci:
+    docker:
+      - image: circleci/ruby:2.5.3-node-browsers
+        environment:
+          RAILS_ENV: test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Ruby cache
+          key: v1-ruby-dependencies{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          name: Restore Javascript cache
+          key: v1-javascript-dependencies{{ checksum "yarn.lock" }}
+      - run: ./bin/ci
+      - save_cache:
+          name: Store Ruby cache
+          key: v1-ruby-dependencies{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - save_cache:
+          name: Store Javascript cache
+          key: v1-javascript-dependencies{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - store_artifacts:
+          path: coverage
+      - store_test_results:
+          path: test-results
+
+workflows:
+  test-and-deploy:
+    jobs:
+      - ci:
+          filters:
+            tags:
+              only: /.*/
+      - heroku/deploy-via-git:
+          requires:
+            - ci
+          filters:
+            branches:
+              only:
+                - master
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - ci
