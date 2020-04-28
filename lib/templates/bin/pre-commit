@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+./bin/rspec
+./bin/rubocop
+./node_modules/.bin/eslint app/javascript

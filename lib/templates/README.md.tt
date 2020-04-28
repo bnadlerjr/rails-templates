@@ -1,17 +1,76 @@
 # <%= app_name %>
 
-TODO: Short description of the application.
+TODO: Short description or tag line for the application.
 
 ## Overview
+TODO: More in depth description of the application, feature list, etc.
 
 ### Links
+* [GitHub]()
+* [Circle CI]()
+* [Heroku Dashboard]()
 * [Staging Server]()
 * [Production Server]()
 
 ## Development
+
 ### Setup
+The following prerequisites are needed for development:
+
+1. Ruby v2.5.3
+1. Bundler
+1. Yarn
+
+For initial project setup, clone the repository then run `bin/setup`. Replace any required values in `.env` with appropriate values.
+
 ### Workflow
-### Tests
+
+This project uses a Continuous Integration workflow. New features and bug fixes are developed on (as short-lived as possible) feature branches. All code on the master branch is releasable at any time. Do not commit unfinished features (unless behind a feature switch) to the master branch. This project is set up to use the Flipper gem for feature switches.
+
+### Tests / Linting
+This project uses RSpec for tests. Run specs with `bin/rspec`. Linting is done using Rubocop and ESLint. There is a `bin/pre-commit` script that will run all specs and lint both the Ruby and Javascript code.
+
 ### Configuration
+This application uses environment variables for its configuration. In development, this is done via the `dot_env` gem. For CircleCI and Heroku, environment variables must be set via their respective UI or CLI tools.
+
+The following configuration settings are available.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Required?</th>
+            <th>Default Value</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AWS_ACCESS_KEY_ID</td>
+            <td>Production Only</td>
+            <td>None</td>
+            <td>AWS access key for S3 that ActiveStorage will use.</td>
+        </tr>
+        <tr>
+            <td>AWS_SECRET_ACCESS_KEY</td>
+            <td>Production Only</td>
+            <td>None</td>
+            <td>AWS secret key for S3 that ActiveStorage will use.</td>
+        </tr>
+        <tr>
+            <td>RAILS_ENV</td>
+            <td>Yes</td>
+            <td>Set based on environment.</td>
+            <td>Rails application environment.</td>
+        </tr>
+        <tr>
+            <td>RAILS_SECRET_KEY_BASE</td>
+            <td>Yes</td>
+            <td>None</td>
+            <td>Used for encrypting session cookies.</td>
+        </tr>
+    </tbody>
+</table>
 
 ## Deployment
+This project uses CircleCI and Heroku. All pushes to the master branch will trigger a CircleCI build which runs the `bin/ci` script. If the build is successful, the application code will automatically be deployed to a staging environment on Heroku. Deploys to production are done by promoting the current staging environment using the Heroku dashboard.

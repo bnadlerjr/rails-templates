@@ -1,7 +1,3 @@
-# TODO:
-# * Flesh out README
-# * Look into using SCSS files individually so that colors can be customized
-
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
 template 'README.md.tt', force: true
@@ -17,6 +13,8 @@ copy_file 'bin/update', force: true
 chmod 'bin/update', '+x'
 copy_file 'bin/ci'
 chmod 'bin/ci', '+x'
+copy_file 'bin/pre-commit'
+chmod 'bin/pre-commit', '+x'
 template 'database.yml.tt', 'config/database.yml', force: true
 copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
