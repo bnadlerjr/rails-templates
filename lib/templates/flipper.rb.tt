@@ -1,6 +1,6 @@
 Flipper.configure do |config|
   config.default do
-    adapter = 'test' == Rails.env ? Flipper::Adapters::Memory.new : Flipper::Adapters::ActiveRecord.new
+    adapter = Rails.env.test? ? Flipper::Adapters::Memory.new : Flipper::Adapters::ActiveRecord.new
     Flipper.new(adapter)
   end
 end

@@ -67,7 +67,7 @@ RSpec.describe 'PATCH /user', type: :request do
           }
         end
 
-        it 'updates the Project' do
+        it 'updates the User' do
           user_to_edit.reload
           new_attributes.each { |k, v| expect(user_to_edit.send(k)).to eq(v) }
         end
@@ -76,11 +76,10 @@ RSpec.describe 'PATCH /user', type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'it returns the updated project in the response body' do
+        it 'it returns the updated user in the response body' do
           parsed_body = JSON.parse(response.body)
-          user_to_edit.reload
           new_attributes.each do |k, v|
-            expect(user_to_edit.send(k)).to eq(v)
+            expect(parsed_body[k.to_s]).to eq(v)
           end
         end
       end
@@ -114,7 +113,7 @@ RSpec.describe 'PATCH /user', type: :request do
     end
 
     it 'responds with unauthorized for json requests' do
-      patch user_url(user_to_edit, format: :json), params: { project: new_attributes }
+      patch user_url(user_to_edit, format: :json), params: { user: new_attributes }
       expect(response).to have_http_status(:unauthorized)
     end
   end

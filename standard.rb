@@ -2,7 +2,6 @@
 # * Setup CircleCI
 # * Flesh out README
 # * Look into using SCSS files individually so that colors can be customized
-# * Add CHANGELOG
 
 # DONE IN EXAMPLE APP
 
