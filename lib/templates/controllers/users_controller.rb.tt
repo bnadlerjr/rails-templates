@@ -1,5 +1,5 @@
 class UsersController < Clearance::UsersController
-  layout 'site', only: [:new, :create]
+  layout 'site', only: %i[new create]
 
   def edit
     @user = current_user
@@ -9,7 +9,7 @@ class UsersController < Clearance::UsersController
     @user = current_user
     respond_to do |format|
       if @user.update(updatable_user_params)
-        format.html { redirect_to edit_user_path(current_user), notice:  t('profile.update.success') }
+        format.html { redirect_to edit_user_path(current_user), notice: t('profile.update.success') }
         format.json { render :show, status: :ok }
       else
         format.html { render :edit }

@@ -35,6 +35,7 @@ mailer_regex = /config\.action_mailer\.raise_delivery_errors = false\n/
 comment_lines 'config/environments/development.rb', mailer_regex
 uncomment_lines 'config/environments/production.rb', /config\.force_ssl = true/
 gsub_file 'config/environments/production.rb', ':local', ':amazon'
+gsub_file 'config/environments/production.rb', 'config.log_tags = [ :request_id ]', 'config.log_tags = [:request_id]'
 
 gsub_file 'config/environments/test.rb',
           'config.eager_load = false',
@@ -91,6 +92,14 @@ RUBY
   generate 'annotate:install'
   copy_file 'tasks/auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake', force: true
 
+  gsub_file 'config/environments/development.rb', "if Rails.root.join('tmp', 'caching-dev.txt').exist?" do
+    <<-RUBY
+# rubocop:disable Rails/FilePath
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+    # rubocop:enable Rails/FilePath
+RUBY
+  end
+
   insert_into_file 'config/environments/development.rb', after: mailer_regex do
     <<-RUBY
 
@@ -106,12 +115,18 @@ RUBY
     Bullet.console = true
     Bullet.rails_logger = true
   end
-
 RUBY
   end
 
   gsub_file 'spec/spec_helper.rb', '=begin', ''
   gsub_file 'spec/spec_helper.rb', '=end', ''
+  comment_text = <<-RUBY
+# The settings below are suggested to provide a good initial experience
+# with RSpec, but feel free to customize to your heart's content.
+
+RUBY
+  gsub_file 'spec/spec_helper.rb', comment_text, ''
+
   gsub_file 'spec/rails_helper.rb', /  # Remove this line.*/, ''
   gsub_file 'spec/rails_helper.rb', /config\.fixture_path.*/, 'config.include FactoryBot::Syntax::Methods'
   gsub_file 'spec/rails_helper.rb', /\# Add additional requires.*/, "require 'clearance/rspec'"
@@ -165,6 +180,7 @@ RUBY
   copy_file 'storage.yml', 'config/storage.yml', force: true
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
+
   def display_flash(type, msg)
     css_class_map = {
       notice: 'info',
@@ -305,10 +321,7 @@ environment.plugins.prepend('Provide',
   copy_file 'javascript/modules/avatar/modal.js', 'app/javascript/modules/avatar/modal.js'
   copy_file 'javascript/modules/user/form.js', 'app/javascript/modules/user/form.js'
 
-  run 'bundle binstubs rspec-core'
-  run 'bundle binstubs rubocop'
-
   puts "\n=== project generation complete\n"
   puts "cd into project folder then run"
-  puts "    ./bin/rails active_storage:install && ./bin/setup"
+  puts "    ./bin/rails active_storage:install && bundle binstubs rspec-core rubocop && ./bin/setup"
 end
