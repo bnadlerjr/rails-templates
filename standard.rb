@@ -19,7 +19,6 @@ template 'database.yml.tt', 'config/database.yml', force: true
 copy_file 'puma.rb.tt', 'config/puma.rb', force: true
 copy_file 'generators.rb.tt', 'config/initializers/generators.rb'
 copy_file 'rotate_log.rb.tt', 'config/initializers/rotate_log.rb'
-copy_file 'flipper.rb.tt', 'config/initializers/flipper.rb'
 copy_file 'application.scss.tt', 'app/assets/stylesheets/application.scss'
 copy_file 'stylesheets/modules/editable-avatar.scss', 'app/assets/stylesheets/modules/editable-avatar.scss'
 copy_file 'application.js.tt', 'app/javascript/packs/application.js', force: true
@@ -34,24 +33,6 @@ end
 
 mailer_regex = /config\.action_mailer\.raise_delivery_errors = false\n/
 comment_lines 'config/environments/development.rb', mailer_regex
-insert_into_file 'config/environments/development.rb', after: mailer_regex do
-  <<-RUBY
-
-  # Ensure mailer works in development.
-  config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.asset_host = 'http://localhost:3000'
-
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.console = true
-    Bullet.rails_logger = true
-  end
-  RUBY
-end
-
 uncomment_lines 'config/environments/production.rb', /config\.force_ssl = true/
 gsub_file 'config/environments/production.rb', ':local', ':amazon'
 
@@ -73,23 +54,25 @@ insert_into_file \
   RUBY
 end
 
-run('bin/yarn add @fortawesome/fontawesome-free')
-run('bin/yarn add popper.js')
-run('bin/yarn add bootstrap@4.4.1')
-run('bin/yarn add datatables.net')
-run('bin/yarn add datatables.net-bs4')
-run('bin/yarn add startbootstrap-sb-admin-2')
-run('bin/yarn add cropperjs')
-run('bin/yarn add eslint')
-run('bin/yarn add eslint-config-standard')
-run('bin/yarn add eslint-plugin-import')
-run('bin/yarn add eslint-plugin-node')
-run('bin/yarn add eslint-plugin-promise')
-run('bin/yarn add eslint-plugin-standard')
+yarn_deps = [
+  '@fortawesome/fontawesome-free',
+  'popper.js',
+  'bootstrap@4.4.1',
+  'datatables.net',
+  'datatables.net-bs4',
+  'startbootstrap-sb-admin-2',
+  'cropperjs',
+  'eslint',
+  'eslint-config-standard',
+  'eslint-plugin-import',
+  'eslint-plugin-node',
+  'eslint-plugin-promise',
+  'eslint-plugin-standard'
+]
+run("bin/yarn add #{yarn_deps.join(' ')}")
 
 after_bundle do
   run 'spring stop'
-  run('bin/rails active_storage:install')
   generate 'rspec:install'
   prepend_to_file 'spec/spec_helper.rb' do
     <<-RUBY
@@ -104,6 +87,29 @@ puts 'REQUIRED SIMPLECOV'
 
 RUBY
   end
+
+  generate 'annotate:install'
+  copy_file 'tasks/auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake', force: true
+
+  insert_into_file 'config/environments/development.rb', after: mailer_regex do
+    <<-RUBY
+
+  # Ensure mailer works in development.
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.asset_host = 'http://localhost:3000'
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+  end
+
+RUBY
+  end
+
   gsub_file 'spec/spec_helper.rb', '=begin', ''
   gsub_file 'spec/spec_helper.rb', '=end', ''
   gsub_file 'spec/rails_helper.rb', /  # Remove this line.*/, ''
@@ -111,9 +117,8 @@ RUBY
   gsub_file 'spec/rails_helper.rb', /\# Add additional requires.*/, "require 'clearance/rspec'"
   generate 'clearance:install'
   generate 'royce:install'
-  generate 'annotate:install'
   generate 'flipper:active_record'
-  copy_file 'tasks/auto_annotate_models.rake', 'lib/tasks/auto_annotate_models.rake', force: true
+  copy_file 'flipper.rb.tt', 'config/initializers/flipper.rb'
   copy_file 'application.html.erb.tt', 'app/views/layouts/application.html.erb', force: true
   copy_file 'site.html.erb.tt', 'app/views/layouts/site.html.erb', force: true
   copy_file 'models/data_table.rb.tt', 'app/models/data_table.rb'
@@ -157,7 +162,7 @@ RUBY
   copy_file 'erb/scaffold/show.html.erb.tt', 'lib/templates/erb/scaffold/show.html.erb.tt'
   copy_file 'rspec/scaffold/request_spec.rb', 'lib/templates/rspec/scaffold/request_spec.rb'
   copy_file 'rspec/model/model_spec.rb', 'lib/templates/rspec/model/model_spec.rb'
-  copy_file 'storage.yml', 'config/storage.yml'
+  copy_file 'storage.yml', 'config/storage.yml', force: true
   insert_into_file 'app/helpers/application_helper.rb', after: 'module ApplicationHelper' do
     <<-RUBY
   def display_flash(type, msg)
@@ -168,7 +173,7 @@ RUBY
       error: 'danger'
     }
     css_class = css_class_map.fetch(type.to_sym)
-    tag.div msg, class: "alert alert-#{css_class}"
+    tag.div msg, class: "alert alert-" + css_class
   end
 
   def menu_link_to(path, &block)
@@ -194,7 +199,7 @@ RUBY
   end
 
   def avatar_image_tag(user, size:, css: 'img-fluid')
-    options = { class: "#{css} avatar", alt: 'Avatar image' }
+    options = { class: css + " avatar", alt: 'Avatar image' }
     if user.avatar.attached?
       source = user.avatar.variant(resize_to_limit: [size, size]).processed
     else
@@ -205,8 +210,17 @@ RUBY
   end
     RUBY
   end
+
+  royce_migration_file = Dir['db/migrate/*_create_royce.rb'].first
+  gsub_file royce_migration_file,
+            'class CreateRoyce < ActiveRecord::Migration',
+            'class CreateRoyce < ActiveRecord::Migration[6.0]'
+
+  gsub_file royce_migration_file, 'add_index :royce_connector, :role_id', ''
+
   insert_into_file 'app/models/user.rb', after: 'include Clearance::User' do
     <<-RUBY
+
   include ActiveStorageSupport::SupportForBase64
 
   royce_roles %w[user admin]
@@ -214,6 +228,7 @@ RUBY
   has_one_base64_attached :avatar
     RUBY
   end
+
   append_to_file 'db/seeds.rb' do
     <<-RUBY
 if Rails.env.development?
@@ -233,6 +248,7 @@ end
   insert_into_file 'config/initializers/clearance.rb', after: 'Clearance.configure do |config|' do
     <<-RUBY
 
+  config.routes = false
   config.redirect_url = '/dashboard'
     RUBY
 
@@ -261,8 +277,6 @@ end
   end
     RUBY
   end
-  run 'bundle binstubs rspec-core'
-  run 'bundle binstubs rubocop'
 
   insert_into_file 'config/webpack/environment.js', after: "const { environment } = require('@rails/webpacker')" do
     <<-JAVASCRIPT
@@ -290,4 +304,11 @@ environment.plugins.prepend('Provide',
   copy_file 'javascript/modules/avatar/image.js', 'app/javascript/modules/avatar/image.js'
   copy_file 'javascript/modules/avatar/modal.js', 'app/javascript/modules/avatar/modal.js'
   copy_file 'javascript/modules/user/form.js', 'app/javascript/modules/user/form.js'
+
+  run 'bundle binstubs rspec-core'
+  run 'bundle binstubs rubocop'
+
+  puts "\n=== project generation complete\n"
+  puts "cd into project folder then run"
+  puts "    ./bin/rails active_storage:install && ./bin/setup"
 end
