@@ -282,7 +282,7 @@ Rails.application.config.assets.paths << Rails.root.join('app/assets/fonts')
   end
   gsub_file 'config/initializers/assets.rb',
             '# Rails.application.config.assets.precompile += %w( admin.js admin.css )',
-            'Rails.application.config.assets.precompile += %w(*.svg *.eot *.woff *.woff2 *.ttf)'
+            'Rails.application.config.assets.precompile += %w[*.svg *.eot *.woff *.woff2 *.ttf]'
 
   insert_into_file 'config/routes.rb', after: 'Rails.application.routes.draw do' do
     <<-RUBY
