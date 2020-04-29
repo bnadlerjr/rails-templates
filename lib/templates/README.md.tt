@@ -72,5 +72,54 @@ The following configuration settings are available.
     </tbody>
 </table>
 
+### AWS Setup
+This project uses AWS S3 for storing avatar images via ActiveStorage. Here are instructions for setting up AWS.
+
+1. Log into the [AWS Console](https://console.aws.amazon.com).
+1. Create a new IAM user with programatic access. Keep clicking next, ignoring the "This user has no permissions" message.
+1. Copy the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY.
+1. Add an inline policy for the user:
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1420751757000",
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::BUCKET-NAME",
+        "arn:aws:s3:::BUCKET-NAME/*"
+      ]
+    }
+  ]
+}
+```
+1. Create the S3 bucket.
+1. Create a policy for the bucket
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1420751757000",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::YOUR-AWS-ACCOUNT-ID:user/YOUR-USER-NAME"
+            },
+            "Action": "s3:*",
+            "Resource": [
+              "arn:aws:s3:::YOUR-BUCKET-NAME",
+              "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+            ]
+        }
+    ]
+}
+```
+1. Update the `amazon` key in `config/storage.yml`.
+
+
 ## Deployment
 This project uses CircleCI and Heroku. All pushes to the master branch will trigger a CircleCI build which runs the `bin/ci` script. If the build is successful, the application code will automatically be deployed to a staging environment on Heroku. Deploys to production are done by promoting the current staging environment using the Heroku dashboard.
