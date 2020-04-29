@@ -1,6 +1,5 @@
 # TODO:
 # * add console to Procfile
-# * remove tzinfo-data from Gemfile
 # * fix bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3"
 # * add a .slugignore file
 # * update ruby to 2.5.8

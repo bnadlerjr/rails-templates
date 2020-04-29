@@ -22,7 +22,6 @@ gem 'rails', '~> <%= Rails.version %>'
 gem 'royce', '~> 1.0'
 gem 'sass-rails', '~> 6.0'
 gem 'turbolinks', '~> 5'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'webpacker', '~> 4.0'
 
 group :development, :test do
