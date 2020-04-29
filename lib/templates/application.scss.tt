@@ -1,5 +1,19 @@
-@import "@fortawesome/fontawesome-free/css/all";
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
 @import "datatables.net-bs4/css/dataTables.bootstrap4";
-@import "startbootstrap-sb-admin-2/css/sb-admin-2";
+@import "startbootstrap-sb-admin-2/scss/sb-admin-2";
 @import "cropperjs/dist/cropper";
-@import "modules/editable-avatar.scss";
+@import "modules/editable-avatar";
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: $fa-font-display;
+  src: font_url('fa-solid-900.eot');
+  src: font_url('fa-solid-900.eot?#iefix') format('embedded-opentype'),
+  font_url('fa-solid-900.woff2') format('woff2'),
+  font_url('fa-solid-900.woff') format('woff'),
+  font_url('fa-solid-900.ttf') format('truetype'),
+  font_url('fa-solid-900.svg#fontawesome') format('svg');
+}

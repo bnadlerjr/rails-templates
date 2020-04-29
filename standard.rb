@@ -4,6 +4,7 @@
 # * remove tzinfo-data from Gemfile
 # * fix bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3"
 # * add a .slugignore file
+# * update ruby to 2.5.8
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
@@ -276,6 +277,17 @@ end
     RUBY
 
   end
+
+  gsub_file 'config/initializers/assets.rb', after: "Rails.application.config.assets.paths << Rails.root.join('node_modules')" do
+    <<-RUBY
+
+Rails.application.config.assets.paths << Rails.root.join('app/assets/fonts')
+    RUBY
+  end
+  gsub_file 'config/initializers/assets.rb',
+            '# Rails.application.config.assets.precompile += %w( admin.js admin.css )',
+            'Rails.application.config.assets.precompile += %w(*.svg *.eot *.woff *.woff2 *.ttf)'
+
   insert_into_file 'config/routes.rb', after: 'Rails.application.routes.draw do' do
     <<-RUBY
 
@@ -330,5 +342,5 @@ environment.plugins.prepend('Provide',
 
   puts "\n=== project generation complete\n"
   puts "cd into project folder then run"
-  puts "    ./bin/rails active_storage:install && bundle binstubs rspec-core rubocop && ./bin/setup"
+  puts "    mkdir -p app/assets/fonts && cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.* app/assets/fonts &&./bin/rails active_storage:install && bundle binstubs rspec-core rubocop && ./bin/setup"
 end
