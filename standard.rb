@@ -1,5 +1,4 @@
 # TODO:
-# * fix seeds file
 # * add console to Procfile
 # * remove tzinfo-data from Gemfile
 # * fix bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3"
@@ -256,9 +255,7 @@ RUBY
   append_to_file 'db/seeds.rb' do
     <<-RUBY
 if Rails.env.development?
-  User \
-    .create_with(password: 'secret', roles: [Royce::Role.find_by(name: 'admin')]) \
-    .find_or_create_by!(email: 'jdoe@example.com')
+  User.create_with(password: 'secret', roles: [Royce::Role.find_by(name: 'admin')]).find_or_create_by!(email: 'jdoe@example.com')
 end
     RUBY
   end
