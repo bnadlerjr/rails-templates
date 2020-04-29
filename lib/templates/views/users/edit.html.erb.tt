@@ -45,7 +45,7 @@
       </div>
       <div class="modal-body">
         <div class="img-container">
-          <%= image_tag 'blank-profile-picture', style: 'display: block; max-width: 100%' %>
+          <%= image_tag 'blank-profile-picture.png', style: 'display: block; max-width: 100%' %>
         </div>
       </div>
       <div class="modal-footer">

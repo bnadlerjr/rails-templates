@@ -1,3 +1,10 @@
+# TODO:
+# * fix seeds file
+# * add console to Procfile
+# * remove tzinfo-data from Gemfile
+# * fix bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3"
+# * add a .slugignore file
+
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
 template 'README.md.tt', force: true
