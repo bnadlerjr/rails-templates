@@ -218,7 +218,7 @@ RSpec.describe 'POST /<%= name.underscore.pluralize %>', <%= type_metatag(:reque
     end
 
     it 'responds with unauthorized for json requests' do
-      post <%= index_helper %>_url(format: :json) , params: { <%= singular_table_name %>: {} }
+      post <%= index_helper %>_url(format: :json), params: { <%= singular_table_name %>: {} }
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -275,7 +275,6 @@ RSpec.describe 'PATCH /<%= name.underscore %>', <%= type_metatag(:request) %> do
         end
 
         it 'it returns the updated <%= singular_table_name %> in the response body' do
-          parsed_body = JSON.parse(response.body)
           <%= singular_table_name %>.reload
           new_attributes.each do |k, v|
             expect(<%= singular_table_name %>.send(k)).to eq(v)
