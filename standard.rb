@@ -3,6 +3,10 @@
 # * fix bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3"
 # * add a .slugignore file
 # * update ruby to 2.5.8
+# * shared spec examples for DataTable
+# * update DataTable logic to use Formatter concept
+# * fix delete specs; 'responds with something'
+# * parsed_body expectation should include attribute name in error msg
 
 source_paths.unshift(File.join(File.dirname(__FILE__), 'lib', 'templates'))
 template 'Gemfile.tt', force: true
